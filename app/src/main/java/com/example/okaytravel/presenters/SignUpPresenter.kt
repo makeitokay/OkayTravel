@@ -7,6 +7,6 @@ import com.example.okaytravel.views.SignUpView
 @InjectViewState
 class SignUpPresenter: MvpPresenter<SignUpView>() {
     fun doSignUp() {
-        viewState.showMessage("There will be signing up soon...")
+        viewState.startSigningUp()
     }
 }
