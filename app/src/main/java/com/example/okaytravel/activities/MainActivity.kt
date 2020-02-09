@@ -1,7 +1,8 @@
-package com.example.okaytravel
+package com.example.okaytravel.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.okaytravel.R
 
 class MainActivity : AppCompatActivity() {
 
