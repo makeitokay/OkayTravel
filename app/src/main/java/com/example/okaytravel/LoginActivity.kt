@@ -1,12 +1,10 @@
-package com.example.okaytravel.ui.login
+package com.example.okaytravel
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.okaytravel.MainActivity
 
-import com.example.okaytravel.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
