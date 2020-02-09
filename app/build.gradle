@@ -23,6 +23,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -41,12 +46,12 @@ dependencies {
 
     implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 
-    implementation 'com.arello-mobile:moxy:0.4.2'
-    implementation 'com.arello-mobile:moxy-android:0.4.2'
-    kapt 'com.arello-mobile:moxy-compiler:0.4.2'
+    implementation 'tech.schoolhelper:moxy-x:1.7.0'
+    kapt 'tech.schoolhelper:moxy-x-compiler:1.7.0'
+    implementation 'tech.schoolhelper:moxy-x-androidx:1.7.0'
 
-//    kapt 'com.google.dagger:dagger-compiler:2.0.2'
-//    implementation 'com.google.dagger:dagger:2.0.2'
+    kapt 'com.google.dagger:dagger-compiler:2.0.2'
+    implementation 'com.google.dagger:dagger:2.0.2'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

@@ -7,15 +7,12 @@ import java.util.*
 
 @Table(name = "Users")
 class UserModel(
-    id: Int,
     username: String,
     email: String,
     avatar: String,
     accessToken: String,
     lastUpdateDatetime: Date
 ) : Model() {
-    @Column(name = "id", unique = true)
-    var id: Int? = id
 
     @Column(name = "username", unique = true)
     var username: String? = username
