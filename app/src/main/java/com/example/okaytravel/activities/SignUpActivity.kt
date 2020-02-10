@@ -1,5 +1,6 @@
 package com.example.okaytravel.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -61,5 +62,9 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
 
     override fun focusPasswordAgain() {
         passwordAgain.requestFocus()
+    }
+
+    override fun startLoginView() {
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
     }
 }
