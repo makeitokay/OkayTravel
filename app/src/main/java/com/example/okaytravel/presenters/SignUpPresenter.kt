@@ -36,6 +36,7 @@ class SignUpPresenter: MvpPresenter<SignUpView>() {
 
                 } else {
                     viewState.showMessage(it.message!!)
+                    viewState.endSigningUp()
                 }
             }, { error ->
                 println(error)
