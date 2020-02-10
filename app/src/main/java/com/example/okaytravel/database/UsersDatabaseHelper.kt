@@ -19,4 +19,10 @@ class UsersDatabaseHelper {
                     .executeSingle<UserModel>()
         return user
     }
+
+    fun setUserAccessToken(username: String, accessToken: String) {
+        var user = getUserByUsername(username)
+        user?.accessToken = accessToken
+        user?.save()
+    }
 }

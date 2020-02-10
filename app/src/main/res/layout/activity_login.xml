@@ -12,14 +12,14 @@
     tools:context=".activities.LoginActivity">
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
 
-        android:hint="@string/prompt_username"
+        android:hint="@string/prompt_username_or_email"
         android:inputType="text"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <Button
         android:id="@+id/loginBtn"

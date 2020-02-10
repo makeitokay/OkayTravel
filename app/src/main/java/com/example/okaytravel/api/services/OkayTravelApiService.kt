@@ -3,7 +3,6 @@ package com.example.okaytravel.api.services
 import com.example.okaytravel.api.models.okaytravelserver.AuthBody
 import com.example.okaytravel.api.models.okaytravelserver.CreateUserBody
 import com.example.okaytravel.api.responses.okaytravelserver.AuthResponse
-import com.example.okaytravel.api.responses.okaytravelserver.CreateUserResponse
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -17,7 +16,7 @@ interface OkayTravelApiService {
     fun auth(@Body authBody: AuthBody): Observable<AuthResponse>
 
     @POST("create")
-    fun createUser(@Body createUserBody: CreateUserBody): Observable<CreateUserResponse>
+    fun createUser(@Body createUserBody: CreateUserBody): Observable<AuthResponse>
 
     companion object Factory {
 

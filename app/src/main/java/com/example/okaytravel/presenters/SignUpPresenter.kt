@@ -30,12 +30,12 @@ class SignUpPresenter: MvpPresenter<SignUpView>() {
             .subscribeOn(Schedulers.io())
             .subscribe ({
                 if (!it.error) {
-                    usersDBHelper.createUser(username, email, it.message)
+                    usersDBHelper.createUser(username, email, it.message!!)
                     viewState.endSigningUp()
                     viewState.showMessage("User $username was created!")
 
                 } else {
-                    viewState.showMessage(it.message)
+                    viewState.showMessage(it.message!!)
                 }
             }, { error ->
                 println(error)

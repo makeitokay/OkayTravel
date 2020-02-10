@@ -3,13 +3,13 @@ package com.example.okaytravel.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.okaytravel.R
 import com.example.okaytravel.presenters.LoginPresenter
 import com.example.okaytravel.views.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
-import javax.xml.transform.Templates
 
 
 class LoginActivity : MvpAppCompatActivity(), LoginView {
@@ -26,12 +26,16 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
             openSignUp()
         }
         loginBtn.setOnClickListener {
-            loginPresenter.doLogin()
+            loginPresenter.doLogin(login.text.toString(), password.text.toString())
         }
     }
 
     override fun openSignUp() {
         startActivity(Intent(applicationContext, SignUpActivity::class.java))
+    }
+
+    override fun openMainActivity() {
+        startActivity(Intent(applicationContext, MainActivity::class.java))
     }
 
     override fun startSigningIn() {
@@ -42,6 +46,14 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     override fun endSigningIn() {
         loginBtn.visibility = View.VISIBLE
         loading.visibility = View.GONE
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showMessage(resourceId: Int) {
+        showMessage(getString(resourceId))
     }
 
 }

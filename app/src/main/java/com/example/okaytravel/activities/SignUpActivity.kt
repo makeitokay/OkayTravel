@@ -33,6 +33,10 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun showMessage(resourceId: Int) {
+        showMessage(getString(resourceId))
+    }
+
     override fun startSigningUp() {
         signUpBtn.visibility = View.GONE
         loading.visibility = View.VISIBLE
@@ -41,10 +45,6 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
     override fun endSigningUp() {
         signUpBtn.visibility = View.VISIBLE
         loading.visibility = View.GONE
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
     }
 
     override fun focusUsername() {
