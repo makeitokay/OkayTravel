@@ -6,27 +6,30 @@ import com.activeandroid.annotation.Table
 import java.util.*
 
 @Table(name = "Users")
-class UserModel(
-    username: String,
-    email: String,
-    avatar: String,
-    accessToken: String,
-    lastUpdateDatetime: Date
-) : Model() {
+class UserModel : Model {
 
     @Column(name = "username", unique = true)
-    var username: String? = username
+    var username: String? = null
 
     @Column(name = "email", unique = true)
-    var email: String? = email
+    var email: String? = null
 
     @Column(name = "avatar")
-    var avatar: String? = avatar
+    var avatar: String? = null
 
     @Column(name = "accessToken")
-    var accessToken: String? = accessToken
+    var accessToken: String? = null
 
     @Column(name = "lastUpdateDatetime")
-    var lastUpdateDatetime: Date? = lastUpdateDatetime
+    var lastUpdateDatetime: Date? = null
 
+    constructor(username: String, email: String, avatar: String?, accessToken: String, lastUpdateDatetime: Date) {
+        this.username = username
+        this.email = email
+        this.avatar = avatar
+        this.accessToken = accessToken
+        this.lastUpdateDatetime = lastUpdateDatetime
+    }
+
+    constructor()
 }

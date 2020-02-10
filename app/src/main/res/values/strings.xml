@@ -13,4 +13,6 @@
     <string name="welcome">Добро пожаловать!</string>
     <string name="invalid_username">Неверное имя пользователя или почта</string>
     <string name="login_failed">Авторизация неуспешна</string>
+
+    <string name="unknownError">Неизвестная ошибка, обратитесь в службу поддержки</string>
 </resources>

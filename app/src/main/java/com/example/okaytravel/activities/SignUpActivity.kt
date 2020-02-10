@@ -1,6 +1,5 @@
 package com.example.okaytravel.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,9 +8,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.okaytravel.R
 import com.example.okaytravel.presenters.SignUpPresenter
 import com.example.okaytravel.views.SignUpView
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.activity_sign_up.loading
 
 class SignUpActivity : MvpAppCompatActivity(), SignUpView {
 
@@ -23,7 +20,11 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
         setContentView(R.layout.activity_sign_up)
 
         signUpBtn.setOnClickListener {
-            signUpPresenter.doSignUp()
+            signUpPresenter.doSignUp(
+                username.text.toString(),
+                email.text.toString(),
+                password.text.toString()
+            )
         }
     }
 
@@ -39,5 +40,9 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
     override fun endSigningUp() {
         signUpBtn.visibility = View.VISIBLE
         loading.visibility = View.GONE
+    }
+
+    override fun showMessage(resourceId: Int) {
+        showMessage(getString(resourceId))
     }
 }
