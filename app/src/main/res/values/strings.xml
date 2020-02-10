@@ -15,4 +15,8 @@
     <string name="login_failed">Авторизация неуспешна</string>
 
     <string name="unknownError">Неизвестная ошибка, обратитесь в службу поддержки</string>
+    <string name="invalidUsernameSize">Имя пользователя должно быть не меньше 3 и не больше 20 символов</string>
+    <string name="notMatchPasswords">Пароли не совпадают</string>
+    <string name="invalidEmail">Некорректный адрес электронной почты</string>
+    <string name="invalidPasswordSize">Пароль должен быть не меньше 8 символов</string>
 </resources>

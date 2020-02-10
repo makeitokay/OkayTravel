@@ -10,4 +10,9 @@ interface SignUpView: MvpView {
     fun showMessage(resourceId: Int)
     fun startSigningUp()
     fun endSigningUp()
+
+    fun focusUsername()
+    fun focusEmail()
+    fun focusPassword()
+    fun focusPasswordAgain()
 }

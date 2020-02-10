@@ -23,7 +23,8 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
             signUpPresenter.doSignUp(
                 username.text.toString(),
                 email.text.toString(),
-                password.text.toString()
+                password.text.toString(),
+                passwordAgain.text.toString()
             )
         }
     }
@@ -44,5 +45,21 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
 
     override fun showMessage(resourceId: Int) {
         showMessage(getString(resourceId))
+    }
+
+    override fun focusUsername() {
+        username.requestFocus()
+    }
+
+    override fun focusEmail() {
+        email.requestFocus()
+    }
+
+    override fun focusPassword() {
+        password.requestFocus()
+    }
+
+    override fun focusPasswordAgain() {
+        passwordAgain.requestFocus()
     }
 }
