@@ -24,13 +24,15 @@ class SignUpPresenter: MvpPresenter<SignUpView>() {
             viewState.endSigningUp()
             return false
         }
-        val body = CreateUserBody(username, email, password.sha256())
+
+        val passwordHash = password.sha256()
+        val body = CreateUserBody(username, email, passwordHash)
         apiService.createUser(body)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
                 if (!it.error) {
-                    usersDBHelper.createUser(username, email, it.accessToken!!)
+                    usersDBHelper.createUser(username, email, passwordHash, it.accessToken!!)
                     viewState.endSigningUp()
                     viewState.showMessage("User $username was created!")
                     viewState.startLoginView()

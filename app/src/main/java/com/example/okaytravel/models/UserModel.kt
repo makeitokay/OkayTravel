@@ -14,6 +14,9 @@ class UserModel : Model {
     @Column(name = "email", unique = true)
     var email: String? = null
 
+    @Column(name = "passwordHash")
+    var passwordHash: String? = null
+
     @Column(name = "avatar")
     var avatar: String? = null
 
@@ -23,9 +26,10 @@ class UserModel : Model {
     @Column(name = "lastUpdateDatetime")
     var lastUpdateDatetime: Date? = null
 
-    constructor(username: String, email: String, avatar: String?, accessToken: String, lastUpdateDatetime: Date) {
+    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: Date) {
         this.username = username
         this.email = email
+        this.passwordHash = passwordHash
         this.avatar = avatar
         this.accessToken = accessToken
         this.lastUpdateDatetime = lastUpdateDatetime

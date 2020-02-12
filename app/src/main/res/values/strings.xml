@@ -19,4 +19,5 @@
     <string name="notMatchPasswords">Пароли не совпадают</string>
     <string name="invalidEmail">Некорректный адрес электронной почты</string>
     <string name="invalidPasswordSize">Пароль должен быть не меньше 8 символов</string>
+    <string name="noInternetConnection">Нет подключения к интернету</string>
 </resources>
