@@ -18,7 +18,6 @@ import io.reactivex.schedulers.Schedulers
 class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
 
     private val apiService: OkayTravelApiService = OkayTravelApiService.create()
-    private val usersDBHelper: UsersDatabaseHelper = UsersDatabaseHelper()
     private val sessionSharedPref: SharedPrefHelper = SharedPrefHelper("session", context)
 
     fun doLogin(login: String, password: String) {
@@ -44,32 +43,5 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
                 viewState.showMessage(R.string.unknownError)
                 viewState.endSigningIn()
             })
-    }
-
-    fun checkUserSession() {
-        val currentUserLogin = sessionSharedPref.getCurrentUser()
-        currentUserLogin?.let {
-            val currentUser = usersDBHelper.getUserByLogin(currentUserLogin)
-            if (isInternetAvailable(context)) {
-                val body = AuthBody(currentUser?.username!!, currentUser.passwordHash!!)
-                apiService.auth(body)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe ({
-                        if (!it.error) {
-                            viewState.showMessage("Authorized!")
-                            viewState.openMainActivity()
-
-                        } else {
-                            viewState.showMessage(it.message!!)
-                        }
-                    }, {
-                        viewState.showMessage(R.string.unknownError)
-                    })
-            }
-            else {
-                viewState.showMessage(R.string.noInternetConnection)
-            }
-        }
     }
 }

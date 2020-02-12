@@ -1,10 +1,6 @@
 package com.example.okaytravel.activities
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -31,11 +27,6 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 
-        loginPresenter.checkUserSession()
-
-        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-
         setContentView(R.layout.activity_login)
 
         createAccountBtn.setOnClickListener {
@@ -44,6 +35,8 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
         loginBtn.setOnClickListener {
             loginPresenter.doLogin(login.text.toString(), password.text.toString())
         }
+
+        // TODO: сделать кнопку "Продолжить без входа"
     }
 
     override fun openSignUp() {
@@ -51,7 +44,7 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     }
 
     override fun openMainActivity() {
-        startActivity(Intent(applicationContext, MainActivity::class.java))
+        startActivity(Intent(applicationContext, HomeActivity::class.java))
     }
 
     override fun startSigningIn() {
