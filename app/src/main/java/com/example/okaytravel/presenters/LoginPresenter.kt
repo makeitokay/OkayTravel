@@ -19,6 +19,7 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
 
     private val apiService: OkayTravelApiService = OkayTravelApiService.create()
     private val sessionSharedPref: SharedPrefHelper = SharedPrefHelper("session", context)
+    private val usersDBHelper = UsersDatabaseHelper()
 
     fun doLogin(login: String, password: String) {
         viewState.startSigningIn()
@@ -27,15 +28,20 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
         apiService.auth(body)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
-                if (!it.error) {
+            .subscribe ({ userInfoResponse ->
+                if (!userInfoResponse.error) {
+                    val userInfo = userInfoResponse.user
+                    userInfo?.let {
+                        usersDBHelper.createUser(it.username!!, it.email!!, it.passwordHash!!, it.accessToken!!)
+                    }
+
                     viewState.endSigningIn()
-                    viewState.showMessage("Authorized!")
+//                    viewState.showMessage("Authorized!")
                     viewState.openMainActivity()
                     sessionSharedPref.setCurrentUser(login)
 
                 } else {
-                    viewState.showMessage(it.message!!)
+                    viewState.showMessage(userInfoResponse.message)
                     viewState.endSigningIn()
                 }
             }, { error ->

@@ -6,6 +6,10 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.text.TextUtils
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
+import java.util.*
+
+const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss"
 
 fun String.sha256(): String {
     return this.hashWithAlgorithm("SHA-256")
@@ -50,4 +54,20 @@ fun isInternetAvailable(context: Context): Boolean {
     }
 
     return result
+}
+
+fun getCurrentDate(): String {
+    return parseDate(Date())
+}
+
+fun parseDateString(date: String): Date? {
+    val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
+    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
+    return isoFormat.parse(date)
+}
+
+fun parseDate(date: Date): String {
+    val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
+    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
+    return isoFormat.format(date)
 }

@@ -24,13 +24,13 @@ class UserModel : Model {
     var accessToken: String? = null
 
     @Column(name = "lastUpdateDatetime")
-    var lastUpdateDatetime: Date? = null
+    var lastUpdateDatetime: String? = null
 
     fun trips(): List<TripModel> {
         return getMany(TripModel::class.java, "user")
     }
 
-    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: Date) {
+    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: String) {
         this.username = username
         this.email = email
         this.passwordHash = passwordHash

@@ -12,12 +12,12 @@ class PlaceModel: Model {
     var name: String? = null
 
     @Column(name = "date")
-    var date: Date? = null
+    var date: String? = null
 
     @Column(name = "trip", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     var trip: TripModel? = null
 
-    constructor(name: String, date: Date, trip: TripModel) {
+    constructor(name: String, date: String, trip: TripModel) {
         this.name = name
         this.date = date
         this.trip = trip

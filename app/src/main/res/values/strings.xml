@@ -21,4 +21,5 @@
     <string name="invalidPasswordSize">Пароль должен быть не меньше 8 символов</string>
     <string name="noInternetConnection">Нет подключения к интернету</string>
     <string name="logout">Выйти из аккаунта</string>
+    <string name="syncError">Ошибка синхронизации</string>
 </resources>

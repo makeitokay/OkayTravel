@@ -29,20 +29,20 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
         }
 
         val currentUser = usersDBHelper
-            .getUserByLogin(sessionSharedPref.getCurrentUser() ?: return viewState.startHome())
+                .getUserByLogin(sessionSharedPref.getCurrentUser() ?: return viewState.startLogin())
         currentUser?.let {
             if (isInternetAvailable(context)) {
                 val body = AuthBody(currentUser.username!!, currentUser.passwordHash!!)
                 apiService.auth(body)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe ({
-                        if (!it.error) {
+                    .subscribe ({ userInfoResponse ->
+                        if (!userInfoResponse.error) {
                             viewState.showMessage("Authorized!")
                             viewState.startHome()
 
                         } else {
-                            viewState.showMessage(it.message!!)
+                            viewState.showMessage(userInfoResponse.message)
                             viewState.startLogin()
                         }
                     }, {
