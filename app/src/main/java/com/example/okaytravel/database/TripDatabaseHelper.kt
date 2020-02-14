@@ -10,6 +10,7 @@ class TripDatabaseHelper {
     fun create(ownPlace: String, startDate: String, duration: Int, user: UserModel): TripModel {
         val trip = TripModel(user, ownPlace, startDate, duration)
         trip.save()
+        user.updateTrigger()
         return trip
     }
 

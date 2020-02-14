@@ -3,6 +3,7 @@ package com.example.okaytravel.models
 import com.activeandroid.Model
 import com.activeandroid.annotation.Column
 import com.activeandroid.annotation.Table
+import com.example.okaytravel.getCurrentDatetime
 import java.util.*
 
 @Table(name = "Users")
@@ -28,6 +29,11 @@ class UserModel : Model {
 
     fun trips(): List<TripModel> {
         return getMany(TripModel::class.java, "user")
+    }
+
+    fun updateTrigger() {
+        this.lastUpdateDatetime = getCurrentDatetime()
+        this.save()
     }
 
     constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: String) {

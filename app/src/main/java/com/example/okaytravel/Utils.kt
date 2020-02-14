@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss"
+const val DATE_FORMAT = "dd.MM.yyyy"
 
 fun String.sha256(): String {
     return this.hashWithAlgorithm("SHA-256")
@@ -60,14 +61,30 @@ fun getCurrentDate(): String {
     return parseDate(Date())
 }
 
-fun parseDateString(date: String): Date? {
+fun getCurrentDatetime(): String {
+    return parseDatetime(Date())
+}
+
+fun parseDatetimeString(date: String): Date? {
     val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
     isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.parse(date)
 }
 
-fun parseDate(date: Date): String {
+fun parseDateString(date: String): Date? {
+    val isoFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
+    return isoFormat.parse(date)
+}
+
+fun parseDatetime(date: Date): String {
     val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
+    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
+    return isoFormat.format(date)
+}
+
+fun parseDate(date: Date): String {
+    val isoFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
     isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.format(date)
 }
