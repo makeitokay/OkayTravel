@@ -54,7 +54,7 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
             return
 
         val duration: Int? = try { rawDuration.toInt() } catch ( e: NumberFormatException ) { null }
-        if (duration == null || duration <= 0 || duration > 100) {
+        if (duration == null || duration <= 0 || duration > 365) {
             viewState.showMessage("Некорректная продолжительность")
             return
         }
