@@ -32,9 +32,7 @@ class UserModel : Model {
     }
 
     fun updateTrigger() {
-        println("BEFORE: ${this.commits}")
         this.commits = this.commits + 1
-        println("AFTER: ${this.commits}")
         this.save()
     }
 

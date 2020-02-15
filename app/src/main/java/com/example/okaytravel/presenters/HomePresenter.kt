@@ -61,6 +61,7 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
 
         sync {
             tripsDBHelper.create(ownPlace, startDate, duration, currentUser)
+            currentUser.updateTrigger()
             sync()
         }
     }
