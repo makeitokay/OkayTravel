@@ -63,6 +63,9 @@ dependencies {
     // RxAndroid
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
 
+    // AppIntro
+    implementation 'com.github.AppIntro:AppIntro:5.1.0'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

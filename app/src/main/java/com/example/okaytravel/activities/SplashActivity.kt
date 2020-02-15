@@ -31,8 +31,8 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
     }
 
     override fun startIntro() {
-        startLogin()
-        // TODO
+        startActivity(Intent(applicationContext, IntroActivity::class.java))
+        finish()
     }
 
     override fun startHome() {
