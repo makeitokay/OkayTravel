@@ -24,25 +24,26 @@ class UserModel : Model {
     @Column(name = "accessToken")
     var accessToken: String? = null
 
-    @Column(name = "lastUpdateDatetime")
-    var lastUpdateDatetime: String? = null
+    @Column(name = "commits")
+    var commits: Int = 0
 
     fun trips(): List<TripModel> {
         return getMany(TripModel::class.java, "user")
     }
 
     fun updateTrigger() {
-        this.lastUpdateDatetime = getCurrentDatetime()
+        println("BEFORE: ${this.commits}")
+        this.commits = this.commits + 1
+        println("AFTER: ${this.commits}")
         this.save()
     }
 
-    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: String?) {
+    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String) {
         this.username = username
         this.email = email
         this.passwordHash = passwordHash
         this.avatar = avatar
         this.accessToken = accessToken
-        this.lastUpdateDatetime = lastUpdateDatetime
     }
 
     constructor()

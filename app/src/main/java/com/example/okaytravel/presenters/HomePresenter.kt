@@ -1,6 +1,7 @@
 package com.example.okaytravel.presenters
 
 import android.content.Context
+import android.os.Handler
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.okaytravel.R
@@ -37,9 +38,9 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
             .subscribe ({
                 if (it.error == null)
                     usersDBHelper.updateUser(it)
-                onSuccess()
                 viewState.updateTrips(currentUser.trips())
                 viewState.showMessage("Synced!")
+                onSuccess()
             }, { error ->
                 println(error)
                 viewState.showMessage(R.string.syncError)

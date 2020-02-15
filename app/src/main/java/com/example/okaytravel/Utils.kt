@@ -9,7 +9,7 @@ import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss"
+const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss.SSS"
 const val DATE_FORMAT = "dd.MM.yyyy"
 
 fun String.sha256(): String {

@@ -15,7 +15,7 @@ class UsersDatabaseHelper {
     private val placeDBHelper = PlaceDatabaseHelper()
 
     fun createUser(username: String, email: String, passwordHash: String, accessToken: String): UserModel {
-        var user = UserModel(username, email, passwordHash, null, accessToken, null)
+        var user = UserModel(username, email, passwordHash, null, accessToken)
         user.save()
         return user
     }
@@ -51,7 +51,7 @@ class UsersDatabaseHelper {
     fun serializeUser(id: Long): SyncBody? {
         val user = getUserById(id)
         user?.let {
-            val userInfoBody = UserInfo(user.username, user.email, user.passwordHash, user.avatar, user.lastUpdateDatetime)
+            val userInfoBody = UserInfo(user.username, user.email, user.passwordHash, user.avatar, user.commits)
 
             var trips: ArrayList<Trip> = arrayListOf()
             user.trips().forEach { trip ->
@@ -84,7 +84,7 @@ class UsersDatabaseHelper {
             user.email = userInfo.email
             user.passwordHash = userInfo.passwordHash
             user.avatar = userInfo.avatar
-            user.lastUpdateDatetime = getCurrentDatetime()
+            user.commits = userInfo.commits
             user.save()
         } else {
             user = createUser(userInfo.username, userInfo.email, userInfo.passwordHash, userInfo.accessToken)
