@@ -28,8 +28,7 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
             return
         }
 
-        val currentUser = usersDBHelper
-                .getUserByLogin(sessionSharedPref.getCurrentUser() ?: return viewState.startLogin())
+        val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
         currentUser?.let {
             if (isInternetAvailable(context)) {
                 val body = AuthBody(currentUser.username!!, currentUser.passwordHash!!)
@@ -52,7 +51,7 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
             }
             else {
                 viewState.showMessage(R.string.noInternetConnection)
-                viewState.startLogin()
+                viewState.startHome()
             }
             return
         }

@@ -1,7 +1,5 @@
 package com.example.okaytravel.api.responses.okaytravelserver
 
-import java.util.*
-
 data class SyncResponse(
     val user: User?,
     val message: String?,
@@ -9,39 +7,39 @@ data class SyncResponse(
 )
 
 data class User(
-    val user: UserInfo?,
-    val trips: List<Trip>?
+    val user: UserInfo,
+    val trips: List<Trip>
 )
 
 data class UserInfo(
-    val username: String?,
-    val email: String?,
-    val passwordHash: String?,
-    val avatar: String?,
-    val accessToken: String?
+    val username: String,
+    val email: String,
+    val passwordHash: String,
+    val avatar: String,
+    val accessToken: String
 )
 
 data class Trip(
-    val trip: TripInfo?,
-    val budget: List<BudgetElement>?,
-    val places: List<Place>?
+    val trip: TripInfo,
+    val budget: List<BudgetElement>,
+    val places: List<Place>
 )
 
 data class TripInfo(
     val remoteId: Long,
-    val ownPlace: String?,
-    val startDate: String?,
-    val duration: Int?
+    val ownPlace: String,
+    val startDate: String,
+    val duration: Int
 )
 
 data class BudgetElement(
     val remoteId: Long,
-    val amount: Int?,
-    val category: String?
+    val amount: Int,
+    val category: String
 )
 
 data class Place(
     val remoteId: Long,
-    val name: String?,
-    val date: String?
+    val name: String,
+    val date: String
 )

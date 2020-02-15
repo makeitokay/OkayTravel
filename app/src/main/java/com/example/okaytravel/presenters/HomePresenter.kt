@@ -8,7 +8,7 @@ import com.example.okaytravel.api.services.OkayTravelApiService
 import com.example.okaytravel.database.TripDatabaseHelper
 import com.example.okaytravel.database.UsersDatabaseHelper
 import com.example.okaytravel.helpers.SharedPrefHelper
-import com.example.okaytravel.models.UserModel
+import com.example.okaytravel.isInternetAvailable
 import com.example.okaytravel.views.HomeView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -21,37 +21,47 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
     private val apiService: OkayTravelApiService = OkayTravelApiService.create()
     private val sessionSharedPref = SharedPrefHelper("session", context)
 
-    private fun getCurrentUser(): UserModel? {
-        return usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser() ?: return null)
-    }
+    private val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
 
-    fun sync(): Boolean {
-        val user = getCurrentUser()
-        user?.let {
-            val syncBody = usersDBHelper.serializeUser(user.id) ?: return false
-            apiService.sync(syncBody)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe ({
-                    if (it.error == null)
-                        usersDBHelper.updateUser(it)
-                    viewState.showMessage("Synced!")
-                }, { error ->
-                    println(error)
-                    viewState.showMessage(R.string.syncError)
-                })
+    fun sync(onSuccess: () -> Unit = {}): Boolean {
+        if (currentUser == null)
+            return false
+        if (!isInternetAvailable(context)) {
+            viewState.showMessage(R.string.noInternetConnection)
+            return false
         }
+        val syncBody = usersDBHelper.serializeUser(currentUser.id) ?: return false
+        apiService.sync(syncBody)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe ({
+                if (it.error == null)
+                    usersDBHelper.updateUser(it)
+                onSuccess()
+                viewState.updateTrips(currentUser.trips())
+                viewState.showMessage("Synced!")
+            }, { error ->
+                println(error)
+                viewState.showMessage(R.string.syncError)
+            })
+
         return true
     }
 
     fun addTrip(ownPlace: String, rawDuration: String, startDate: String) {
+        if (currentUser == null)
+            return
+
         val duration: Int? = try { rawDuration.toInt() } catch ( e: NumberFormatException ) { null }
         if (duration == null || duration <= 0 || duration > 100) {
             viewState.showMessage("Некорректная продолжительность")
             return
         }
-        tripsDBHelper.create(ownPlace, startDate, duration, getCurrentUser() ?: return)
-        sync()
+
+        sync {
+            tripsDBHelper.create(ownPlace, startDate, duration, currentUser)
+            sync()
+        }
     }
 
 }

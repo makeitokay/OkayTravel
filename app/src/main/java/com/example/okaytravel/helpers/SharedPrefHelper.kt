@@ -6,8 +6,8 @@ import android.content.Context
 class SharedPrefHelper(name: String, context: Context) {
     private val pref = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
-    fun getCurrentUser(): String? {
-         return pref.getString("currentUser", null)
+    fun getCurrentUser(): String {
+         return pref.getString("currentUser", "") ?: return ""
     }
 
     fun setCurrentUser(username: String) {

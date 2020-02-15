@@ -36,7 +36,7 @@ class UserModel : Model {
         this.save()
     }
 
-    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: String) {
+    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String, lastUpdateDatetime: String?) {
         this.username = username
         this.email = email
         this.passwordHash = passwordHash

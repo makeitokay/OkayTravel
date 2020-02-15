@@ -31,12 +31,14 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
             .subscribe ({ userInfoResponse ->
                 if (!userInfoResponse.error) {
                     val userInfo = userInfoResponse.user
-                    userInfo?.let {
-                        usersDBHelper.createUser(it.username!!, it.email!!, it.passwordHash!!, it.accessToken!!)
+                    if (usersDBHelper.getUserByUsername(userInfo?.username!!) == null) {
+                        usersDBHelper.createUser(
+                            userInfo.username, userInfo.email, userInfo.passwordHash, userInfo.accessToken
+                        )
                     }
 
                     viewState.endSigningIn()
-//                    viewState.showMessage("Authorized!")
+                    viewState.showMessage("Authorized!")
                     viewState.openMainActivity()
                     sessionSharedPref.setCurrentUser(login)
 

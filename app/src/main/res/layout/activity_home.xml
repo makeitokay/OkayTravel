@@ -6,38 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".activities.HomeActivity">
 
-    <TextView
-        android:id="@+id/savedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/ownPlace"
         android:hint="Место путешествия"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="79dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/savedTextView"
+        android:layout_marginTop="232dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/duration"
         android:hint="Длительность"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/savedTextView"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ownPlace" />
 
 
     <Button
@@ -71,10 +62,19 @@
         android:focusable="true"
         android:focusableInTouchMode="false"
         android:cursorVisible="false"
-        app:layout_constraintBottom_toTopOf="@+id/savedTextView"
-        app:layout_constraintEnd_toStartOf="@+id/savedTextView"
-        app:layout_constraintStart_toStartOf="@+id/savedTextView"
-        app:layout_constraintTop_toTopOf="@+id/savedTextView" />
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/duration"
+        app:layout_constraintTop_toBottomOf="@+id/duration" />
+
+    <TextView
+        android:id="@+id/tripNames"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

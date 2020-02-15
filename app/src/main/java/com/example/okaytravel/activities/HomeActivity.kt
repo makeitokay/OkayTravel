@@ -7,11 +7,13 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.parseDate
 import com.example.okaytravel.presenters.HomePresenter
 import com.example.okaytravel.views.HomeView
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : MvpAppCompatActivity(), HomeView {
 
@@ -61,6 +63,14 @@ class HomeActivity : MvpAppCompatActivity(), HomeView {
 
     override fun showMessage(resourceId: Int) {
         showMessage(getString(resourceId))
+    }
+
+    override fun updateTrips(trips: List<TripModel>) {
+        var result = ""
+        trips.forEach {
+            result += "${it.ownPlace}\n"
+        }
+        tripNames.text = result
     }
 
 }
