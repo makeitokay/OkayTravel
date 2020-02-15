@@ -15,7 +15,7 @@ class UsersDatabaseHelper {
     private val placeDBHelper = PlaceDatabaseHelper()
 
     fun createUser(username: String, email: String, passwordHash: String, accessToken: String): UserModel {
-        var user = UserModel(username, email, passwordHash, "", accessToken, null)
+        var user = UserModel(username, email, passwordHash, null, accessToken, null)
         user.save()
         return user
     }
