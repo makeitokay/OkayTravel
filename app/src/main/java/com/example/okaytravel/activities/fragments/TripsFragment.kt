@@ -44,7 +44,7 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
             openDatePickerDialog()
         }
 
-        tripsPresenter.updateTrips()
+        tripsPresenter.updateAll()
         tripsPresenter.sync()
 
         super.onViewCreated(view, savedInstanceState)

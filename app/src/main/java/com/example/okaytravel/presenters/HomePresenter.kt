@@ -26,7 +26,7 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
     private val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
 
     fun sync(onSuccess: () -> Unit = {}) {
-        if (currentUser == null)
+        if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
             viewState.showMessage(R.string.noInternetConnection)

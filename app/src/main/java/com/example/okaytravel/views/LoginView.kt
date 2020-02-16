@@ -10,7 +10,7 @@ interface LoginView: MvpView {
     fun showMessage(resourceId: Int)
 
     fun openSignUp()
-    fun openMainActivity()
+    fun openHome()
 
     fun startSigningIn()
     fun endSigningIn()

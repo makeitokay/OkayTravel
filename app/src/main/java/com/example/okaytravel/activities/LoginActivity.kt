@@ -33,17 +33,18 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
             openSignUp()
         }
         loginBtn.setOnClickListener {
-            loginPresenter.doLogin(login.text.toString(), password.text.toString())
+            loginPresenter.Login(login.text.toString(), password.text.toString())
         }
-
-        // TODO: сделать кнопку "Продолжить без входа"
+        loginAsAnonymousBtn.setOnClickListener {
+            loginPresenter.loginAsAnonymous()
+        }
     }
 
     override fun openSignUp() {
         startActivity(Intent(applicationContext, SignUpActivity::class.java))
     }
 
-    override fun openMainActivity() {
+    override fun openHome() {
         startActivity(Intent(applicationContext, HomeActivity::class.java))
     }
 

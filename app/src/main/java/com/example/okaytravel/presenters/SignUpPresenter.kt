@@ -55,6 +55,11 @@ class SignUpPresenter: MvpPresenter<SignUpView>() {
             viewState.focusUsername()
             return false
         }
+        if (username == "Anonymous") {
+            viewState.showMessage(R.string.usernameError)
+            viewState.focusUsername()
+            return false
+        }
         if (password != passwordAgain) {
             viewState.showMessage(R.string.notMatchPasswords)
             viewState.focusPasswordAgain()

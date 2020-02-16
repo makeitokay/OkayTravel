@@ -3,8 +3,6 @@ package com.example.okaytravel.database
 import com.activeandroid.query.Select
 import com.example.okaytravel.api.models.okaytravelserver.*
 import com.example.okaytravel.api.responses.okaytravelserver.SyncResponse
-import com.example.okaytravel.getCurrentDate
-import com.example.okaytravel.getCurrentDatetime
 import com.example.okaytravel.models.UserModel
 import java.util.*
 
@@ -16,6 +14,12 @@ class UsersDatabaseHelper {
 
     fun createUser(username: String, email: String, passwordHash: String, accessToken: String): UserModel {
         var user = UserModel(username, email, passwordHash, null, accessToken)
+        user.save()
+        return user
+    }
+
+    fun createAnonymousUser(): UserModel {
+        val user = UserModel("Anonymous", null, null, null, null, true)
         user.save()
         return user
     }

@@ -8,4 +8,12 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface ProfileView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
+
+    fun hideLogoutBtn()
+    fun hideSignInButtons()
+
+    fun setUsername(username: String)
+
+    fun openLogin()
+    fun openSignUp()
 }

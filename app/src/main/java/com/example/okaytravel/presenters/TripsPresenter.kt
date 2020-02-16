@@ -24,14 +24,14 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
     private val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
 
     fun sync(onSuccess: () -> Unit = {}) {
-        if (currentUser == null)
+        if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
             viewState.showMessage(R.string.noInternetConnection)
             return
         }
         usersApiHelper.sync(currentUser, {
-            updateTrips()
+            updateAll()
             viewState.showMessage("Synced!")
             onSuccess()
         }, {
@@ -43,9 +43,20 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
         if (currentUser == null)
             return
 
+        if (ownPlace.isEmpty() || startDate.isEmpty() || rawDuration.isEmpty()) {
+            viewState.showMessage(R.string.emptyFieldsError)
+            return
+        }
         val duration: Int? = try { rawDuration.toInt() } catch ( e: NumberFormatException ) { null }
         if (duration == null || duration <= 0 || duration > 365) {
-            viewState.showMessage("Некорректная продолжительность")
+            viewState.showMessage(R.string.invalidTripDuration)
+            return
+        }
+
+        if (currentUser.anonymous) {
+            tripsDBHelper.create(ownPlace, startDate, duration, currentUser)
+            currentUser.updateTrigger()
+            updateAll()
             return
         }
 
@@ -56,7 +67,7 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
         }
     }
 
-    fun updateTrips() {
+    fun updateAll() {
         currentUser?.let { viewState.updateTrips(currentUser.trips()) }
     }
 

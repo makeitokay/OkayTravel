@@ -25,4 +25,8 @@
     <string name="tripsMenuItemText">Мои поездки</string>
     <string name="profileMenuItemText">Профиль</string>
     <string name="tripsMapMenuItemText">Карта поездок</string>
+    <string name="loginAsAnonymousAction">Продолжить без входа</string>
+    <string name="usernameError">Это имя нелья использовать</string>
+    <string name="emptyFieldsError">Заполните все поля</string>
+    <string name="invalidTripDuration">Некорректная продолжительность</string>
 </resources>
