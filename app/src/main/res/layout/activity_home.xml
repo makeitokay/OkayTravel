@@ -20,8 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
-        app:itemIconTint="@color/colorPrimaryLight"
-        app:itemTextColor="@color/colorPrimaryLight"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/bottom_navigation_menu"
+        app:labelVisibilityMode="selected"/>
 
 </LinearLayout>
