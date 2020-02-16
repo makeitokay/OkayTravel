@@ -24,6 +24,16 @@ class UsersDatabaseHelper {
         return user
     }
 
+    fun replaceAnonymousWithNewUser(username: String, email: String, passwordHash: String, accessToken: String) {
+        var anonymousUser = getUserByUsername("Anonymous") ?: return
+        anonymousUser.username = username
+        anonymousUser.email = email
+        anonymousUser.passwordHash = passwordHash
+        anonymousUser.accessToken = accessToken
+        anonymousUser.anonymous = false
+        anonymousUser.save()
+    }
+
     fun getUserByLogin(login: String): UserModel? {
         getUserByUsername(login)?.let {
             return it

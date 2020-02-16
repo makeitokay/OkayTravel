@@ -29,4 +29,7 @@
     <string name="usernameError">Это имя нелья использовать</string>
     <string name="emptyFieldsError">Заполните все поля</string>
     <string name="invalidTripDuration">Некорректная продолжительность</string>
+    <string name="syncAnonymUserAsk">Синхронизировать ваши раннее добавленные данные с созданным аккаунтом?</string>
+    <string name="yesButton">Да</string>
+    <string name="noButton">Нет</string>
 </resources>

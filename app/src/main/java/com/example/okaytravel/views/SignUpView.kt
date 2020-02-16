@@ -10,6 +10,7 @@ interface SignUpView: MvpView {
     fun showMessage(resourceId: Int)
 
     fun startLoginView()
+    fun showSyncAnonymUserDialog()
 
     fun startSigningUp()
     fun endSigningUp()

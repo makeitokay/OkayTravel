@@ -1,6 +1,8 @@
 package com.example.okaytravel.helpers
 
 import com.example.okaytravel.api.models.okaytravelserver.AuthBody
+import com.example.okaytravel.api.models.okaytravelserver.CreateUserBody
+import com.example.okaytravel.api.responses.okaytravelserver.SignUpResponse
 import com.example.okaytravel.api.responses.okaytravelserver.SyncResponse
 import com.example.okaytravel.api.responses.okaytravelserver.UserInfoResponse
 import com.example.okaytravel.api.services.OkayTravelApiService
@@ -34,6 +36,23 @@ class UsersApiHelper {
     fun auth(login: String, passwordHash: String, onSuccess: (userInfoResponse: UserInfoResponse) -> Unit = {}, onFailure: () -> Unit = {}) {
         val body = AuthBody(login, passwordHash)
         apiService.auth(body)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe ({
+                onSuccess(it)
+            }, { error ->
+                println(error)
+                onFailure()
+            })
+    }
+
+    fun createUser(
+        username: String, email: String, passwordHash: String,
+        onSuccess: (signUpResponse: SignUpResponse) -> Unit = {},
+        onFailure: () -> Unit = {}) {
+
+        val body = CreateUserBody(username, email, passwordHash)
+        apiService.createUser(body)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
