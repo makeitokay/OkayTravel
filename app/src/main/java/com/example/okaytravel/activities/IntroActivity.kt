@@ -23,7 +23,6 @@ class IntroActivity : AppIntro2() {
 
         showSkipButton(true)
         setDepthAnimation()
-        actionBar?.hide()
 
     }
 
