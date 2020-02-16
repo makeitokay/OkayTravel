@@ -6,10 +6,11 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = AddToEndStrategy::class)
 interface SignUpView: MvpView {
-    fun startLoginView()
-
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
+
+    fun startLoginView()
+
     fun startSigningUp()
     fun endSigningUp()
 

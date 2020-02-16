@@ -9,6 +9,4 @@ import com.example.okaytravel.models.TripModel
 interface HomeView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
-
-    fun updateTrips(trips: List<TripModel>)
 }

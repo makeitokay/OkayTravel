@@ -22,4 +22,7 @@
     <string name="noInternetConnection">Нет подключения к интернету</string>
     <string name="logout">Выйти из аккаунта</string>
     <string name="syncError">Ошибка синхронизации</string>
+    <string name="tripsMenuItemText">Мои поездки</string>
+    <string name="profileMenuItemText">Профиль</string>
+    <string name="tripsMapMenuItemText">Карта поездок</string>
 </resources>
