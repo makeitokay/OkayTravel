@@ -13,6 +13,7 @@
     <string name="welcome">Добро пожаловать!</string>
     <string name="invalid_username">Неверное имя пользователя или почта</string>
     <string name="login_failed">Авторизация неуспешна</string>
+    <string name="skip_login">Пропустить вход</string>
 
     <string name="unknownError">Неизвестная ошибка, обратитесь в службу поддержки</string>
     <string name="invalidUsernameSize">Имя пользователя должно быть не меньше 3 и не больше 20 символов</string>
