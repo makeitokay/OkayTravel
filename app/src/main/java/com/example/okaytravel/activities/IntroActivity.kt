@@ -22,19 +22,20 @@ class IntroActivity : AppIntro2() {
         initThingsSliderPage()
 
         showSkipButton(true)
-        setFadeAnimation()
+        setDepthAnimation()
+
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
 
-        startActivity(Intent(applicationContext, LoginActivity::class.java))
+        startActivity(Intent(applicationContext, HomeActivity::class.java))
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
-        startActivity(Intent(applicationContext, LoginActivity::class.java))
+        startActivity(Intent(applicationContext, HomeActivity::class.java))
     }
 
     private fun initPlacesSliderPage() {

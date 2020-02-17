@@ -1,21 +1,23 @@
 package com.example.okaytravel.activities
 
-import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
-import com.example.okaytravel.models.TripModel
-import com.example.okaytravel.parseDate
+import com.example.okaytravel.activities.fragments.ProfileFragment
+import com.example.okaytravel.activities.fragments.TripsFragment
+import com.example.okaytravel.activities.fragments.TripsMapFragment
 import com.example.okaytravel.presenters.HomePresenter
 import com.example.okaytravel.views.HomeView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
-import java.util.*
-import kotlin.collections.ArrayList
 
-class HomeActivity : MvpAppCompatActivity(), HomeView {
+class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
 
     @ProvidePresenter
     fun provideHomePresenter(): HomePresenter {
@@ -31,30 +33,30 @@ class HomeActivity : MvpAppCompatActivity(), HomeView {
 
         homePresenter.sync()
 
-        addTripBtn.setOnClickListener {
-            homePresenter.addTrip(ownPlace.text.toString(), duration.text.toString(), dateView.text.toString())
-        }
+        loadFragment(TripsFragment())
 
-        dateView.setOnClickListener {
-            openDatePickerDialog()
-        }
-
-        // TODO: выход из аккаунта
+        bottom_navigation.setOnNavigationItemSelectedListener(this)
     }
 
-    private val onDateSetListener = DatePickerDialog.OnDateSetListener { dp, year, month, day ->
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, day)
-        dateView.setText(parseDate(calendar.time))
+    private fun loadFragment(fragment: Fragment?): Boolean {
+        if (fragment != null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit()
+            return true
+        }
+        return false
     }
 
-    fun openDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        DatePickerDialog(this, onDateSetListener, year, month, day).show()
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        var fragment: Fragment? = null
+        when (item.itemId) {
+            R.id.trips -> { fragment = TripsFragment() }
+            R.id.tripsMap -> { fragment = TripsMapFragment() }
+            R.id.profile -> { fragment = ProfileFragment() }
+        }
+        return loadFragment(fragment)
     }
 
     override fun showMessage(message: String) {
@@ -64,13 +66,4 @@ class HomeActivity : MvpAppCompatActivity(), HomeView {
     override fun showMessage(resourceId: Int) {
         showMessage(getString(resourceId))
     }
-
-    override fun updateTrips(trips: List<TripModel>) {
-        var result = ""
-        trips.forEach {
-            result += "${it.ownPlace}\n"
-        }
-        tripNames.text = result
-    }
-
 }

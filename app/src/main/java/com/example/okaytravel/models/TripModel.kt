@@ -8,6 +8,9 @@ import java.util.*
 @Table(name = "Trips")
 class TripModel: Model {
 
+    @Column(name = "uuid", unique = true)
+    var uuid: String? = null
+
     @Column(name = "user", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     var user: UserModel? = null
 
@@ -28,7 +31,8 @@ class TripModel: Model {
         return getMany(PlaceModel::class.java, "trip")
     }
 
-    constructor(user: UserModel, ownPlace: String, startDate: String, duration: Int) {
+    constructor(uuid: String, user: UserModel, ownPlace: String, startDate: String, duration: Int) {
+        this.uuid = uuid
         this.user = user
         this.ownPlace = ownPlace
         this.startDate = startDate

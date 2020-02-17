@@ -5,13 +5,15 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface LoginView: MvpView {
+interface ProfileView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
-    fun openSignUp()
-    fun openHome()
+    fun hideLogoutBtn()
+    fun hideSignInButtons()
 
-    fun startSigningIn()
-    fun endSigningIn()
+    fun setUsername(username: String)
+
+    fun openLogin()
+    fun openSignUp()
 }

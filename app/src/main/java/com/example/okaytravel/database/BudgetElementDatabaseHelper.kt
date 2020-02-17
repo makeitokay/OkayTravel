@@ -6,15 +6,15 @@ import com.example.okaytravel.models.TripModel
 
 class BudgetElementDatabaseHelper {
 
-    fun getBudgetElementById(id: Long): BudgetElementModel? {
+    fun getBudgetElementByUuid(uuid: String): BudgetElementModel? {
         return Select()
             .from(BudgetElementModel::class.java)
-            .where("id = ?", id)
+            .where("uuid = ?", uuid)
             .executeSingle()
     }
 
-    fun create(amount: Int, category: String, trip: TripModel): BudgetElementModel {
-        var budgetElement = BudgetElementModel(amount, category, trip)
+    fun create(uuid: String, amount: Int, category: String, trip: TripModel): BudgetElementModel {
+        var budgetElement = BudgetElementModel(uuid, amount, category, trip)
         budgetElement.save()
         return budgetElement
     }

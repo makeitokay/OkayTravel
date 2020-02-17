@@ -6,10 +6,10 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = AddToEndStrategy::class)
 interface SplashView: MvpView {
+    fun showMessage(message: String)
+    fun showMessage(resourceId: Int)
+
     fun startLogin()
     fun startIntro()
     fun startHome()
-
-    fun showMessage(message: String)
-    fun showMessage(resourceId: Int)
 }

@@ -3,15 +3,12 @@ package com.example.okaytravel.views
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.example.okaytravel.models.TripModel
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface LoginView: MvpView {
+interface TripsView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
-    fun openSignUp()
-    fun openHome()
-
-    fun startSigningIn()
-    fun endSigningIn()
+    fun updateTrips(trips: List<TripModel>)
 }

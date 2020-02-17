@@ -14,6 +14,10 @@ class SharedPrefHelper(name: String, context: Context) {
         pref.edit().putString("currentUser", username).apply()
     }
 
+    fun removeCurrentUser() {
+        pref.edit().putString("currentUser", null).apply()
+    }
+
     fun getHasVisited(): Boolean {
         return pref.getBoolean("hasVisited", false)
     }

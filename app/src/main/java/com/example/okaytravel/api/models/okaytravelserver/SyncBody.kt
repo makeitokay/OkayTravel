@@ -27,20 +27,20 @@ data class Trip(
 )
 
 data class TripInfo(
-    val remoteId: Long,
+    val uuid: String?,
     val ownPlace: String?,
     val startDate: String?,
     val duration: Int?
 )
 
 data class BudgetElement(
-    val remoteId: Long,
+    val uuid: String?,
     val amount: Int?,
     val category: String?
 )
 
 data class Place(
-    val remoteId: Long,
+    val uuid: String?,
     val name: String?,
     val date: String?
 )

@@ -1,57 +1,87 @@
 package com.example.okaytravel.presenters
 
+import android.content.Context
+import androidx.fragment.app.FragmentManager
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.fragments.SyncAnonymUserDialogFragment
 import com.example.okaytravel.api.models.okaytravelserver.CreateUserBody
 import com.example.okaytravel.api.services.OkayTravelApiService
 import com.example.okaytravel.database.UsersDatabaseHelper
+import com.example.okaytravel.helpers.SharedPrefHelper
+import com.example.okaytravel.helpers.UsersApiHelper
 import com.example.okaytravel.isEmailValid
+import com.example.okaytravel.isInternetAvailable
 import com.example.okaytravel.sha256
 import com.example.okaytravel.views.SignUpView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class SignUpPresenter: MvpPresenter<SignUpView>() {
+class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() {
 
-    private val apiService: OkayTravelApiService = OkayTravelApiService.create()
+    private val usersApiHelper = UsersApiHelper()
     private val usersDBHelper: UsersDatabaseHelper = UsersDatabaseHelper()
+    private val sessionSharedPref = SharedPrefHelper("session", context)
 
-    fun doSignUp(username: String, email: String, password: String, passwordAgain: String): Boolean {
+    lateinit var signedUpAccessToken: String
+
+    fun startSignUp(username: String, email: String, password: String, passwordAgain: String) {
+        if (!isInternetAvailable(context)) {
+            viewState.showMessage(R.string.noInternetConnection)
+            return
+        }
+
         viewState.startSigningUp()
         if (!validateInputData(username, email, password, passwordAgain)) {
             viewState.endSigningUp()
-            return false
+            return
         }
 
-        val passwordHash = password.sha256()
-        val body = CreateUserBody(username, email, passwordHash)
-        apiService.createUser(body)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe ({
-                if (!it.error) {
-                    usersDBHelper.createUser(username, email, passwordHash, it.accessToken!!)
-                    viewState.endSigningUp()
-                    viewState.showMessage("User $username was created!")
-                    viewState.startLoginView()
-
-                } else {
-                    viewState.showMessage(it.message!!)
-                    viewState.endSigningUp()
+        usersApiHelper.createUser(username, email, password.sha256(), {
+            if (!it.error) {
+                signedUpAccessToken = it.accessToken!!
+                if (usersDBHelper.getUserByUsername("Anonymous")?.commits!! > 0) {
+                    viewState.showSyncAnonymUserDialog()
                 }
-            }, { error ->
-                println(error)
-                viewState.showMessage(R.string.unknownError)
+                else {
+                    endSignUpWithoutSyncAnonym(username, email, password)
+                }
+
+            } else {
+                viewState.showMessage(it.message!!)
                 viewState.endSigningUp()
-            })
-        return true
+            }
+        }, {
+            viewState.showMessage(R.string.unknownError)
+            viewState.endSigningUp()
+        })
+    }
+
+    fun endSignUpWithoutSyncAnonym(username: String, email: String, password: String) {
+        usersDBHelper.createUser(username, email, password.sha256(), signedUpAccessToken)
+        viewState.endSigningUp()
+        sessionSharedPref.setCurrentUser(username)
+        viewState.startHome()
+    }
+
+    fun endSignUpWithSyncAnonym(username: String, email: String, password: String) {
+        usersDBHelper.replaceAnonymousWithNewUser(username, email, password.sha256(), signedUpAccessToken)
+        usersDBHelper.createAnonymousUser()
+        viewState.endSigningUp()
+        sessionSharedPref.setCurrentUser(username)
+        viewState.startHome()
     }
 
     private fun validateInputData(username: String, email: String, password: String, passwordAgain: String): Boolean {
         if (username.length !in 3..20) {
             viewState.showMessage(R.string.invalidUsernameSize)
+            viewState.focusUsername()
+            return false
+        }
+        if (username == "Anonymous") {
+            viewState.showMessage(R.string.usernameError)
             viewState.focusUsername()
             return false
         }

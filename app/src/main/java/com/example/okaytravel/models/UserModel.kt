@@ -27,6 +27,9 @@ class UserModel : Model {
     @Column(name = "commits")
     var commits: Int = 0
 
+    @Column(name = "anonymous")
+    var anonymous: Boolean = false
+
     fun trips(): List<TripModel> {
         return getMany(TripModel::class.java, "user")
     }
@@ -36,12 +39,13 @@ class UserModel : Model {
         this.save()
     }
 
-    constructor(username: String, email: String, passwordHash: String, avatar: String?, accessToken: String) {
+    constructor(username: String, email: String?, passwordHash: String?, avatar: String?, accessToken: String?, anonymous: Boolean = false) {
         this.username = username
         this.email = email
         this.passwordHash = passwordHash
         this.avatar = avatar
         this.accessToken = accessToken
+        this.anonymous = anonymous
     }
 
     constructor()
