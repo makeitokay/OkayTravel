@@ -42,11 +42,11 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView, SyncAnonymUserDialogF
     }
 
     override fun syncAnonymUserButtonClicked() {
-        signUpPresenter.signUpWithSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
+        signUpPresenter.endSignUpWithSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
     }
 
     override fun cancelSyncAnonymUserButtonClicked() {
-        signUpPresenter.signUpWithoutSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
+        signUpPresenter.endSignUpWithoutSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
     }
 
     override fun showMessage(message: String) {
@@ -83,7 +83,7 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView, SyncAnonymUserDialogF
         passwordAgain.requestFocus()
     }
 
-    override fun startLoginView() {
-        startActivity(Intent(applicationContext, LoginActivity::class.java))
+    override fun startHome() {
+        startActivity(Intent(applicationContext, HomeActivity::class.java))
     }
 }

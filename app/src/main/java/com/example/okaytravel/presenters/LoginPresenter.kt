@@ -42,8 +42,8 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
 
                 viewState.endSigningIn()
                 viewState.showMessage("Authorized!")
-                viewState.openHome()
                 sessionSharedPref.setCurrentUser(login)
+                viewState.openHome()
 
             } else {
                 viewState.showMessage(it.message)

@@ -9,6 +9,7 @@ import com.example.okaytravel.activities.fragments.SyncAnonymUserDialogFragment
 import com.example.okaytravel.api.models.okaytravelserver.CreateUserBody
 import com.example.okaytravel.api.services.OkayTravelApiService
 import com.example.okaytravel.database.UsersDatabaseHelper
+import com.example.okaytravel.helpers.SharedPrefHelper
 import com.example.okaytravel.helpers.UsersApiHelper
 import com.example.okaytravel.isEmailValid
 import com.example.okaytravel.isInternetAvailable
@@ -22,6 +23,9 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
 
     private val usersApiHelper = UsersApiHelper()
     private val usersDBHelper: UsersDatabaseHelper = UsersDatabaseHelper()
+    private val sessionSharedPref = SharedPrefHelper("session", context)
+
+    lateinit var signedUpAccessToken: String
 
     fun startSignUp(username: String, email: String, password: String, passwordAgain: String) {
         if (!isInternetAvailable(context)) {
@@ -35,21 +39,16 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
             return
         }
 
-        if (usersDBHelper.getUserByUsername("Anonymous")?.commits!! > 0) {
-            viewState.showSyncAnonymUserDialog()
-            return
-        }
-        signUpWithoutSyncAnonym(username, email, password)
-    }
-
-    fun signUpWithoutSyncAnonym(username: String, email: String, password: String) {
         val passwordHash = password.sha256()
         usersApiHelper.createUser(username, email, passwordHash, {
             if (!it.error) {
-                usersDBHelper.createUser(username, email, passwordHash, it.accessToken!!)
-                viewState.endSigningUp()
-                viewState.showMessage("User $username was created!")
-                viewState.startLoginView()
+                signedUpAccessToken = it.accessToken!!
+                if (usersDBHelper.getUserByUsername("Anonymous")?.commits!! > 0) {
+                    viewState.showSyncAnonymUserDialog()
+                }
+                else {
+                    endSignUpWithoutSyncAnonym(username, email, passwordHash)
+                }
 
             } else {
                 viewState.showMessage(it.message!!)
@@ -61,24 +60,19 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
         })
     }
 
-    fun signUpWithSyncAnonym(username: String, email: String, password: String) {
-        val passwordHash = password.sha256()
-        usersApiHelper.createUser(username, email, passwordHash, {
-            if (!it.error) {
-                usersDBHelper.replaceAnonymousWithNewUser(username, email, passwordHash, it.accessToken!!)
-                usersDBHelper.createAnonymousUser()
-                viewState.endSigningUp()
-                viewState.showMessage("User $username was created!")
-                viewState.startLoginView()
+    fun endSignUpWithoutSyncAnonym(username: String, email: String, passwordHash: String) {
+        usersDBHelper.createUser(username, email, passwordHash, signedUpAccessToken)
+        viewState.endSigningUp()
+        sessionSharedPref.setCurrentUser(username)
+        viewState.startHome()
+    }
 
-            } else {
-                viewState.showMessage(it.message!!)
-                viewState.endSigningUp()
-            }
-        }, {
-            viewState.showMessage(R.string.unknownError)
-            viewState.endSigningUp()
-        })
+    fun endSignUpWithSyncAnonym(username: String, email: String, passwordHash: String) {
+        usersDBHelper.replaceAnonymousWithNewUser(username, email, passwordHash, signedUpAccessToken)
+        usersDBHelper.createAnonymousUser()
+        viewState.endSigningUp()
+        sessionSharedPref.setCurrentUser(username)
+        viewState.startHome()
     }
 
     private fun validateInputData(username: String, email: String, password: String, passwordAgain: String): Boolean {
