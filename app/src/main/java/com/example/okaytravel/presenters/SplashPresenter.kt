@@ -50,5 +50,6 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
             }
             return
         }
+        viewState.startLogin()
     }
 }

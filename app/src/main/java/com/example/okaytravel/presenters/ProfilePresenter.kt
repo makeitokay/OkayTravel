@@ -18,6 +18,7 @@ class ProfilePresenter(private val context: Context): MvpPresenter<ProfileView>(
         currentUser?.let {
             viewState.setUsername(it.username!!)
             if (it.anonymous) viewState.hideLogoutBtn()
+            else viewState.hideSignInButtons()
         }
 
     }

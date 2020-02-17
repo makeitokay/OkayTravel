@@ -70,7 +70,7 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
         trips.forEach {
             result += "${it.ownPlace}\n"
         }
-        tripNames.text = result
+        if (result.isNotEmpty()) tripNames.text = result
     }
 
     override fun showMessage(resourceId: Int) {
