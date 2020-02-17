@@ -6,16 +6,16 @@ import com.example.okaytravel.models.UserModel
 
 class TripDatabaseHelper {
 
-    fun create(ownPlace: String, startDate: String, duration: Int, user: UserModel): TripModel {
-        val trip = TripModel(user, ownPlace, startDate, duration)
+    fun create(uuid: String, ownPlace: String, startDate: String, duration: Int, user: UserModel): TripModel {
+        val trip = TripModel(uuid, user, ownPlace, startDate, duration)
         trip.save()
         return trip
     }
 
-    fun getTripById(id: Long): TripModel? {
+    fun getTripByUuid(uuid: String): TripModel? {
         return Select()
             .from(TripModel::class.java)
-            .where("id = ?", id)
+            .where("uuid = ?", uuid)
             .executeSingle()
     }
 

@@ -7,15 +7,15 @@ import java.util.*
 
 class PlaceDatabaseHelper {
 
-    fun getPlaceById(id: Long): PlaceModel? {
+    fun getPlaceByUuid(uuid: String): PlaceModel? {
         return Select()
             .from(PlaceModel::class.java)
-            .where("id = ?", id)
+            .where("uuid = ?", uuid)
             .executeSingle()
     }
 
-    fun create(name: String, date: String, trip: TripModel): PlaceModel {
-        var place = PlaceModel(name, date, trip)
+    fun create(uuid: String, name: String, date: String, trip: TripModel): PlaceModel {
+        var place = PlaceModel(uuid, name, date, trip)
         place.save()
         return place
     }

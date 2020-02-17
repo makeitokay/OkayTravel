@@ -69,15 +69,15 @@ class UsersDatabaseHelper {
 
             var trips: ArrayList<Trip> = arrayListOf()
             user.trips().forEach { trip ->
-                val tripInfoBody = TripInfo(trip.id, trip.ownPlace, trip.startDate, trip.duration)
+                val tripInfoBody = TripInfo(trip.uuid, trip.ownPlace, trip.startDate, trip.duration)
                 val budget: ArrayList<BudgetElement> = arrayListOf()
                 val places: ArrayList<Place> = arrayListOf()
                 trip.budget().forEach { budgetElement ->
-                    val budgetElementBody = BudgetElement(budgetElement.id, budgetElement.amount, budgetElement.category)
+                    val budgetElementBody = BudgetElement(budgetElement.uuid, budgetElement.amount, budgetElement.category)
                     budget.add(budgetElementBody)
                 }
                 trip.places().forEach { place ->
-                    val placeInfoBody = Place(place.id, place.name, place.date)
+                    val placeInfoBody = Place(place.uuid, place.name, place.date)
                     places.add(placeInfoBody)
                 }
                 trips.add(Trip(tripInfoBody, budget, places))
@@ -106,7 +106,7 @@ class UsersDatabaseHelper {
 
         trips.forEach { trip ->
             val tripInfo = trip.trip
-            var tripModel = tripDBHelper.getTripById(tripInfo.remoteId)
+            var tripModel = tripDBHelper.getTripByUuid(tripInfo.uuid)
 
             if (tripModel != null) {
                 tripModel.ownPlace = tripInfo.ownPlace
@@ -115,7 +115,7 @@ class UsersDatabaseHelper {
 
                 trip.budget.forEach { budgetElement ->
                     var budgetElementModel =
-                        budgetElementDBHelper.getBudgetElementById(budgetElement.remoteId)
+                        budgetElementDBHelper.getBudgetElementByUuid(budgetElement.uuid)
 
                     if (budgetElementModel != null) {
                         budgetElementModel.amount = budgetElement.amount
@@ -123,6 +123,7 @@ class UsersDatabaseHelper {
                         budgetElementModel.save()
                     } else {
                         budgetElementDBHelper.create(
+                            budgetElement.uuid,
                             budgetElement.amount,
                             budgetElement.category,
                             tripModel
@@ -131,32 +132,33 @@ class UsersDatabaseHelper {
                 }
 
                 trip.places.forEach { place ->
-                    var placeModel = placeDBHelper.getPlaceById(place.remoteId)
+                    var placeModel = placeDBHelper.getPlaceByUuid(place.uuid)
 
                     if (placeModel != null) {
                         placeModel.name = place.name
                         placeModel.date = place.date
                         placeModel.save()
                     } else {
-                        placeDBHelper.create(place.name, place.date, tripModel)
+                        placeDBHelper.create(place.uuid, place.name, place.date, tripModel)
                     }
                 }
                 tripModel.save()
 
                 } else {
 
-                val newTripModel = tripDBHelper.create(tripInfo.ownPlace, tripInfo.startDate, tripInfo.duration, user)
+                val newTripModel = tripDBHelper.create(
+                    tripInfo.uuid, tripInfo.ownPlace, tripInfo.startDate, tripInfo.duration, user)
 
                 trip.budget.forEach { budgetElement ->
                     budgetElementDBHelper.create(
+                        budgetElement.uuid,
                         budgetElement.amount,
                         budgetElement.category,
                         newTripModel
                     )
                 }
-
                 trip.places.forEach { place ->
-                    placeDBHelper.create(place.name, place.date, newTripModel)
+                    placeDBHelper.create(place.uuid, place.name, place.date, newTripModel)
                 }
             }
         }

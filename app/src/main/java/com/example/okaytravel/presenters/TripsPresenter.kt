@@ -9,6 +9,7 @@ import com.example.okaytravel.database.UsersDatabaseHelper
 import com.example.okaytravel.helpers.SharedPrefHelper
 import com.example.okaytravel.helpers.UsersApiHelper
 import com.example.okaytravel.isInternetAvailable
+import com.example.okaytravel.uuid
 import com.example.okaytravel.views.TripsView
 
 @InjectViewState
@@ -54,14 +55,14 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
         }
 
         if (currentUser.anonymous) {
-            tripsDBHelper.create(ownPlace, startDate, duration, currentUser)
+            tripsDBHelper.create(uuid(), ownPlace, startDate, duration, currentUser)
             currentUser.updateTrigger()
             updateAll()
             return
         }
 
         sync {
-            tripsDBHelper.create(ownPlace, startDate, duration, currentUser)
+            tripsDBHelper.create(uuid(), ownPlace, startDate, duration, currentUser)
             currentUser.updateTrigger()
             sync()
         }

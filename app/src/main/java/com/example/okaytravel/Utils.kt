@@ -88,3 +88,7 @@ fun parseDate(date: Date): String {
     isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.format(date)
 }
+
+fun uuid(): String {
+    return UUID.randomUUID().toString()
+}
