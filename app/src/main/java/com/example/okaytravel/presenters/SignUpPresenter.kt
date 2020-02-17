@@ -39,15 +39,14 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
             return
         }
 
-        val passwordHash = password.sha256()
-        usersApiHelper.createUser(username, email, passwordHash, {
+        usersApiHelper.createUser(username, email, password.sha256(), {
             if (!it.error) {
                 signedUpAccessToken = it.accessToken!!
                 if (usersDBHelper.getUserByUsername("Anonymous")?.commits!! > 0) {
                     viewState.showSyncAnonymUserDialog()
                 }
                 else {
-                    endSignUpWithoutSyncAnonym(username, email, passwordHash)
+                    endSignUpWithoutSyncAnonym(username, email, password)
                 }
 
             } else {
@@ -60,15 +59,15 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
         })
     }
 
-    fun endSignUpWithoutSyncAnonym(username: String, email: String, passwordHash: String) {
-        usersDBHelper.createUser(username, email, passwordHash, signedUpAccessToken)
+    fun endSignUpWithoutSyncAnonym(username: String, email: String, password: String) {
+        usersDBHelper.createUser(username, email, password.sha256(), signedUpAccessToken)
         viewState.endSigningUp()
         sessionSharedPref.setCurrentUser(username)
         viewState.startHome()
     }
 
-    fun endSignUpWithSyncAnonym(username: String, email: String, passwordHash: String) {
-        usersDBHelper.replaceAnonymousWithNewUser(username, email, passwordHash, signedUpAccessToken)
+    fun endSignUpWithSyncAnonym(username: String, email: String, password: String) {
+        usersDBHelper.replaceAnonymousWithNewUser(username, email, password.sha256(), signedUpAccessToken)
         usersDBHelper.createAnonymousUser()
         viewState.endSigningUp()
         sessionSharedPref.setCurrentUser(username)
