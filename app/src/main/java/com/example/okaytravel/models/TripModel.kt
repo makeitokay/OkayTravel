@@ -23,11 +23,11 @@ class TripModel: Model {
     @Column(name = "duration")
     var duration: Int? = null
 
-    fun budget(): List<BudgetElementModel> {
+    fun budget(): MutableList<BudgetElementModel> {
         return getMany(BudgetElementModel::class.java, "trip")
     }
 
-    fun places(): List<PlaceModel> {
+    fun places(): MutableList<PlaceModel> {
         return getMany(PlaceModel::class.java, "trip")
     }
 

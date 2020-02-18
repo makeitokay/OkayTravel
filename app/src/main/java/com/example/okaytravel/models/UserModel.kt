@@ -30,7 +30,7 @@ class UserModel : Model {
     @Column(name = "anonymous")
     var anonymous: Boolean = false
 
-    fun trips(): List<TripModel> {
+    fun trips(): MutableList<TripModel> {
         return getMany(TripModel::class.java, "user")
     }
 

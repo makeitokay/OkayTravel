@@ -34,4 +34,5 @@
     <string name="syncAnonymUserAsk">Синхронизировать ваши раннее добавленные данные с созданным аккаунтом?</string>
     <string name="yesButton">Да</string>
     <string name="noButton">Нет</string>
+    <string name="noTripsText">У вас еще нет поездок</string>
 </resources>

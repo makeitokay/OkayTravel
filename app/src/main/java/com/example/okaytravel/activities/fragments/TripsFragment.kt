@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.adapters.TripsRecyclerViewAdapter
 import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.parseDate
 import com.example.okaytravel.presenters.TripsPresenter
@@ -27,6 +29,9 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
     @InjectPresenter
     lateinit var tripsPresenter: TripsPresenter
 
+    private val tripsData: MutableList<TripModel> = mutableListOf()
+    private val tripsAdapter = TripsRecyclerViewAdapter(tripsData)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +48,8 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
         dateView.setOnClickListener {
             openDatePickerDialog()
         }
+
+        tripsRecyclerView.adapter = tripsAdapter
 
         tripsPresenter.updateAll()
         tripsPresenter.sync()
@@ -66,11 +73,14 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
     }
 
     override fun updateTrips(trips: List<TripModel>) {
-        var result = ""
-        trips.forEach {
-            result += "${it.ownPlace}\n"
+        tripsData.clear()
+        if (trips.isEmpty()) {
+            noTripsView.visibility = View.VISIBLE
+            return
         }
-        if (result.isNotEmpty()) tripNames.text = result
+        noTripsView.visibility = View.GONE
+        tripsData.addAll(trips)
+        tripsAdapter.notifyDataSetChanged()
     }
 
     override fun showMessage(resourceId: Int) {
