@@ -35,4 +35,6 @@
     <string name="yesButton">Да</string>
     <string name="noButton">Нет</string>
     <string name="noTripsText">У вас еще нет поездок</string>
+    <string name="addTripContentDescription">Добавляет новую поездку</string>
+    <string name="addTripFABText">Новая поездка</string>
 </resources>

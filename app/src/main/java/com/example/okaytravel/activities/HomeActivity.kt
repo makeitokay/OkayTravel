@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -15,6 +16,7 @@ import com.example.okaytravel.activities.fragments.TripsMapFragment
 import com.example.okaytravel.presenters.HomePresenter
 import com.example.okaytravel.views.HomeView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +33,8 @@ class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNa
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        MapKitFactory.setApiKey(getString(R.string.mapkitAccessToken))
+
         homePresenter.sync()
 
         loadFragment(TripsFragment())
@@ -39,11 +43,11 @@ class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNa
     }
 
     private fun loadFragment(fragment: Fragment?): Boolean {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+
         if (fragment != null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit()
+            transaction.replace(R.id.fragment_container, fragment).commit()
             return true
         }
         return false

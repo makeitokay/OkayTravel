@@ -11,7 +11,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.example.okaytravel"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -67,8 +67,8 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:5.1.0'
 
     // Yandex MapKit
-    implementation 'com.yandex.android:mapkit:3.4.0'
-    implementation 'com.yandex.android:search:3.4.0'
+    implementation 'com.yandex.android:mapkit:3.3.1'
+    implementation 'com.yandex.android:search:3.3.1'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

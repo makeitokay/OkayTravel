@@ -10,10 +10,10 @@ import com.example.okaytravel.helpers.SharedPrefHelper
 import com.example.okaytravel.helpers.UsersApiHelper
 import com.example.okaytravel.isInternetAvailable
 import com.example.okaytravel.uuid
-import com.example.okaytravel.views.TripsView
+import com.example.okaytravel.views.TripAddAllDataView
 
 @InjectViewState
-class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
+class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAddAllDataView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
     private val tripsDBHelper = TripDatabaseHelper()
@@ -32,7 +32,6 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
             return
         }
         usersApiHelper.sync(currentUser, {
-            updateAll()
             viewState.showMessage("Synced!")
             onSuccess()
         }, {
@@ -40,8 +39,32 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
         })
     }
 
-    fun updateAll() {
-        currentUser?.let { viewState.updateTrips(currentUser.trips()) }
-    }
+    fun addTrip(ownPlace: String, rawDuration: String, startDate: String) {
+        if (currentUser == null)
+            return
 
+        if (ownPlace.isEmpty() || startDate.isEmpty() || rawDuration.isEmpty()) {
+            viewState.showMessage(R.string.emptyFieldsError)
+            return
+        }
+        val duration: Int? = try { rawDuration.toInt() } catch ( e: NumberFormatException ) { null }
+        if (duration == null || duration <= 0 || duration > 365) {
+            viewState.showMessage(R.string.invalidTripDuration)
+            return
+        }
+
+        if (currentUser.anonymous) {
+            tripsDBHelper.create(uuid(), ownPlace, startDate, duration, currentUser)
+            currentUser.updateTrigger()
+            viewState.openTrips()
+            return
+        }
+
+        sync {
+            tripsDBHelper.create(uuid(), ownPlace, startDate, duration, currentUser)
+            currentUser.updateTrigger()
+            sync()
+            viewState.openTrips()
+        }
+    }
 }

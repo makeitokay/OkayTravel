@@ -22,8 +22,6 @@ class TripsMapFragment: MvpAppCompatFragment(), TripsMapView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        MapKitFactory.setApiKey(getString(R.string.mapkitAccessToken))
         MapKitFactory.initialize(this.requireActivity())
 
         return inflater.inflate(R.layout.fragment_trips_map, container, false)
