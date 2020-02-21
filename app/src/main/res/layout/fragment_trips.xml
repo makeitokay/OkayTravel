@@ -28,6 +28,7 @@
             style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
             android:id="@+id/addTripFAB"
             app:backgroundTint="@color/colorPrimary"
+            app:rippleColor="@color/colorPrimaryLight"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
