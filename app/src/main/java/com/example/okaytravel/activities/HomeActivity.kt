@@ -18,6 +18,7 @@ import com.example.okaytravel.views.HomeView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -38,6 +39,8 @@ class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNa
         homePresenter.sync()
 
         loadFragment(TripsFragment())
+
+        toolbar.title = "OkayTravel"
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
     }

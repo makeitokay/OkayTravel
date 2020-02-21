@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -69,6 +70,7 @@ class TripAddOwnPlaceActivity: MvpAppCompatActivity(), TripsAddOwnPlaceView, Sea
         SearchFactory.initialize(this)
 
         setContentView(R.layout.activity_add_own_place)
+        title = "Новая поездка"
 
         val currentFragment = layoutInflater.inflate(R.layout.fragment_add_own_place, null)
         addTripFragmentContainer.addView(currentFragment)
@@ -82,6 +84,14 @@ class TripAddOwnPlaceActivity: MvpAppCompatActivity(), TripsAddOwnPlaceView, Sea
             android.R.id.text1,
             suggestResult)
         suggestResultView.adapter = suggestAdapter
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.navigationIcon = getDrawable(R.drawable.ic_arrow_back_white_24dp)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         ownPlace.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
