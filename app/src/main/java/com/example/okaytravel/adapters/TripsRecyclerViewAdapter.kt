@@ -1,21 +1,30 @@
 package com.example.okaytravel.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.HomeActivity
+import com.example.okaytravel.activities.TripActivity
 import com.example.okaytravel.models.TripModel
 
-class TripsRecyclerViewAdapter(val tripsList: MutableList<TripModel>): RecyclerView.Adapter<TripsRecyclerViewAdapter.ViewHolder>() {
+class TripsRecyclerViewAdapter(
+    private val tripsList: MutableList<TripModel>,
+    private val context: Context):
+    RecyclerView.Adapter<TripsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.trip_adapter_item, parent, false)
-        return ViewHolder(v)
+        return ViewHolder(v, context)
     }
 
     override fun getItemCount(): Int {
@@ -25,12 +34,21 @@ class TripsRecyclerViewAdapter(val tripsList: MutableList<TripModel>): RecyclerV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.ownPlace.text = tripsList[position].ownPlace
         holder.startDate.text = tripsList[position].startDate
-        holder.duration.text = tripsList[position].duration.toString()
+//        holder.duration.text = tripsList[position].duration.toString()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
         val ownPlace: TextView = itemView.findViewById(R.id.ownPlace)
         val startDate: TextView = itemView.findViewById(R.id.startDate)
-        val duration: TextView = itemView.findViewById(R.id.duration)
+//        val duration: TextView = itemView.findViewById(R.id.duration)
+
+        init {
+            itemView.setOnClickListener {
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    context as HomeActivity, itemView, "cityImage"
+                )
+                context.startActivity(Intent(context, TripActivity::class.java), options.toBundle())
+            }
+        }
     }
 }

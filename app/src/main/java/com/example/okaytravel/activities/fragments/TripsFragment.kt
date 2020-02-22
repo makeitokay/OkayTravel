@@ -16,12 +16,9 @@ import com.example.okaytravel.R
 import com.example.okaytravel.activities.TripAddOwnPlaceActivity
 import com.example.okaytravel.adapters.TripsRecyclerViewAdapter
 import com.example.okaytravel.models.TripModel
-import com.example.okaytravel.parseDate
 import com.example.okaytravel.presenters.TripsPresenter
 import com.example.okaytravel.views.TripsView
-import kotlinx.android.synthetic.main.fragment_trip_add_all_data.*
 import kotlinx.android.synthetic.main.fragment_trips.*
-import java.util.*
 
 class TripsFragment: MvpAppCompatFragment(), TripsView {
 
@@ -34,7 +31,7 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
     lateinit var tripsPresenter: TripsPresenter
 
     private val tripsData: MutableList<TripModel> = mutableListOf()
-    private val tripsAdapter = TripsRecyclerViewAdapter(tripsData)
+    lateinit var tripsAdapter: TripsRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +46,7 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
             openNewTrip()
         }
 
+        tripsAdapter = TripsRecyclerViewAdapter(tripsData, this.requireActivity())
         tripsRecyclerView.adapter = tripsAdapter
 
         tripsPresenter.updateAll()

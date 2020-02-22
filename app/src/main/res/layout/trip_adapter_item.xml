@@ -5,33 +5,39 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-        
+        android:layout_height="215dp"
+        android:orientation="vertical">
+
         <ImageView
-            android:id="@+id/cityIcon"
+            android:id="@+id/imageViewAdapter"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@drawable/palm"
-            />
-        
+            android:transitionName="cityImage"
+            android:layout_height="215dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/asasas"/>
+
         <TextView
             android:id="@+id/ownPlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_above="@id/startDate"/>
 
         <TextView
             android:id="@+id/startDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/duration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        
-    </LinearLayout>
 </androidx.cardview.widget.CardView>
