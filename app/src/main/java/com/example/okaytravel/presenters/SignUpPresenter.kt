@@ -1,13 +1,9 @@
 package com.example.okaytravel.presenters
 
 import android.content.Context
-import androidx.fragment.app.FragmentManager
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.okaytravel.R
-import com.example.okaytravel.activities.fragments.SyncAnonymUserDialogFragment
-import com.example.okaytravel.api.models.okaytravelserver.CreateUserBody
-import com.example.okaytravel.api.services.OkayTravelApiService
 import com.example.okaytravel.database.UsersDatabaseHelper
 import com.example.okaytravel.helpers.SharedPrefHelper
 import com.example.okaytravel.helpers.UsersApiHelper
@@ -15,8 +11,6 @@ import com.example.okaytravel.isEmailValid
 import com.example.okaytravel.isInternetAvailable
 import com.example.okaytravel.sha256
 import com.example.okaytravel.views.SignUpView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() {

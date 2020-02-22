@@ -9,7 +9,9 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.presenters.SplashPresenter
 import com.example.okaytravel.views.SplashView
 
-class SplashActivity : MvpAppCompatActivity(), SplashView {
+class SplashActivity : BaseActivity(), SplashView {
+
+    override val fragmentContainer: Int? = null
 
     @ProvidePresenter
     fun provideSplashPresenter(): SplashPresenter {
@@ -38,13 +40,5 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
     override fun startHome() {
         startActivity(Intent(applicationContext, HomeActivity::class.java))
         finish()
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
     }
 }

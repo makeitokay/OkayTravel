@@ -13,7 +13,10 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import kotlinx.android.synthetic.main.fragment_trips_map.*
 
-class TripsMapFragment: MvpAppCompatFragment(), TripsMapView {
+class TripsMapFragment: BaseFragment(), TripsMapView {
+
+    override val fragmentNameResource: Int
+        get() = R.string.tripsMapMenuItemText
 
     private val startPoint = Point(53.413925, 58.994046)
 
@@ -22,17 +25,16 @@ class TripsMapFragment: MvpAppCompatFragment(), TripsMapView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        MapKitFactory.initialize(this.requireActivity())
-
         return inflater.inflate(R.layout.fragment_trips_map, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         mapView.map.move(
             CameraPosition(startPoint, 14.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 5f),
             null)
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onStart() {
@@ -45,13 +47,5 @@ class TripsMapFragment: MvpAppCompatFragment(), TripsMapView {
         super.onStop()
         MapKitFactory.getInstance().onStop()
         mapView.onStop()
-    }
-
-    override fun showMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showMessage(resourceId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

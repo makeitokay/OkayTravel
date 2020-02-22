@@ -1,4 +1,4 @@
-package com.example.okaytravel.activities.fragments
+package com.example.okaytravel.activities.fragments.dialogs
 
 import android.app.Dialog
 import android.content.Context

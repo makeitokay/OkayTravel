@@ -1,26 +1,27 @@
 package com.example.okaytravel.activities.fragments
 
-import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
-import com.example.okaytravel.activities.TripAddOwnPlaceActivity
+import com.example.okaytravel.activities.TripAddActivity
 import com.example.okaytravel.adapters.TripsRecyclerViewAdapter
 import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.presenters.TripsPresenter
 import com.example.okaytravel.views.TripsView
 import kotlinx.android.synthetic.main.fragment_trips.*
 
-class TripsFragment: MvpAppCompatFragment(), TripsView {
+class TripsFragment: BaseFragment(), TripsView {
+
+    override val fragmentNameResource: Int
+        get() = R.string.tripsMenuItemText
 
     @ProvidePresenter
     fun provideTripsPresenter(): TripsPresenter {
@@ -42,6 +43,8 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         addTripFAB.setOnClickListener {
             openNewTrip()
         }
@@ -51,41 +54,23 @@ class TripsFragment: MvpAppCompatFragment(), TripsView {
 
         tripsPresenter.updateAll()
         tripsPresenter.sync()
-
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun loadFragment(fragment: Fragment?): Boolean {
-        val transaction = this.requireActivity().supportFragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-
-        if (fragment != null) {
-            transaction.replace(R.id.fragment_container, fragment).commit()
-            return true
-        }
-        return false
     }
 
     override fun updateTrips(trips: List<TripModel>) {
         tripsData.clear()
         if (trips.isEmpty()) {
             noTripsView.visibility = View.VISIBLE
+            tripsRecyclerView.visibility = View.GONE
             return
         }
+        tripsRecyclerView.visibility = View.VISIBLE
         noTripsView.visibility = View.GONE
         tripsData.addAll(trips)
         tripsAdapter.notifyDataSetChanged()
     }
 
     override fun openNewTrip() {
-        startActivity(Intent(this.requireActivity(), TripAddOwnPlaceActivity::class.java))
+        startActivity(Intent(this.requireActivity(), TripAddActivity::class.java))
     }
 
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(this.requireActivity(), message, Toast.LENGTH_SHORT).show()
-    }
 }

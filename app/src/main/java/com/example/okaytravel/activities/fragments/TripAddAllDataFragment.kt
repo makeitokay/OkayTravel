@@ -18,7 +18,10 @@ import com.example.okaytravel.views.TripAddAllDataView
 import kotlinx.android.synthetic.main.fragment_trip_add_all_data.*
 import java.util.*
 
-class TripAddAllDataFragment(private val ownPlace: String) : MvpAppCompatFragment(), TripAddAllDataView {
+class TripAddAllDataFragment(private val ownPlace: String) : BaseFragment(), TripAddAllDataView {
+
+    override val fragmentNameResource: Int
+        get() = R.string.newTrip
 
     @ProvidePresenter
     fun provideTripAddAllDataPresenter(): TripAddAllDataPresenter {
@@ -68,14 +71,6 @@ class TripAddAllDataFragment(private val ownPlace: String) : MvpAppCompatFragmen
 
     override fun openTrips() {
         startActivity(Intent(this.requireActivity(), HomeActivity::class.java))
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(this.requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
 }

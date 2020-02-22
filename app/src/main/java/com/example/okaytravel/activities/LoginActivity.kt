@@ -13,7 +13,9 @@ import com.example.okaytravel.views.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 
 
-class LoginActivity : MvpAppCompatActivity(), LoginView {
+class LoginActivity : BaseActivity(), LoginView {
+
+    override val fragmentContainer: Int? = null
 
     @ProvidePresenter
     fun provideLoginPresenter(): LoginPresenter {
@@ -56,14 +58,6 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     override fun endSigningIn() {
         loginBtn.visibility = View.VISIBLE
         loading.visibility = View.GONE
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
     }
 
 }

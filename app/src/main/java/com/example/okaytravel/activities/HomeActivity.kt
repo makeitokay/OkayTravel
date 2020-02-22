@@ -1,15 +1,12 @@
 package com.example.okaytravel.activities
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.fragments.BaseFragment
 import com.example.okaytravel.activities.fragments.ProfileFragment
 import com.example.okaytravel.activities.fragments.TripsFragment
 import com.example.okaytravel.activities.fragments.TripsMapFragment
@@ -20,7 +17,7 @@ import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
 
     @ProvidePresenter
     fun provideHomePresenter(): HomePresenter {
@@ -30,47 +27,31 @@ class HomeActivity : MvpAppCompatActivity(), HomeView, BottomNavigationView.OnNa
     @InjectPresenter
     lateinit var homePresenter: HomePresenter
 
+    override val fragmentContainer = R.id.fragment_container
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         MapKitFactory.setApiKey(getString(R.string.mapkitAccessToken))
+        MapKitFactory.initialize(this)
 
         homePresenter.sync()
 
-        loadFragment(TripsFragment())
-
-        toolbar.title = "OkayTravel"
+        loadFragment(TripsFragment() as BaseFragment)
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
     }
 
-    private fun loadFragment(fragment: Fragment?): Boolean {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-
-        if (fragment != null) {
-            transaction.replace(R.id.fragment_container, fragment).commit()
-            return true
-        }
-        return false
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == bottom_navigation.selectedItemId) return false
         var fragment: Fragment? = null
         when (item.itemId) {
             R.id.trips -> { fragment = TripsFragment() }
             R.id.tripsMap -> { fragment = TripsMapFragment() }
             R.id.profile -> { fragment = ProfileFragment() }
         }
-        return loadFragment(fragment)
+        return loadFragment(fragment as BaseFragment)
     }
 
-    override fun showMessage(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
-    }
 }

@@ -15,8 +15,12 @@ import com.example.okaytravel.activities.SignUpActivity
 import com.example.okaytravel.presenters.ProfilePresenter
 import com.example.okaytravel.views.ProfileView
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.toolbar.*
 
-class ProfileFragment: MvpAppCompatFragment(), ProfileView {
+class ProfileFragment: BaseFragment(), ProfileView {
+
+    override val fragmentNameResource: Int
+        get() = R.string.profileMenuItemText
 
     @ProvidePresenter
     fun provideProfilePresenter(): ProfilePresenter {
@@ -72,11 +76,4 @@ class ProfileFragment: MvpAppCompatFragment(), ProfileView {
         openSignUpBtn.visibility = View.GONE
     }
 
-    override fun showMessage(message: String) {
-        Toast.makeText(this.requireActivity(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
-    }
 }

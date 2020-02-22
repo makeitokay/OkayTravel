@@ -3,17 +3,17 @@ package com.example.okaytravel.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
-import com.example.okaytravel.activities.fragments.SyncAnonymUserDialogFragment
+import com.example.okaytravel.activities.fragments.dialogs.SyncAnonymUserDialogFragment
 import com.example.okaytravel.presenters.SignUpPresenter
 import com.example.okaytravel.views.SignUpView
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUpActivity : MvpAppCompatActivity(), SignUpView, SyncAnonymUserDialogFragment.ChooseListener {
+class SignUpActivity : BaseActivity(), SignUpView, SyncAnonymUserDialogFragment.ChooseListener {
+
+    override val fragmentContainer: Int? = null
 
     @ProvidePresenter
     fun provideSignUpPresenter(): SignUpPresenter {
@@ -38,7 +38,8 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView, SyncAnonymUserDialogF
     }
 
     override fun showSyncAnonymUserDialog() {
-        SyncAnonymUserDialogFragment().show(supportFragmentManager, "SyncAnonymUserDialogFragmentTag")
+        SyncAnonymUserDialogFragment()
+            .show(supportFragmentManager, "SyncAnonymUserDialogFragmentTag")
     }
 
     override fun syncAnonymUserButtonClicked() {
@@ -47,14 +48,6 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView, SyncAnonymUserDialogF
 
     override fun cancelSyncAnonymUserButtonClicked() {
         signUpPresenter.endSignUpWithoutSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showMessage(resourceId: Int) {
-        showMessage(getString(resourceId))
     }
 
     override fun startSigningUp() {
