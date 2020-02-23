@@ -39,4 +39,7 @@
     <string name="addTripFABText">Новая поездка</string>
     <string name="newTrip">Новая поездка</string>
     <string name="noAccountAsk">Нет аккаунта?</string>
+    <string name="places">Места</string>
+    <string name="budget">Бюджет</string>
+    <string name="things">Вещи</string>
 </resources>

@@ -1,13 +1,15 @@
 package com.example.okaytravel.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.fragments.BudgetFragment
+import com.example.okaytravel.activities.fragments.PlacesFragment
+import com.example.okaytravel.activities.fragments.ThingsFragment
+import com.example.okaytravel.adapters.TripFragmentViewPagerAdapter
 import com.example.okaytravel.database.TripDatabaseHelper
 import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.views.TripView
 import kotlinx.android.synthetic.main.activity_trip.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 class TripActivity : BaseActivity(), TripView {
 
@@ -24,6 +26,13 @@ class TripActivity : BaseActivity(), TripView {
 
         setToolbarBackButton()
         title = trip.ownPlace
+
+        val fragmentViewPagerAdapter = TripFragmentViewPagerAdapter(supportFragmentManager)
+        fragmentViewPagerAdapter.addFragment(PlacesFragment(), getString(R.string.places))
+        fragmentViewPagerAdapter.addFragment(BudgetFragment(), getString(R.string.budget))
+        fragmentViewPagerAdapter.addFragment(ThingsFragment(), getString(R.string.things))
+        tripViewPager.adapter = fragmentViewPagerAdapter
+        tripTabs.setupWithViewPager(tripViewPager)
     }
 
     private fun getTripFromExtra(): TripModel {

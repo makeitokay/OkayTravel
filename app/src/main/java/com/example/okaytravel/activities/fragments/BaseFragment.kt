@@ -5,13 +5,13 @@ import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.example.okaytravel.activities.BaseActivity
 
-abstract class BaseFragment: MvpAppCompatFragment() {
+abstract class BaseFragment(private val changeToolbarTitle: Boolean = true): MvpAppCompatFragment() {
 
     abstract val fragmentNameResource: Int
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as BaseActivity).setToolbarTitle(getString(fragmentNameResource))
+        if (changeToolbarTitle) (activity as BaseActivity).setToolbarTitle(getString(fragmentNameResource))
     }
 
     fun showMessage(message: String) {

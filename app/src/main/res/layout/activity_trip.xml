@@ -15,19 +15,24 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabItem
-            android:text="Места"
+            android:text="@string/places"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <com.google.android.material.tabs.TabItem
-            android:text="Бюджет"
+            android:text="@string/budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <com.google.android.material.tabs.TabItem
-            android:text="Вещи"
+            android:text="@string/things"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </com.google.android.material.tabs.TabLayout>
-    
-    
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tripViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
 </LinearLayout>
