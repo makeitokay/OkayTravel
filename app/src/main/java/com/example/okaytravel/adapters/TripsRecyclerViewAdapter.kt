@@ -32,22 +32,20 @@ class TripsRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.ownPlace.text = tripsList[position].ownPlace
-        holder.startDate.text = tripsList[position].startDate
-//        holder.duration.text = tripsList[position].duration.toString()
+        holder.bind(tripsList[position])
     }
 
-    class ViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
-        val ownPlace: TextView = itemView.findViewById(R.id.ownPlace)
-        val startDate: TextView = itemView.findViewById(R.id.startDate)
-//        val duration: TextView = itemView.findViewById(R.id.duration)
+    class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
+        private val ownPlace: TextView = itemView.findViewById(R.id.ownPlace)
+        private val startDate: TextView = itemView.findViewById(R.id.startDate)
 
-        init {
+        fun bind(trip: TripModel) {
+            ownPlace.text = trip.ownPlace
+            startDate.text = trip.startDate
             itemView.setOnClickListener {
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    context as HomeActivity, itemView, "cityImage"
-                )
-                context.startActivity(Intent(context, TripActivity::class.java), options.toBundle())
+                val intent = Intent(context, TripActivity::class.java)
+                intent.putExtra("trip", trip.uuid)
+                context.startActivity(intent)
             }
         }
     }

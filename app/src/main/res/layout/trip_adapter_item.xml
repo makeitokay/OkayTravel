@@ -13,7 +13,6 @@
         <ImageView
             android:id="@+id/imageViewAdapter"
             android:layout_width="match_parent"
-            android:transitionName="cityImage"
             android:layout_height="215dp"
             android:scaleType="fitXY"
             android:src="@drawable/asasas"/>
