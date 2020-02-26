@@ -8,7 +8,7 @@
     <string name="prompt_password">Пароль</string>
     <string name="prompt_password_again">Пароль ещё раз</string>
     <string name="action_sign_in">Войти</string>
-    <string name="action_create_account">Создать аккаунт</string>
+    <string name="action_create_account">Зарегистрируйтесь</string>
     <string name="action_sign_up">Зарегистрироваться</string>
     <string name="action_sign_in_short">Войти</string>
     <string name="welcome">Добро пожаловать!</string>
@@ -38,4 +38,5 @@
     <string name="addTripContentDescription">Добавляет новую поездку</string>
     <string name="addTripFABText">Новая поездка</string>
     <string name="newTrip">Новая поездка</string>
+    <string name="noAccountAsk">Нет аккаунта?</string>
 </resources>
