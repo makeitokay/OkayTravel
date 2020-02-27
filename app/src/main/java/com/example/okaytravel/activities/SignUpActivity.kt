@@ -35,6 +35,14 @@ class SignUpActivity : BaseActivity(), SignUpView, SyncAnonymUserDialogFragment.
                 passwordAgain.text.toString()
             )
         }
+
+        openLoginBtn.setOnClickListener {
+            startLogin()
+        }
+    }
+
+    override fun startLogin() {
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
     }
 
     override fun showSyncAnonymUserDialog() {

@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.TripActivity"></activity>
+        <activity android:name=".activities.PlacesMapActivity"></activity>
+        <activity android:name=".activities.TripActivity" />
         <activity android:name=".activities.IntroActivity" />
         <activity android:name=".activities.TripAddActivity" />
         <activity

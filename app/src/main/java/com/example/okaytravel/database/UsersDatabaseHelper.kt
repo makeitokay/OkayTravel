@@ -69,7 +69,7 @@ class UsersDatabaseHelper {
 
             var trips: ArrayList<Trip> = arrayListOf()
             user.trips().forEach { trip ->
-                val tripInfoBody = TripInfo(trip.uuid, trip.ownPlace, trip.startDate, trip.duration)
+                val tripInfoBody = TripInfo(trip.uuid, trip.ownPlace, trip.fullAddress, trip.startDate, trip.duration)
                 val budget: ArrayList<BudgetElement> = arrayListOf()
                 val places: ArrayList<Place> = arrayListOf()
                 trip.budget().forEach { budgetElement ->
@@ -77,7 +77,7 @@ class UsersDatabaseHelper {
                     budget.add(budgetElementBody)
                 }
                 trip.places().forEach { place ->
-                    val placeInfoBody = Place(place.uuid, place.name, place.date)
+                    val placeInfoBody = Place(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date)
                     places.add(placeInfoBody)
                 }
                 trips.add(Trip(tripInfoBody, budget, places))
@@ -110,6 +110,7 @@ class UsersDatabaseHelper {
 
             if (tripModel != null) {
                 tripModel.ownPlace = tripInfo.ownPlace
+                tripModel.fullAddress = tripInfo.fullAddress
                 tripModel.startDate = tripInfo.startDate
                 tripModel.duration = tripInfo.duration
 
@@ -136,10 +137,13 @@ class UsersDatabaseHelper {
 
                     if (placeModel != null) {
                         placeModel.name = place.name
+                        placeModel.fullAddress = place.fullAddress
+                        placeModel.latitude = place.latitude
+                        placeModel.longitude = place.longitude
                         placeModel.date = place.date
                         placeModel.save()
                     } else {
-                        placeDBHelper.create(place.uuid, place.name, place.date, tripModel)
+                        placeDBHelper.create(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date, tripModel)
                     }
                 }
                 tripModel.save()
@@ -147,7 +151,7 @@ class UsersDatabaseHelper {
                 } else {
 
                 val newTripModel = tripDBHelper.create(
-                    tripInfo.uuid, tripInfo.ownPlace, tripInfo.startDate, tripInfo.duration, user)
+                    tripInfo.uuid, tripInfo.ownPlace, tripInfo.fullAddress, tripInfo.startDate, tripInfo.duration, user)
 
                 trip.budget.forEach { budgetElement ->
                     budgetElementDBHelper.create(
@@ -158,7 +162,7 @@ class UsersDatabaseHelper {
                     )
                 }
                 trip.places.forEach { place ->
-                    placeDBHelper.create(place.uuid, place.name, place.date, newTripModel)
+                    placeDBHelper.create(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date, newTripModel)
                 }
             }
         }

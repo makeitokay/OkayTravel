@@ -42,4 +42,15 @@
     <string name="places">Места</string>
     <string name="budget">Бюджет</string>
     <string name="things">Вещи</string>
+    <string name="addPlaceButton">Добавить место</string>
+    <string name="remoteError">Remote error</string>
+    <string name="networkError">Network error</string>
+    <string name="searchIsEmpty">Ничего не найдено</string>
+    <string name="budgetAsk">Собираетесь потратить деньги в этом месте?</string>
+    <string name="budgetCategoryAsk">На что?</string>
+    <string name="placeDateAsk">Выберите дату посещения места</string>
+    <string name="budgetAmountAsk">Сколько?</string>
+    <string name="invalidBudgetAmount">Некорректная сумма бюджета</string>
+    <string name="haveAccountAsk">Уже есть аккаунт?</string>
+    <string name="action_sign_in_from_signup">Войдите</string>
 </resources>

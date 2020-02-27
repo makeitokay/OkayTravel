@@ -18,7 +18,7 @@ import com.example.okaytravel.views.TripAddAllDataView
 import kotlinx.android.synthetic.main.fragment_trip_add_all_data.*
 import java.util.*
 
-class TripAddAllDataFragment(private val ownPlace: String) : BaseFragment(), TripAddAllDataView {
+class TripAddAllDataFragment(private val ownPlace: String, private val fullAddress: String) : BaseFragment(), TripAddAllDataView {
 
     override val fragmentNameResource: Int
         get() = R.string.newTrip
@@ -50,7 +50,7 @@ class TripAddAllDataFragment(private val ownPlace: String) : BaseFragment(), Tri
         }
 
         addTripBtn.setOnClickListener {
-            tripAddAllDataPresenter.addTrip(ownPlace, duration.text.toString(), startDateView.text.toString())
+            tripAddAllDataPresenter.addTrip(ownPlace, fullAddress, duration.text.toString(), startDateView.text.toString())
         }
     }
 
@@ -66,7 +66,10 @@ class TripAddAllDataFragment(private val ownPlace: String) : BaseFragment(), Tri
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        DatePickerDialog(this.requireActivity(), onDateSetListener, year, month, day).show()
+        val datePickerDialog = DatePickerDialog(this.requireActivity(), onDateSetListener, year, month, day)
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+
+        datePickerDialog.show()
     }
 
     override fun openTrips() {

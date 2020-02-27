@@ -17,6 +17,9 @@ class TripModel: Model {
     @Column(name = "ownPlace")
     var ownPlace: String? = null
 
+    @Column(name = "fullAddress")
+    var fullAddress: String? = null
+
     @Column(name = "startDate")
     var startDate: String? = null
 
@@ -31,10 +34,11 @@ class TripModel: Model {
         return getMany(PlaceModel::class.java, "trip")
     }
 
-    constructor(uuid: String, user: UserModel, ownPlace: String, startDate: String, duration: Int) {
+    constructor(uuid: String, user: UserModel, ownPlace: String, fullAddress: String, startDate: String, duration: Int) {
         this.uuid = uuid
         this.user = user
         this.ownPlace = ownPlace
+        this.fullAddress = fullAddress
         this.startDate = startDate
         this.duration = duration
     }

@@ -29,6 +29,7 @@ data class Trip(
 data class TripInfo(
     val uuid: String?,
     val ownPlace: String?,
+    val fullAddress: String?,
     val startDate: String?,
     val duration: Int?
 )
@@ -42,5 +43,8 @@ data class BudgetElement(
 data class Place(
     val uuid: String?,
     val name: String?,
+    val fullAddress: String?,
+    val latitude: String?,
+    val longitude: String?,
     val date: String?
 )

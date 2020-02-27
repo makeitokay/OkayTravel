@@ -1,13 +1,19 @@
 package com.example.okaytravel
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.text.TextUtils
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.core.content.ContextCompat.getSystemService
+
+
 
 const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss.SSS"
 const val DATE_FORMAT = "dd.MM.yyyy"
@@ -91,4 +97,11 @@ fun parseDate(date: Date): String {
 
 fun uuid(): String {
     return UUID.randomUUID().toString()
+}
+
+fun hideKeyboard(activity: Activity) {
+    val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    var view = activity.currentFocus
+    if (view == null) view = View(activity)
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

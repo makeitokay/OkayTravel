@@ -3,21 +3,14 @@ package com.example.okaytravel.views
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.example.okaytravel.adapters.placeitems.PlaceListItem
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface SignUpView: MvpView {
+interface PlacesView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
-    fun startHome()
-    fun startLogin()
-    fun showSyncAnonymUserDialog()
+    fun openPlacesMap()
 
-    fun startSigningUp()
-    fun endSigningUp()
-
-    fun focusUsername()
-    fun focusEmail()
-    fun focusPassword()
-    fun focusPasswordAgain()
+    fun updatePlaces(places: MutableList<PlaceListItem>)
 }

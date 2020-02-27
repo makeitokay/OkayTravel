@@ -24,7 +24,7 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
 
     private val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
 
-    fun sync(onSuccess: () -> Unit = {}) {
+    private fun sync(onSuccess: () -> Unit = {}) {
         if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
@@ -39,7 +39,7 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
         })
     }
 
-    fun addTrip(ownPlace: String, rawDuration: String, startDate: String) {
+    fun addTrip(ownPlace: String, fullAddress: String, rawDuration: String, startDate: String) {
         if (currentUser == null)
             return
 
@@ -54,14 +54,14 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
         }
 
         if (currentUser.anonymous) {
-            tripsDBHelper.create(uuid(), ownPlace, startDate, duration, currentUser)
+            tripsDBHelper.create(uuid(), ownPlace, fullAddress, startDate, duration, currentUser)
             currentUser.updateTrigger()
             viewState.openTrips()
             return
         }
 
         sync {
-            tripsDBHelper.create(uuid(), ownPlace, startDate, duration, currentUser)
+            tripsDBHelper.create(uuid(), ownPlace, fullAddress, startDate, duration, currentUser)
             currentUser.updateTrigger()
             sync()
             viewState.openTrips()

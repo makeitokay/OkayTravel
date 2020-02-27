@@ -81,7 +81,9 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SearchManag
 
         suggestResultView.setOnItemClickListener { _, _, position, _ ->
             (activity as TripAddActivity)
-                .loadFragment(TripAddAllDataFragment(suggestItems[position].title.text))
+                .loadFragment(TripAddAllDataFragment(
+                    suggestItems[position].title.text,
+                    suggestItems[position].searchText))
         }
     }
 

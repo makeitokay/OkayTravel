@@ -3,21 +3,17 @@ package com.example.okaytravel.views
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import com.yandex.mapkit.geometry.Point
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface SignUpView: MvpView {
+interface PlacesMapView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
-    fun startHome()
-    fun startLogin()
-    fun showSyncAnonymUserDialog()
+    fun enableBudgetInput()
+    fun disableBudgetInput()
 
-    fun startSigningUp()
-    fun endSigningUp()
+    fun moveMap(point: Point)
 
-    fun focusUsername()
-    fun focusEmail()
-    fun focusPassword()
-    fun focusPasswordAgain()
+    fun openPlaces()
 }

@@ -1,5 +1,6 @@
 package com.example.okaytravel.activities
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.fragments.BudgetFragment
@@ -33,6 +34,11 @@ class TripActivity : BaseActivity(), TripView {
         fragmentViewPagerAdapter.addFragment(ThingsFragment(), getString(R.string.things))
         tripViewPager.adapter = fragmentViewPagerAdapter
         tripTabs.setupWithViewPager(tripViewPager)
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(applicationContext, HomeActivity::class.java))
+        finish()
     }
 
     private fun getTripFromExtra(): TripModel {

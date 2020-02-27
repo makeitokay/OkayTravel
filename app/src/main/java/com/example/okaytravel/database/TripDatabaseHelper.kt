@@ -6,8 +6,8 @@ import com.example.okaytravel.models.UserModel
 
 class TripDatabaseHelper {
 
-    fun create(uuid: String, ownPlace: String, startDate: String, duration: Int, user: UserModel): TripModel {
-        val trip = TripModel(uuid, user, ownPlace, startDate, duration)
+    fun create(uuid: String, ownPlace: String, fullAddress: String, startDate: String, duration: Int, user: UserModel): TripModel {
+        val trip = TripModel(uuid, user, ownPlace, fullAddress, startDate, duration)
         trip.save()
         return trip
     }
