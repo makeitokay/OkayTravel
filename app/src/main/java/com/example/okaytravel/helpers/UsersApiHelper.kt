@@ -22,9 +22,14 @@ class UsersApiHelper {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
-                if (it.error == null)
+                println(it)
+                if (it.error == null) {
                     usersDBHelper.updateUser(it)
-                onSuccess(it)
+                    onSuccess(it)
+                } else {
+                    println(it.message)
+                    onFailure()
+                }
             }, { error ->
                 println(error)
                 onFailure()
