@@ -22,11 +22,11 @@ class UsersApiHelper {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
-                println(it)
                 if (it.error == null) {
                     usersDBHelper.updateUser(it)
                     onSuccess(it)
-                } else {
+                }
+                if (it.error == true) {
                     println(it.message)
                     onFailure()
                 }

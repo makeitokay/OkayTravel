@@ -37,7 +37,9 @@ class TripActivity : BaseActivity(), TripView {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(applicationContext, HomeActivity::class.java))
+        val intent = Intent(applicationContext, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
         finish()
     }
 
