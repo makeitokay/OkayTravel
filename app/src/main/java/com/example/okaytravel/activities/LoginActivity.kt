@@ -26,6 +26,7 @@ class LoginActivity : BaseActivity(), LoginView {
     lateinit var loginPresenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // TODO: Функционал глазка для пароля
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
 

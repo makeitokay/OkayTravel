@@ -11,9 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
-import androidx.core.content.ContextCompat.getSystemService
-
-
 
 const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss.SSS"
 const val DATE_FORMAT = "dd.MM.yyyy"
@@ -73,25 +70,21 @@ fun getCurrentDatetime(): String {
 
 fun parseDatetimeString(date: String): Date? {
     val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
-    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.parse(date)
 }
 
 fun parseDateString(date: String): Date? {
     val isoFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.parse(date)
 }
 
 fun parseDatetime(date: Date): String {
     val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
-    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.format(date)
 }
 
 fun parseDate(date: Date): String {
     val isoFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    isoFormat.timeZone = TimeZone.getTimeZone("UTC+0")
     return isoFormat.format(date)
 }
 

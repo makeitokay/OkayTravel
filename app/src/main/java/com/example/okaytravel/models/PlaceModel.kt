@@ -29,7 +29,7 @@ class PlaceModel: Model {
     @Column(name = "trip", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     var trip: TripModel? = null
 
-    constructor(uuid: String, name: String, fullAddress: String, latitude: String, longitude: String, date: String, trip: TripModel) {
+    constructor(uuid: String, name: String?, fullAddress: String?, latitude: String, longitude: String, date: String, trip: TripModel) {
         this.uuid = uuid
         this.name = name
         this.fullAddress = fullAddress

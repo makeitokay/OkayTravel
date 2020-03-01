@@ -30,6 +30,7 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
     override val fragmentContainer = R.id.fragment_container
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // TODO: после первого запуска приложения добавить информационное окно об авторизации
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 

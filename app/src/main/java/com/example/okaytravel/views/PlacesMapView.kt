@@ -13,6 +13,12 @@ interface PlacesMapView: MvpView {
     fun enableBudgetInput()
     fun disableBudgetInput()
 
+    fun focusBudgetCategoryInput()
+    fun focusBudgetAmountInput()
+
+    fun showLoadingDialog()
+    fun dismissLoadingDialog()
+
     fun moveMap(point: Point)
 
     fun openPlaces()

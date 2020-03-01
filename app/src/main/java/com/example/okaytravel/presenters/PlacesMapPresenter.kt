@@ -42,13 +42,12 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
         })
     }
 
-    fun addPlace(trip: TripModel, name: String, fullAddress: String, latitude: String, longitude: String, date: String, budgetCategory: String?, rawBudgetAmount: String?) {
-        if (currentUser == null) return
-
-        if (!validateInputData(date, budgetCategory, rawBudgetAmount)) {
+    fun addPlace(trip: TripModel, name: String?, fullAddress: String?, latitude: String, longitude: String, date: String, budgetCategory: String?, rawBudgetAmount: String?) {
+        if (currentUser == null || !validateInputData(date, budgetCategory, rawBudgetAmount)) {
             return
         }
 
+        viewState.showLoadingDialog()
         var budgetElement: BudgetElementModel? = null
         if (budgetCategory != null && rawBudgetAmount != null) {
             val budgetAmount = rawBudgetAmount.toInt()
@@ -75,11 +74,18 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
     private fun validateInputData(date: String, budgetCategory: String?, rawBudgetAmount: String?): Boolean {
         if (date.isEmpty()) {
             viewState.showMessage(R.string.emptyFieldsError)
+            // TODO: Focus Date Input
             return false
         }
         if (budgetCategory != null && rawBudgetAmount != null) {
-            if (budgetCategory.isEmpty() || rawBudgetAmount.isEmpty()) {
+            if (budgetCategory.isEmpty()) {
                 viewState.showMessage(R.string.emptyFieldsError)
+                viewState.focusBudgetCategoryInput()
+                return false
+            }
+            if (rawBudgetAmount.isEmpty()) {
+                viewState.showMessage(R.string.emptyFieldsError)
+                viewState.focusBudgetAmountInput()
                 return false
             }
             val budgetAmount: Int? = try { rawBudgetAmount.toInt() } catch ( e: NumberFormatException ) { null }

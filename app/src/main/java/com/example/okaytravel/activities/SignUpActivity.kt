@@ -24,6 +24,7 @@ class SignUpActivity : BaseActivity(), SignUpView, SyncAnonymUserDialogFragment.
     lateinit var signUpPresenter: SignUpPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // TODO: Функционал глазка для пароля
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
