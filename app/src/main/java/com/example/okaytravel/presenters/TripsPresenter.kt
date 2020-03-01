@@ -16,8 +16,6 @@ import com.example.okaytravel.views.TripsView
 class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
-    private val tripsDBHelper = TripDatabaseHelper()
-
     private val usersApiHelper = UsersApiHelper()
 
     private val sessionSharedPref = SharedPrefHelper("session", context)
