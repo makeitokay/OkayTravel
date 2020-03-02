@@ -23,7 +23,7 @@ import com.yandex.runtime.network.NetworkError
 import com.yandex.runtime.network.RemoteError
 import kotlinx.android.synthetic.main.fragment_add_own_place.*
 
-class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SearchManager.SuggestListener {
+class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SuggestSession.SuggestListener {
 
     override val fragmentNameResource: Int
         get() = R.string.newTrip
@@ -36,17 +36,19 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SearchManag
     @InjectPresenter
     lateinit var tripsAddOwnPlacePresenter: TripsAddOwnPlacePresenter
 
-    private val center = Point(55.75, 37.62)
-    private val boxSize = 0.2
+    private val center = Point(0.0, 0.0)
+    private val latitudeSize = 90
+    private val longitudeSize = 180
     private val boundingBox = BoundingBox(
-        Point(center.latitude - boxSize, center.longitude - boxSize),
-        Point(center.latitude + boxSize, center.longitude + boxSize)
+        Point(center.latitude - latitudeSize, center.longitude - longitudeSize),
+        Point(center.latitude + latitudeSize, center.longitude + longitudeSize)
     )
-    private val searchOptions = SearchOptions().setSearchTypes(
-        SearchType.GEO.value or SearchType.TRANSIT.value or SearchType.BIZ.value
+    private val suggestOptions = SuggestOptions().setSuggestTypes(
+        SuggestType.GEO.value
     )
 
     private lateinit var searchManager: SearchManager
+    private lateinit var suggestSession: SuggestSession
     private lateinit var suggestResult: MutableList<String>
     private lateinit var suggestItems: MutableList<SuggestItem>
     private lateinit var suggestAdapter: ArrayAdapter<String>
@@ -63,6 +65,7 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SearchManag
         super.onViewCreated(view, savedInstanceState)
         searchManager = SearchFactory.getInstance().createSearchManager(
             SearchManagerType.COMBINED)
+        suggestSession = searchManager.createSuggestSession()
         suggestResult = ArrayList()
         suggestItems = ArrayList()
         suggestAdapter = ArrayAdapter(this.requireActivity(),
@@ -87,7 +90,7 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SearchManag
         }
     }
 
-    override fun onSuggestError(error: Error) {
+    override fun onError(error: Error) {
         var errorMessage = "Unknown error"
         if (error is RemoteError) {
             errorMessage = "Remote error"
@@ -98,24 +101,25 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SearchManag
         showMessage(errorMessage)
     }
 
-    override fun onSuggestResponse(suggest: MutableList<SuggestItem>) {
+    override fun onResponse(suggest: MutableList<SuggestItem>) {
         suggestResult.clear()
         suggestItems.clear()
         for (i in 0 until 10.coerceAtMost(suggest.size)) {
-            if (suggest[i].tags[0] == "locality") {
+            if (suggest[i].tags[0] in listOf("locality", "province")) {
                 val displayText = suggest[i].displayText
                 if (displayText != null) suggestResult.add(displayText)
                 else suggestResult.add(suggest[i].title.text)
                 suggestItems.add(suggest[i])
             }
         }
+        println("\n")
         suggestAdapter.notifyDataSetChanged()
         suggestResultView.visibility = View.VISIBLE
     }
 
     private fun requestSuggest(query: String) {
         suggestResultView.visibility = View.INVISIBLE
-        searchManager.suggest(query, boundingBox, searchOptions, this)
+        suggestSession.suggest(query, boundingBox, suggestOptions, this)
     }
 
 

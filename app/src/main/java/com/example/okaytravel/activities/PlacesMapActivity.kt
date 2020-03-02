@@ -300,7 +300,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         searchManager.submit(
             query,
             VisibleRegionUtils.toPolygon(placesMapView.map.visibleRegion),
-            SearchOptions().setSearchTypes(SearchType.MASS_TRANSIT.value),
+            SearchOptions().setSearchTypes(SearchType.GEO.value),
             citySearchListener
         )
     }
