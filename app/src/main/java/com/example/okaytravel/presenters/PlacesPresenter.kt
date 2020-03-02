@@ -47,11 +47,13 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
 
     fun updateAll() {
         currentUser?.let {
-            val places = trip.places().groupBy { it.date }
+            val places = trip.places()
+            places.sortBy { it.date }
+            val groupedPlaces = places.groupBy { it.date }
             val placeItems: MutableList<PlaceListItem> = mutableListOf()
-            places.keys.forEach { date ->
+            groupedPlaces.keys.forEach { date ->
                 placeItems.add(DateItem(date!!))
-                places[date]?.forEach { place ->
+                groupedPlaces[date]?.forEach { place ->
                     placeItems.add(PlaceItem(place))
                 }
             }
