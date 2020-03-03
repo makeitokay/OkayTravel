@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_sign_up_recommend.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
+// TODO: добавить прелоадеры: загрузка поездок, добавление поездки, загрузка мест
 class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
 
     @ProvidePresenter

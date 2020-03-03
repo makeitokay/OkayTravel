@@ -32,7 +32,6 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
             return
         }
         usersApiHelper.sync(currentUser, {
-            viewState.showMessage("Synced!")
             onSuccess()
         }, {
             viewState.showMessage(R.string.syncError)

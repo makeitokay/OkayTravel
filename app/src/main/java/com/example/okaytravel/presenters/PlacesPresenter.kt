@@ -38,7 +38,6 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
         }
         usersApiHelper.sync(currentUser, {
             updateAll()
-            viewState.showMessage("Synced!")
             onSuccess()
         }, {
             viewState.showMessage(R.string.syncError)

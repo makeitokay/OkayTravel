@@ -50,9 +50,6 @@ class PlacesFragment: BaseFragment(false), PlacesView {
 
         placesAdapter = PlacesRecyclerViewAdapter(placesData)
         placesRecyclerView.adapter = placesAdapter
-
-        placesPresenter.updateAll()
-        placesPresenter.sync()
     }
 
     override fun openPlacesMap() {
@@ -66,6 +63,11 @@ class PlacesFragment: BaseFragment(false), PlacesView {
         placesData.clear()
         placesData.addAll(places)
         placesAdapter.notifyDataSetChanged()
+    }
+
+    override fun update() {
+        placesPresenter.updateAll()
+        placesPresenter.sync()
     }
 
 }

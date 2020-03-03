@@ -48,4 +48,6 @@ class TripsMapFragment: BaseFragment(), TripsMapView {
         MapKitFactory.getInstance().onStop()
         mapView.onStop()
     }
+
+    override fun update() {}
 }

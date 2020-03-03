@@ -35,7 +35,6 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
             return
         }
         usersApiHelper.sync(currentUser, {
-            viewState.showMessage("Synced!")
             onSuccess()
         }, {
             viewState.showMessage(R.string.syncError)
@@ -58,6 +57,7 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
             placeDBHelper.create(uuid(), name, fullAddress, latitude, longitude, date, trip)
             budgetElement?.run { save(); currentUser.updateTrigger() }
             currentUser.updateTrigger()
+            viewState.dismissLoadingDialog()
             viewState.openPlaces()
             return
         }
@@ -67,6 +67,7 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
             budgetElement?.run { save(); currentUser.updateTrigger() }
             currentUser.updateTrigger()
             sync()
+            viewState.dismissLoadingDialog()
             viewState.openPlaces()
         }
     }

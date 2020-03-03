@@ -76,4 +76,6 @@ class TripAddAllDataFragment(private val ownPlace: String, private val fullAddre
         startActivity(Intent(this.requireActivity(), HomeActivity::class.java))
     }
 
+    override fun update() {}
+
 }

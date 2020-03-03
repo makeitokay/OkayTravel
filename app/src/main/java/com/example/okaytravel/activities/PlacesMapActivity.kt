@@ -164,7 +164,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
             errorMessage = getString(R.string.networkError)
         }
         showMessage(errorMessage)
-        searchResultsDialog.dismiss()
+        if (::searchResultsDialog.isInitialized) searchResultsDialog.dismiss()
     }
 
     fun showAddPlaceDialog(placeName: String?, placeFullAddress: String?, point: Point) {

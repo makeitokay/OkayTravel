@@ -52,8 +52,7 @@ class TripsFragment: BaseFragment(), TripsView {
         tripsAdapter = TripsRecyclerViewAdapter(tripsData, this.requireActivity())
         tripsRecyclerView.adapter = tripsAdapter
 
-        tripsPresenter.updateAll()
-        tripsPresenter.sync()
+        update()
     }
 
     override fun updateTrips(trips: List<TripModel>) {
@@ -71,6 +70,11 @@ class TripsFragment: BaseFragment(), TripsView {
 
     override fun openNewTrip() {
         startActivity(Intent(this.requireActivity(), TripAddActivity::class.java))
+    }
+
+    override fun update() {
+        tripsPresenter.updateAll()
+        tripsPresenter.sync()
     }
 
 }

@@ -76,4 +76,6 @@ class ProfileFragment: BaseFragment(), ProfileView {
         openSignUpBtn.visibility = View.GONE
     }
 
+    override fun update() {}
+
 }

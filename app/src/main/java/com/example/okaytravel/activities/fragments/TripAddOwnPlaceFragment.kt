@@ -133,4 +133,6 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SuggestSess
         MapKitFactory.getInstance().onStop()
     }
 
+    override fun update() {}
+
 }

@@ -56,4 +56,5 @@
     <string name="haveAccountAsk">Уже есть аккаунт?</string>
     <string name="action_sign_in_from_signup">Войдите</string>
     <string name="cancelButton">Отмена</string>
+    <string name="addButton">Добавить</string>
 </resources>

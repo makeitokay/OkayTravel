@@ -2,7 +2,9 @@ package com.example.okaytravel.activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.viewpager.widget.ViewPager
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.fragments.BaseFragment
 import com.example.okaytravel.activities.fragments.BudgetFragment
 import com.example.okaytravel.activities.fragments.PlacesFragment
 import com.example.okaytravel.activities.fragments.ThingsFragment
@@ -34,7 +36,31 @@ class TripActivity : BaseActivity(), TripView {
         fragmentViewPagerAdapter.addFragment(ThingsFragment(), getString(R.string.things))
         tripViewPager.adapter = fragmentViewPagerAdapter
         tripTabs.setupWithViewPager(tripViewPager)
+        tripViewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                // Костыль: update первого фрагмента при старте.
+                if (position == 0 && positionOffset == 0f && positionOffsetPixels == 0)
+                    (fragmentViewPagerAdapter.getItem(0) as PlacesFragment).update()
+            }
+
+            override fun onPageSelected(position: Int) {
+                val fragment = fragmentViewPagerAdapter.getItem(position)
+                when (position) {
+                    0 -> (fragment as PlacesFragment).update()
+                    1 -> (fragment as BudgetFragment).update()
+                    else -> (fragment as ThingsFragment).update()
+                }
+            }
+        })
     }
+
+
 
     override fun onBackPressed() {
         val intent = Intent(applicationContext, HomeActivity::class.java)

@@ -17,4 +17,6 @@ class ThingsFragment: BaseFragment(false) {
     ): View? {
         return inflater.inflate(R.layout.fragment_things, container, false)
     }
+
+    override fun update() {}
 }

@@ -46,7 +46,6 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
             return
         }
         usersApiHelper.sync(currentUser, {
-            viewState.showMessage("Synced!")
             onSuccess()
         }, {
             viewState.showMessage(R.string.syncError)
