@@ -60,6 +60,7 @@ class BudgetFragment: BaseFragment(false), BudgetView {
         budgetPieChart.setDrawEntryLabels(false)
 
         budgetPieChart.legend.isWordWrapEnabled = true
+        budgetPieChart.legend.textSize = 20f
     }
 
     override fun setPieChartCenterText(text: String) {
