@@ -117,8 +117,6 @@ class BudgetFragment: BaseFragment(false), BudgetView {
 
     override fun update() {
         showBudgetLoading()
-        budgetPresenter.sync {
-            budgetPresenter.updateAll()
-        }
+        budgetPresenter.updateAll()
     }
 }

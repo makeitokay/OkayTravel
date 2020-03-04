@@ -33,6 +33,7 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
             return
         if (!isInternetAvailable(context)) {
             viewState.showMessage(R.string.noInternetConnection)
+            viewState.showPieChart()
             return
         }
         usersApiHelper.sync(currentUser, {
@@ -56,7 +57,7 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
             budgetDBHelper.create(uuid(), amount, category, trip)
             currentUser.updateTrigger()
             viewState.dismissLoadingDialog()
-            updateAll()
+            updateItems()
             return
         }
         viewState.showBudgetLoading()
@@ -65,12 +66,23 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
             currentUser.updateTrigger()
             sync()
             viewState.dismissLoadingDialog()
-            viewState.showPieChart()
-            updateAll()
+            updateItems()
         }
     }
 
     fun updateAll() {
+        if (currentUser == null) return
+        if (currentUser.anonymous) {
+            viewState.showPieChart()
+            updateItems()
+            return
+        }
+        sync {
+            updateItems()
+        }
+    }
+
+    fun updateItems() {
         currentUser?.let {
             val items = ArrayList<PieEntry>()
             trip.budget().forEach {
