@@ -26,9 +26,12 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
 
     private val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
 
-    fun checkUserSession() {
+    fun checkUserSession(fromActivity: String?) {
         currentUser?.let {
-            if (currentUser.anonymous && !usageInfoSharedPref.getShowNoMoreRecommend()) {
+            if (currentUser.anonymous &&
+                !usageInfoSharedPref.getShowNoMoreRecommend() &&
+                fromActivity in listOf("SplashActivity", "IntroActivity")
+            ) {
                 viewState.showSignUpRecommendDialog()
             }
         }

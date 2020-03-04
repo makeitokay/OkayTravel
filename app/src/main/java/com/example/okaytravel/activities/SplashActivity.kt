@@ -38,7 +38,9 @@ class SplashActivity : BaseActivity(), SplashView {
     }
 
     override fun startHome() {
-        startActivity(Intent(applicationContext, HomeActivity::class.java))
+        val intent = Intent(applicationContext, HomeActivity::class.java)
+        intent.putExtra("from", "SplashActivity")
+        startActivity(intent)
         finish()
     }
 }

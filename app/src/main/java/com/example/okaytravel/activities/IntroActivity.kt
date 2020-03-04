@@ -29,13 +29,19 @@ class IntroActivity : AppIntro2() {
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
 
-        startActivity(Intent(applicationContext, HomeActivity::class.java))
+        startHome()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
-        startActivity(Intent(applicationContext, HomeActivity::class.java))
+        startHome()
+    }
+
+    private fun startHome() {
+        val intent = Intent(applicationContext, HomeActivity::class.java)
+        intent.putExtra("from", "IntroActivity")
+        startActivity(intent)
     }
 
     private fun initPlacesSliderPage() {

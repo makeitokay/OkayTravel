@@ -32,6 +32,10 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
 
     override val fragmentContainer = R.id.fragment_container
 
+    fun getFromActivity(): String? {
+        return intent.getStringExtra("from")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // TODO: после первого запуска приложения добавить информационное окно об авторизации
         super.onCreate(savedInstanceState)
@@ -40,7 +44,7 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
         MapKitFactory.setApiKey(getString(R.string.mapkitAccessToken))
         MapKitFactory.initialize(this)
 
-        homePresenter.checkUserSession()
+        homePresenter.checkUserSession(getFromActivity())
         homePresenter.sync()
 
         loadFragment(TripsFragment() as BaseFragment)
