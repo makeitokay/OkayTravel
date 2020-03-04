@@ -13,6 +13,7 @@ interface BudgetView: MvpView {
     fun showBudgetLoading()
     fun showPieChart()
     fun updatePieChart(items: ArrayList<PieEntry>)
+    fun setPieChartCenterText(text: String)
 
     fun openAddBudgetDialog()
     fun showLoadingDialog()

@@ -57,8 +57,13 @@ class BudgetFragment: BaseFragment(false), BudgetView {
         budgetPieChart.isDrawHoleEnabled = true
         budgetPieChart.setHoleColor(Color.WHITE)
         budgetPieChart.transparentCircleRadius = 60f
+        budgetPieChart.setDrawEntryLabels(false)
 
         budgetPieChart.legend.isWordWrapEnabled = true
+    }
+
+    override fun setPieChartCenterText(text: String) {
+        budgetPieChart.centerText = text
     }
 
     override fun showBudgetLoading() {

@@ -82,13 +82,17 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
         }
     }
 
-    fun updateItems() {
+    private fun updateItems() {
         currentUser?.let {
+            var totalAmount = 0f
             val items = ArrayList<PieEntry>()
             trip.budget().forEach {
-                items.add(PieEntry(it.amount?.toFloat()!!, it.category))
+                val amount = it.amount?.toFloat() ?: 0f
+                totalAmount += amount
+                items.add(PieEntry(amount, it.category))
             }
             viewState.updatePieChart(items)
+            viewState.setPieChartCenterText("Всего:\n$totalAmount")
         }
     }
 
