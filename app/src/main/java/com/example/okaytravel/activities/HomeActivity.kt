@@ -1,5 +1,6 @@
 package com.example.okaytravel.activities
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.example.okaytravel.views.HomeView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.dialog_sign_up_recommend.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +39,7 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
         MapKitFactory.setApiKey(getString(R.string.mapkitAccessToken))
         MapKitFactory.initialize(this)
 
+        homePresenter.checkUserSession()
         homePresenter.sync()
 
         loadFragment(TripsFragment() as BaseFragment)
@@ -53,6 +56,18 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
             R.id.profile -> { fragment = ProfileFragment() }
         }
         return loadFragment(fragment as BaseFragment)
+    }
+
+    override fun showSignUpRecommendDialog() {
+        val builder = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.dialog_sign_up_recommend, null)
+        builder.setView(view)
+        val dialog = builder.create()
+        view.okButton.setOnClickListener {
+            dialog.dismiss()
+            homePresenter.endSignUpRecommendShowDialog(view.showNoMoreCheck.isChecked)
+        }
+        dialog.show()
     }
 
 }

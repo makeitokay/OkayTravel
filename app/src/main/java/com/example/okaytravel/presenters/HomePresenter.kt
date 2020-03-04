@@ -20,10 +20,23 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
     private val sessionSharedPref = SharedPrefHelper("session", context)
+    private val usageInfoSharedPref = SharedPrefHelper("usageInfo", context)
 
     private val usersApiHelper = UsersApiHelper()
 
     private val currentUser = usersDBHelper.getUserByLogin(sessionSharedPref.getCurrentUser())
+
+    fun checkUserSession() {
+        currentUser?.let {
+            if (currentUser.anonymous && !usageInfoSharedPref.getShowNoMoreRecommend()) {
+                viewState.showSignUpRecommendDialog()
+            }
+        }
+    }
+
+    fun endSignUpRecommendShowDialog(showNoMore: Boolean) {
+        if (showNoMore) usageInfoSharedPref.setShowNoMoreRecommend()
+    }
 
     fun sync(onSuccess: () -> Unit = {}) {
         if (currentUser == null || currentUser.anonymous)

@@ -25,4 +25,12 @@ class SharedPrefHelper(name: String, context: Context) {
     fun setHasVisited() {
         pref.edit().putBoolean("hasVisited", true).apply()
     }
+
+    fun getShowNoMoreRecommend(): Boolean {
+        return pref.getBoolean("showNoMoreRecommend", false)
+    }
+
+    fun setShowNoMoreRecommend() {
+        pref.edit().putBoolean("showNoMoreRecommend", true).apply()
+    }
 }

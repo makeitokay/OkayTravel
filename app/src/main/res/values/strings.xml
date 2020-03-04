@@ -39,6 +39,8 @@
     <string name="addTripFABText">Новая поездка</string>
     <string name="newTrip">Новая поездка</string>
     <string name="noAccountAsk">Нет аккаунта?</string>
+    <string name="signUpRecommend">Сейчас вы не авторизованы. Зарегистрируйтесь и авторизуйтесь для синхронизации и сохранения ваших данных</string>
+    <string name="showNoMore">Больше не показывать</string>
     <string name="places">Места</string>
     <string name="budget">Бюджет</string>
     <string name="things">Вещи</string>
