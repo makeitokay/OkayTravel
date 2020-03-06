@@ -138,7 +138,12 @@ class ThingsFragment: BaseFragment(false), ThingsView {
         changeThingsList.clear()
     }
 
-    private val onAddThingButtonClickedListener = View.OnClickListener { openAddThingDialog() }
+    private val onAddThingButtonClickedListener = View.OnClickListener {
+        if (changeThingsList.isNotEmpty())
+            showMessage(R.string.finishThingsEdit)
+        else
+            openAddThingDialog()
+    }
 
     private val baseOnThingClickedListener = fun(thingItem: ThingListItem) {
         createConfirmThingsEditSnackbar()
