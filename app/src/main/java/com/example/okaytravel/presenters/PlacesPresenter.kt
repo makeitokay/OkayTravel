@@ -33,30 +33,42 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
+            viewState.showPlaces()
             viewState.showMessage(R.string.noInternetConnection)
             return
         }
         usersApiHelper.sync(currentUser, {
-            updateAll()
+            viewState.showPlaces()
             onSuccess()
         }, {
             viewState.showMessage(R.string.syncError)
+            updateItems()
         })
     }
 
     fun updateAll() {
-        currentUser?.let {
-            val places = trip.places()
-            places.sortBy { it.date }
-            val groupedPlaces = places.groupBy { it.date }
-            val placeItems: MutableList<PlaceListItem> = mutableListOf()
-            groupedPlaces.keys.forEach { date ->
-                placeItems.add(DateItem(date!!))
-                groupedPlaces[date]?.forEach { place ->
-                    placeItems.add(PlaceItem(place))
-                }
-            }
-            viewState.updatePlaces(placeItems)
+        if (currentUser == null) return
+        if (currentUser.anonymous) {
+            viewState.showPlaces()
+            updateItems()
+            return
         }
+        sync {
+            updateItems()
+        }
+    }
+
+    fun updateItems() {
+        val places = trip.places()
+        places.sortBy { it.date }
+        val groupedPlaces = places.groupBy { it.date }
+        val placeItems: MutableList<PlaceListItem> = mutableListOf()
+        groupedPlaces.keys.forEach { date ->
+            placeItems.add(DateItem(date!!))
+            groupedPlaces[date]?.forEach { place ->
+                placeItems.add(PlaceItem(place))
+            }
+        }
+        viewState.updatePlaces(placeItems)
     }
 }

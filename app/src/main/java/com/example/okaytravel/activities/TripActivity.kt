@@ -14,12 +14,14 @@ import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.views.TripView
 import kotlinx.android.synthetic.main.activity_trip.*
 
-class TripActivity : BaseActivity(), TripView {
+class TripActivity : BaseActivity(), TripView, ViewPager.OnPageChangeListener {
 
     override val fragmentContainer: Int? = null
 
     private val tripsDBHelper = TripDatabaseHelper()
     lateinit var trip: TripModel
+
+    private lateinit var fragmentViewPagerAdapter: TripFragmentViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,42 +32,39 @@ class TripActivity : BaseActivity(), TripView {
         setToolbarBackButton()
         title = trip.ownPlace
 
-        val fragmentViewPagerAdapter = TripFragmentViewPagerAdapter(supportFragmentManager)
+        fragmentViewPagerAdapter = TripFragmentViewPagerAdapter(supportFragmentManager)
         fragmentViewPagerAdapter.addFragment(PlacesFragment(), getString(R.string.places))
         fragmentViewPagerAdapter.addFragment(BudgetFragment(), getString(R.string.budget))
         fragmentViewPagerAdapter.addFragment(ThingsFragment(), getString(R.string.things))
         tripViewPager.adapter = fragmentViewPagerAdapter
         tripTabs.setupWithViewPager(tripViewPager)
-        tripViewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
+        tripViewPager.addOnPageChangeListener(this)
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                // Костыль: update первого фрагмента при старте.
-                if (position == 0 && positionOffset == 0f && positionOffsetPixels == 0)
-                    (fragmentViewPagerAdapter.getItem(0) as PlacesFragment).update()
-            }
-
-            override fun onPageSelected(position: Int) {
-                for (i in 0..2) {
-                    fragmentViewPagerAdapter.getItem(i).onDetach()
-                }
-
-                val fragment = fragmentViewPagerAdapter.getItem(position)
-                when (position) {
-                    // Костыль!!!
-                    0 -> {}
-                    1 -> (fragment as BudgetFragment).update()
-                    else -> (fragment as ThingsFragment).update()
-                }
-            }
-        })
+        tripViewPager.post {
+            onPageSelected(0)
+        }
     }
 
+    override fun onPageScrollStateChanged(state: Int) {}
 
+    override fun onPageScrolled(
+        position: Int,
+        positionOffset: Float,
+        positionOffsetPixels: Int
+    ) {}
+
+    override fun onPageSelected(position: Int) {
+        for (i in 0..2) {
+            fragmentViewPagerAdapter.getItem(i).onDetach()
+        }
+
+        val fragment = fragmentViewPagerAdapter.getItem(position)
+        when (position) {
+            0 -> (fragment as PlacesFragment).update()
+            1 -> (fragment as BudgetFragment).update()
+            else -> (fragment as ThingsFragment).update()
+        }
+    }
 
     override fun onBackPressed() {
         val intent = Intent(applicationContext, HomeActivity::class.java)

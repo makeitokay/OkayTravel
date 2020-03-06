@@ -12,5 +12,8 @@ interface PlacesView: MvpView {
 
     fun openPlacesMap()
 
+    fun showPlacesLoading()
+    fun showPlaces()
+
     fun updatePlaces(places: MutableList<PlaceListItem>)
 }

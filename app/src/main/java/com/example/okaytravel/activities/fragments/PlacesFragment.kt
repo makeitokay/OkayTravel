@@ -52,6 +52,16 @@ class PlacesFragment: BaseFragment(false), PlacesView {
         placesRecyclerView.adapter = placesAdapter
     }
 
+    override fun showPlacesLoading() {
+        loading.visibility = View.VISIBLE
+        placesRecyclerView.visibility = View.GONE
+    }
+
+    override fun showPlaces() {
+        placesRecyclerView.visibility = View.VISIBLE
+        loading.visibility = View.GONE
+    }
+
     override fun openPlacesMap() {
         val trip = (activity as TripActivity).trip
         val intent = Intent(this.requireActivity(), PlacesMapActivity::class.java)
@@ -66,10 +76,8 @@ class PlacesFragment: BaseFragment(false), PlacesView {
     }
 
     override fun update() {
-        println("Update places")
-        // TODO: исправить апдейт
+        showPlacesLoading()
         placesPresenter.updateAll()
-        placesPresenter.sync()
     }
 
 }
