@@ -66,6 +66,8 @@ class PlacesFragment: BaseFragment(false), PlacesView {
     }
 
     override fun update() {
+        println("Update places")
+        // TODO: исправить апдейт
         placesPresenter.updateAll()
         placesPresenter.sync()
     }

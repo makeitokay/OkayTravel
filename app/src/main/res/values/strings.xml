@@ -57,4 +57,12 @@
     <string name="action_sign_in_from_signup">Войдите</string>
     <string name="cancelButton">Отмена</string>
     <string name="addButton">Добавить</string>
+    <string name="addThingBtn">Добавить вещь</string>
+    <string name="thingNameAsk">Название вещи</string>
+    <string name="invalidThingName">Слишком длинное название вещи</string>
+    <string name="notAlreadyTaken">Ещё не собраны</string>
+    <string name="alreadyTaken">Уже собраны</string>
+    <string name="cancelThingsEdit">Отменить</string>
+    <string name="save">Сохранить</string>
+    <string name="confirmActionAsk">Сохранить изменения?</string>
 </resources>

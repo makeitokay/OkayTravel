@@ -34,6 +34,10 @@ class TripModel: Model {
         return getMany(PlaceModel::class.java, "trip")
     }
 
+    fun things(): MutableList<ThingModel> {
+        return getMany(ThingModel::class.java, "trip")
+    }
+
     constructor(uuid: String, user: UserModel, ownPlace: String, fullAddress: String, startDate: String, duration: Int) {
         this.uuid = uuid
         this.user = user

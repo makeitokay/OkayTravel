@@ -11,6 +11,7 @@ class UsersDatabaseHelper {
     private val tripDBHelper = TripDatabaseHelper()
     private val budgetElementDBHelper = BudgetElementDatabaseHelper()
     private val placeDBHelper = PlaceDatabaseHelper()
+    private val thingDBHelper = ThingDatabaseHelper()
 
     fun createUser(username: String, email: String, passwordHash: String, accessToken: String): UserModel {
         var user = UserModel(username, email, passwordHash, null, accessToken)
@@ -72,6 +73,7 @@ class UsersDatabaseHelper {
                 val tripInfoBody = TripInfo(trip.uuid, trip.ownPlace, trip.fullAddress, trip.startDate, trip.duration)
                 val budget: ArrayList<BudgetElement> = arrayListOf()
                 val places: ArrayList<Place> = arrayListOf()
+                val things: ArrayList<Thing> = arrayListOf()
                 trip.budget().forEach { budgetElement ->
                     val budgetElementBody = BudgetElement(budgetElement.uuid, budgetElement.amount, budgetElement.category)
                     budget.add(budgetElementBody)
@@ -80,7 +82,11 @@ class UsersDatabaseHelper {
                     val placeInfoBody = Place(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date)
                     places.add(placeInfoBody)
                 }
-                trips.add(Trip(tripInfoBody, budget, places))
+                trip.things().forEach { thing ->
+                    val thingBody = Thing(thing.uuid, thing.name, thing.taken)
+                    things.add(thingBody)
+                }
+                trips.add(Trip(tripInfoBody, budget, places, things))
             }
             return SyncBody(User(userInfoBody, trips), user.accessToken!!)
         }
@@ -146,6 +152,17 @@ class UsersDatabaseHelper {
                         placeDBHelper.create(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date, tripModel)
                     }
                 }
+
+                trip.things.forEach { thing ->
+                    var thingModel = thingDBHelper.getThingByUuid(thing.uuid)
+
+                    if (thingModel != null) {
+                        thingModel.name = thing.name
+                        thingModel.taken = thing.taken
+                    } else {
+                        thingDBHelper.create(thing.uuid, thing.name, thing.taken, tripModel)
+                    }
+                }
                 tripModel.save()
 
                 } else {
@@ -163,6 +180,9 @@ class UsersDatabaseHelper {
                 }
                 trip.places.forEach { place ->
                     placeDBHelper.create(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date, newTripModel)
+                }
+                trip.things.forEach { thing ->
+                    thingDBHelper.create(thing.uuid, thing.name, thing.taken, newTripModel)
                 }
             }
         }

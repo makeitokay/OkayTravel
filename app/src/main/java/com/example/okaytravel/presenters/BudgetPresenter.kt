@@ -42,7 +42,7 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
         }, {
             viewState.showPieChart()
             viewState.showMessage(R.string.syncError)
-            updateAll()
+            updateItems()
         })
     }
 
@@ -97,6 +97,7 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
     }
 
     private fun validateInputData(category: String, rawAmount: String): Boolean {
+        // TODO: ограничение на длину категории: не более 30 символов
         if (category.isEmpty() || rawAmount.isEmpty()) {
             viewState.showMessage(R.string.emptyFieldsError)
         }

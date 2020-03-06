@@ -10,7 +10,9 @@ import com.example.okaytravel.adapters.placeitems.DateItem
 import com.example.okaytravel.adapters.placeitems.PlaceItem
 import com.example.okaytravel.adapters.placeitems.PlaceListItem
 
-class PlacesRecyclerViewAdapter(private val placeItems: MutableList<PlaceListItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlacesRecyclerViewAdapter(
+    private val placeItems: MutableList<PlaceListItem>
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

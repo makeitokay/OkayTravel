@@ -50,9 +50,14 @@ class TripActivity : BaseActivity(), TripView {
             }
 
             override fun onPageSelected(position: Int) {
+                for (i in 0..2) {
+                    fragmentViewPagerAdapter.getItem(i).onDetach()
+                }
+
                 val fragment = fragmentViewPagerAdapter.getItem(position)
                 when (position) {
-                    0 -> (fragment as PlacesFragment).update()
+                    // Костыль!!!
+                    0 -> {}
                     1 -> (fragment as BudgetFragment).update()
                     else -> (fragment as ThingsFragment).update()
                 }

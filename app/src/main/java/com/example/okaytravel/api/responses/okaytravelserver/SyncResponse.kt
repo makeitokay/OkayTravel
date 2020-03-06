@@ -23,7 +23,8 @@ data class UserInfo(
 data class Trip(
     val trip: TripInfo,
     val budget: List<BudgetElement>,
-    val places: List<Place>
+    val places: List<Place>,
+    val things: List<Thing>
 )
 
 data class TripInfo(
@@ -32,6 +33,12 @@ data class TripInfo(
     val fullAddress: String,
     val startDate: String,
     val duration: Int
+)
+
+data class Thing(
+    val uuid: String,
+    val name: String,
+    val taken: Boolean
 )
 
 data class BudgetElement(
