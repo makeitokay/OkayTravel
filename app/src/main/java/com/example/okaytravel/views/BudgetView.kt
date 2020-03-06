@@ -16,6 +16,7 @@ interface BudgetView: MvpView {
     fun setPieChartCenterText(text: String)
 
     fun openAddBudgetDialog()
+    fun dismissAddBudgetDialog()
     fun showLoadingDialog()
     fun dismissLoadingDialog()
 

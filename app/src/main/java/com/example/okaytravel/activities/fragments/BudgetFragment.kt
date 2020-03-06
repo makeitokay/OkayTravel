@@ -35,6 +35,8 @@ class BudgetFragment: BaseFragment(false), BudgetView {
     @InjectPresenter
     lateinit var budgetPresenter: BudgetPresenter
 
+    private var addBudgetDialog: AlertDialog? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,13 +92,24 @@ class BudgetFragment: BaseFragment(false), BudgetView {
             val dialog = AlertDialog.Builder(context!!)
                 .setMessage(R.string.budget)
                 .setView(view)
-                .setPositiveButton(R.string.addButton) { _, _ -> this.onAddButtonClicked(
-                    view.placeBudgetCategory.text.toString(), view.placeBudgetAmount.text.toString()
-                ) }
+                .setPositiveButton(R.string.addButton, null)
                 .setNegativeButton(R.string.cancelButton) { _, _ -> this.onCancelButtonClicked() }
                 .create()
+            addBudgetDialog = dialog
+            dialog.setOnShowListener {
+                val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                positiveButton.setOnClickListener {
+                    this.onAddButtonClicked(
+                        view.placeBudgetCategory.text.toString(), view.placeBudgetAmount.text.toString()
+                    )
+                }
+            }
             dialog.show()
         }
+    }
+
+    override fun dismissAddBudgetDialog() {
+        addBudgetDialog?.dismiss()
     }
 
     private fun getColors(): MutableList<Int> {

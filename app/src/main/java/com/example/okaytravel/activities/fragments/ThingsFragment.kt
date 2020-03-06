@@ -1,5 +1,7 @@
 package com.example.okaytravel.activities.fragments
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.CompoundButton
@@ -39,6 +41,7 @@ class ThingsFragment: BaseFragment(false), ThingsView {
     private lateinit var notTakenThingsAdapter: NotTakenThingsRecyclerViewAdapter
 
     private var saveThingsEditSnackbar: Snackbar? = null
+    private var addThingDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -172,20 +175,23 @@ class ThingsFragment: BaseFragment(false), ThingsView {
             val dialog = AlertDialog.Builder(context!!)
                 .setMessage(R.string.addThingBtn)
                 .setView(view)
-                .setPositiveButton(R.string.addButton) { _, _ -> this.onCreateThingClicked(
-                    view.thingName.text.toString()
-                ) }
-                .setNegativeButton(R.string.cancelButton) { _, _ -> this.onCancelButtonClicked() }
+                .setPositiveButton(R.string.addButton, null)
+                .setNegativeButton(R.string.cancelButton) { _: DialogInterface, _: Int -> }
                 .create()
+            addThingDialog = dialog
+            dialog.setOnShowListener {
+                val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                positiveButton.setOnClickListener {
+                    thingsPresenter.addThing(view.thingName.text.toString())
+                }
+            }
             dialog.show()
         }
     }
 
-    private fun onCreateThingClicked(name: String) {
-        thingsPresenter.addThing(name)
+    override fun dismissAddThingDialog() {
+        addThingDialog?.dismiss()
     }
-
-    private fun onCancelButtonClicked() {}
 
     override fun update() {
         showThingsLoading()

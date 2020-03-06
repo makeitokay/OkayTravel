@@ -193,7 +193,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         val dialog = builder.create()
         dialog.setOnShowListener {
             val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            positiveButton.setOnClickListener { v ->
+            positiveButton.setOnClickListener {
                 var budgetCategory: String? = null
                 var budgetAmount: String? = null
                 if (addPlaceDialogView.yesBudgetButton.isChecked) {

@@ -46,6 +46,7 @@ class ThingsPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser == null || !validateInputData(name)) {
             return
         }
+        viewState.dismissAddThingDialog()
 
         viewState.showLoadingDialog()
         if (currentUser.anonymous) {

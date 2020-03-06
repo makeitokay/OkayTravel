@@ -50,6 +50,7 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser == null || !validateInputData(category, rawAmount)) {
             return
         }
+        viewState.dismissAddBudgetDialog()
 
         viewState.showLoadingDialog()
         val amount = rawAmount.toInt()
@@ -100,6 +101,7 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
         // TODO: ограничение на длину категории: не более 30 символов
         if (category.isEmpty() || rawAmount.isEmpty()) {
             viewState.showMessage(R.string.emptyFieldsError)
+            return false
         }
         val budgetAmount: Int? = try { rawAmount.toInt() } catch ( e: NumberFormatException ) { null }
         if (budgetAmount == null || budgetAmount <= 0 || budgetAmount > 999999998) {

@@ -14,6 +14,7 @@ interface ThingsView: MvpView {
     fun hideThingsLoading()
 
     fun openAddThingDialog()
+    fun dismissAddThingDialog()
     fun showLoadingDialog()
     fun dismissLoadingDialog()
 
