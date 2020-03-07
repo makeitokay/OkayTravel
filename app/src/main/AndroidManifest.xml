@@ -17,8 +17,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.PlacesMapActivity"></activity>
         <activity android:name=".activities.TripActivity" />
-        <activity android:name=".activities.IntroActivity" />
-        <activity android:name=".activities.TripAddActivity" />
+        <activity android:name=".activities.IntroActivity" android:noHistory="true" />
+        <activity android:name=".activities.TripAddActivity" android:noHistory="true"/>
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.Splash">

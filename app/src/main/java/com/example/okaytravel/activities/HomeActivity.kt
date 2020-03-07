@@ -37,7 +37,6 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // TODO: после первого запуска приложения добавить информационное окно об авторизации
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
@@ -50,6 +49,10 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
         loadFragment(TripsFragment() as BaseFragment)
 
         bottom_navigation.setOnNavigationItemSelectedListener(this)
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
