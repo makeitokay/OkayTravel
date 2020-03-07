@@ -42,8 +42,7 @@ class TripAddAllDataFragment(private val ownPlace: String, private val fullAddre
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ownPlaceView.text = "Отлично! Едем в $ownPlace!"
-
+        ownPlaceView.text = getString(R.string.tripAddAllDataOwnPlace, ownPlace)
 
         startDateView.setOnClickListener {
             openDatePickerDialog()
@@ -52,6 +51,16 @@ class TripAddAllDataFragment(private val ownPlace: String, private val fullAddre
         addTripBtn.setOnClickListener {
             tripAddAllDataPresenter.addTrip(ownPlace, fullAddress, duration.text.toString(), startDateView.text.toString())
         }
+    }
+
+    override fun showAddTripButton() {
+        loading.visibility = View.GONE
+        addTripBtn.visibility = View.VISIBLE
+    }
+
+    override fun showLoading() {
+        loading.visibility = View.VISIBLE
+        addTripBtn.visibility = View.GONE
     }
 
     private val onDateSetListener = DatePickerDialog.OnDateSetListener { dp, year, month, day ->

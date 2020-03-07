@@ -28,12 +28,14 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
         if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
+            viewState.showAddTripButton()
             viewState.showMessage(R.string.noInternetConnection)
             return
         }
         usersApiHelper.sync(currentUser, {
             onSuccess()
         }, {
+            viewState.showAddTripButton()
             viewState.showMessage(R.string.syncError)
         })
     }
@@ -52,6 +54,7 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
             return
         }
 
+        viewState.showLoading()
         if (currentUser.anonymous) {
             tripsDBHelper.create(uuid(), ownPlace, fullAddress, startDate, duration, currentUser)
             currentUser.updateTrigger()

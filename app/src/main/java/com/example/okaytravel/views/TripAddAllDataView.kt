@@ -11,4 +11,7 @@ interface TripAddAllDataView: MvpView {
 
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
+
+    fun showLoading()
+    fun showAddTripButton()
 }

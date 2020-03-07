@@ -66,4 +66,5 @@
     <string name="save">Сохранить</string>
     <string name="confirmActionAsk">Сохранить изменения?</string>
     <string name="finishThingsEdit">Сначала закончите редактирование вещей</string>
+    <string name="tripAddAllDataOwnPlace">Отлично! Едем в %1$s!</string>
 </resources>
