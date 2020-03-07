@@ -36,7 +36,7 @@ class LoginActivity : BaseActivity(), LoginView {
             openSignUp()
         }
         loginBtn.setOnClickListener {
-            loginPresenter.Login(login.text.toString(), password.text.toString())
+            loginPresenter.login(login.text.toString(), password.text.toString())
         }
         loginAsAnonymousBtn.setOnClickListener {
             loginPresenter.loginAsAnonymous()

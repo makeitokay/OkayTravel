@@ -33,6 +33,7 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
+            updateItems()
             viewState.showPlaces()
             viewState.showMessage(R.string.noInternetConnection)
             return
@@ -41,8 +42,9 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
             viewState.showPlaces()
             onSuccess()
         }, {
-            viewState.showMessage(R.string.syncError)
             updateItems()
+            viewState.showPlaces()
+            viewState.showMessage(R.string.syncError)
         })
     }
 

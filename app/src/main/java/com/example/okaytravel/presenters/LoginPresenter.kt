@@ -23,11 +23,16 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
     private val sessionSharedPref: SharedPrefHelper = SharedPrefHelper("session", context)
     private val usersDBHelper = UsersDatabaseHelper()
 
-    fun Login(login: String, password: String) {
+    fun login(login: String, password: String) {
         viewState.startSigningIn()
 
         if (!validateInputData(login, password)) {
             viewState.endSigningIn()
+            return
+        }
+        if (!isInternetAvailable(context)) {
+            viewState.endSigningIn()
+            viewState.showMessage(R.string.noInternetConnection)
             return
         }
 
@@ -41,7 +46,6 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
                 }
 
                 viewState.endSigningIn()
-                viewState.showMessage("Authorized!")
                 sessionSharedPref.setCurrentUser(login)
                 viewState.openHome()
 

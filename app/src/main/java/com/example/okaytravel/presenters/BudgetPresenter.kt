@@ -32,17 +32,18 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser == null || currentUser.anonymous)
             return
         if (!isInternetAvailable(context)) {
-            viewState.showMessage(R.string.noInternetConnection)
+            updateItems()
             viewState.showPieChart()
+            viewState.showMessage(R.string.noInternetConnection)
             return
         }
         usersApiHelper.sync(currentUser, {
             viewState.showPieChart()
             onSuccess()
         }, {
+            updateItems()
             viewState.showPieChart()
             viewState.showMessage(R.string.syncError)
-            updateItems()
         })
     }
 

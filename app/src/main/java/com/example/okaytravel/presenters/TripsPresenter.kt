@@ -27,6 +27,7 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
             return
         if (!isInternetAvailable(context)) {
             viewState.showMessage(R.string.noInternetConnection)
+            updateItems()
             viewState.showTrips()
             return
         }
@@ -34,6 +35,7 @@ class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
             viewState.showTrips()
             onSuccess()
         }, {
+            updateItems()
             viewState.showTrips()
             viewState.showMessage(R.string.syncError)
         })
