@@ -2,6 +2,8 @@ package com.example.okaytravel.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.okaytravel.AVAILABLE_CITY_IMAGES
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.HomeActivity
 import com.example.okaytravel.activities.TripActivity
 import com.example.okaytravel.models.TripModel
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class TripsRecyclerViewAdapter(
     private val tripsList: MutableList<TripModel>,
@@ -38,10 +43,18 @@ class TripsRecyclerViewAdapter(
     class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
         private val ownPlace: TextView = itemView.findViewById(R.id.ownPlace)
         private val startDate: TextView = itemView.findViewById(R.id.startDate)
+        private val cityImage: ImageView = itemView.findViewById(R.id.cityImageView)
 
         fun bind(trip: TripModel) {
             ownPlace.text = trip.ownPlace
             startDate.text = trip.startDate
+            if (trip.fullAddress in AVAILABLE_CITY_IMAGES)
+                Picasso.get().load("http://okaytravel.pythonanywhere.com/image?city=${trip.fullAddress}")
+                    .error(R.drawable.standard_city_image)
+                    .placeholder(ColorDrawable(context.getColor(android.R.color.darker_gray)))
+                    .fit()
+                    .into(cityImage)
+
             itemView.setOnClickListener {
                 val intent = Intent(context, TripActivity::class.java)
                 intent.putExtra("trip", trip.uuid)
