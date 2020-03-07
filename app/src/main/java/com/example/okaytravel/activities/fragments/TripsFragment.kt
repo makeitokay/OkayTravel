@@ -55,6 +55,17 @@ class TripsFragment: BaseFragment(), TripsView {
         update()
     }
 
+    override fun showTrips() {
+        loading.visibility = View.GONE
+        tripsRecyclerView.visibility = View.VISIBLE
+    }
+
+    override fun showTripsLoading() {
+        loading.visibility = View.VISIBLE
+        tripsRecyclerView.visibility = View.GONE
+        noTripsView.visibility = View.GONE
+    }
+
     override fun updateTrips(trips: List<TripModel>) {
         tripsData.clear()
         if (trips.isEmpty()) {
@@ -62,8 +73,6 @@ class TripsFragment: BaseFragment(), TripsView {
             tripsRecyclerView.visibility = View.GONE
             return
         }
-        tripsRecyclerView.visibility = View.VISIBLE
-        noTripsView.visibility = View.GONE
         tripsData.addAll(trips)
         tripsAdapter.notifyDataSetChanged()
     }
@@ -73,8 +82,8 @@ class TripsFragment: BaseFragment(), TripsView {
     }
 
     override fun update() {
+        showTripsLoading()
         tripsPresenter.updateAll()
-        tripsPresenter.sync()
     }
 
 }

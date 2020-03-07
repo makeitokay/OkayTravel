@@ -12,5 +12,8 @@ interface TripsView: MvpView {
 
     fun openNewTrip()
 
+    fun showTripsLoading()
+    fun showTrips()
+
     fun updateTrips(trips: List<TripModel>)
 }
