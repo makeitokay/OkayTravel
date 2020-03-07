@@ -236,7 +236,7 @@ val AVAILABLE_CITY_IMAGES: List<String> = listOf(
     "Turkey, Edirne",
     "Камбоджа, Пномпень",
     "Cambodia, Phnom Penh",
-    "Россия, Санкт-Петербург, Петродворцовый район, посёлок Стрельна, Санкт-Петербургское шоссе",
+    "Россия, Санкт-Петербург",
     "Russia, Saint Petersburg",
     "Республика Корея, провинция с особой автономией Чеджудо, Чеджу",
     "Republic of Korea, Jeju Special Self-Governing Province, Jeju",
