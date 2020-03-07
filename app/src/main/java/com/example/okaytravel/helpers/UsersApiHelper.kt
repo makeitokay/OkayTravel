@@ -24,9 +24,10 @@ class UsersApiHelper {
             .subscribeOn(Schedulers.io())
             .subscribe ({
                 if (it.error == null) {
-                    usersDBHelper.updateUser(it)
+                    if (it.user?.user?.commits != user.commits) usersDBHelper.updateUser(it)
                     onSuccess(it)
                 }
+                if (it.error == false) onSuccess(it)
                 if (it.error == true) {
                     println(it.message)
                     onFailure()
