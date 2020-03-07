@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.HomeActivity
+import com.example.okaytravel.hideKeyboard
 import com.example.okaytravel.parseDate
 import com.example.okaytravel.presenters.TripAddAllDataPresenter
 import com.example.okaytravel.views.TripAddAllDataView
@@ -45,6 +46,7 @@ class TripAddAllDataFragment(private val ownPlace: String, private val fullAddre
         ownPlaceView.text = getString(R.string.tripAddAllDataOwnPlace, ownPlace)
 
         startDateView.setOnClickListener {
+            hideKeyboard(this.requireActivity())
             openDatePickerDialog()
         }
 

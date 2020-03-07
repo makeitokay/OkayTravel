@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.TripAddActivity
+import com.example.okaytravel.hideKeyboard
 import com.example.okaytravel.presenters.TripsAddOwnPlacePresenter
 import com.example.okaytravel.views.TripsAddOwnPlaceView
 import com.yandex.mapkit.MapKitFactory
@@ -83,6 +84,7 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SuggestSess
         })
 
         suggestResultView.setOnItemClickListener { _, _, position, _ ->
+            hideKeyboard(this.requireActivity())
             (activity as TripAddActivity)
                 .loadFragment(TripAddAllDataFragment(
                     suggestItems[position].title.text,
