@@ -11,4 +11,12 @@ interface HomeView: MvpView {
     fun showMessage(resourceId: Int)
 
     fun showSignUpRecommendDialog()
+
+    fun hideAnonymousMenuItems()
+    fun hideAuthorizedMenuItems()
+
+    fun startLogin()
+    fun startSignUp()
+
+    fun initProfile(username: String)
 }

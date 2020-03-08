@@ -28,13 +28,26 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
 
     fun checkUserSession(fromActivity: String?) {
         currentUser?.let {
-            if (currentUser.anonymous &&
-                !usageInfoSharedPref.getShowNoMoreRecommend() &&
-                fromActivity in listOf("SplashActivity", "IntroActivity")
-            ) {
+            if (currentUser.anonymous) {
+                viewState.hideAuthorizedMenuItems()
+                if (!usageInfoSharedPref.getShowNoMoreRecommend() &&
+                    fromActivity in listOf("SplashActivity", "IntroActivity"))
                 viewState.showSignUpRecommendDialog()
+            } else {
+                viewState.hideAnonymousMenuItems()
             }
         }
+    }
+
+    fun initProfile() {
+        currentUser?.let {
+            viewState.initProfile(currentUser.username!!)
+        }
+    }
+
+    fun logout() {
+        sessionSharedPref.removeCurrentUser()
+        viewState.startLogin()
     }
 
     fun endSignUpRecommendShowDialog(showNoMore: Boolean) {

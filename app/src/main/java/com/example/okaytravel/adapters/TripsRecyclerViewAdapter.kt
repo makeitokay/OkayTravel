@@ -48,12 +48,15 @@ class TripsRecyclerViewAdapter(
         fun bind(trip: TripModel) {
             ownPlace.text = trip.ownPlace
             startDate.text = trip.startDate
-            if (trip.fullAddress in AVAILABLE_CITY_IMAGES)
-                Picasso.get().load("http://okaytravel.pythonanywhere.com/image?city=${trip.fullAddress}")
+            if (trip.fullAddress in AVAILABLE_CITY_IMAGES) {
+                println(trip.fullAddress)
+                Picasso.get()
+                    .load("http://okaytravel.pythonanywhere.com/image?city=${trip.fullAddress}")
                     .error(R.drawable.standard_city_image)
                     .placeholder(ColorDrawable(context.getColor(android.R.color.darker_gray)))
                     .fit()
                     .into(cityImage)
+            }
 
             itemView.setOnClickListener {
                 val intent = Intent(context, TripActivity::class.java)

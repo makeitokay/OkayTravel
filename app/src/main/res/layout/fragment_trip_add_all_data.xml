@@ -32,7 +32,7 @@
 
         <EditText
             android:id="@+id/startDateView"
-            android:hint="Выберите дату начала"
+            android:hint="@string/startDateAsk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_marginEnd="70dp"
-            android:text="Полетели!"
+            android:text="@string/addTrip"
             android:layout_gravity="center"/>
 
     </LinearLayout>

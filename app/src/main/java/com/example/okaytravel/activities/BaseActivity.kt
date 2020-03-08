@@ -50,6 +50,13 @@ abstract class BaseActivity: MvpAppCompatActivity() {
         }
     }
 
+    fun setToolbarHamburgerButton() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.navigationIcon = getDrawable(R.drawable.ic_menu_black_24dp)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     fun setToolbarTitle(title: String) {
         toolbar.title = title
     }

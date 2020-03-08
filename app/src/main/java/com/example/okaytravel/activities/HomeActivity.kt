@@ -1,6 +1,7 @@
 package com.example.okaytravel.activities
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
@@ -8,9 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.fragments.BaseFragment
-import com.example.okaytravel.activities.fragments.ProfileFragment
 import com.example.okaytravel.activities.fragments.TripsFragment
-import com.example.okaytravel.activities.fragments.TripsMapFragment
 import com.example.okaytravel.presenters.HomePresenter
 import com.example.okaytravel.views.HomeView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,9 +17,17 @@ import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_sign_up_recommend.view.*
 import kotlinx.android.synthetic.main.toolbar.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import kotlinx.android.synthetic.main.profile_navigation_drawer_header.*
+
 
 // TODO: добавить прелоадеры: загрузка поездок, добавление поездки, загрузка мест
-class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : BaseActivity(), HomeView {
 
     @ProvidePresenter
     fun provideHomePresenter(): HomePresenter {
@@ -32,7 +39,7 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
 
     override val fragmentContainer = R.id.fragment_container
 
-    fun getFromActivity(): String? {
+    private fun getFromActivity(): String? {
         return intent.getStringExtra("from")
     }
 
@@ -40,30 +47,65 @@ class HomeActivity : BaseActivity(), HomeView, BottomNavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        MapKitFactory.setApiKey(getString(R.string.mapkitAccessToken))
+        MapKitFactory.setApiKey(getString(com.example.okaytravel.R.string.mapkitAccessToken))
         MapKitFactory.initialize(this)
-
-        homePresenter.checkUserSession(getFromActivity())
-        homePresenter.sync()
 
         loadFragment(TripsFragment() as BaseFragment)
 
-        bottom_navigation.setOnNavigationItemSelectedListener(this)
+        setToolbarHamburgerButton()
+        val drawerToggle = ActionBarDrawerToggle(
+            this,
+            homeContainer,
+            findViewById(R.id.toolbar),
+            R.string.openNavigationDrawer,
+            R.string.closeNavigationDrawer
+        )
+        drawerToggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navSignIn -> startLogin()
+                R.id.navSignUp -> startSignUp()
+                R.id.navLogout -> homePresenter.logout()
+            }
+            true
+        }
+
+        homePresenter.checkUserSession(getFromActivity())
+        navigationView.post {
+            homePresenter.initProfile()
+        }
+    }
+
+    override fun startLogin() {
+        val intent = Intent(applicationContext, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    override fun startSignUp() {
+        val intent = Intent(applicationContext, SignUpActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    override fun hideAnonymousMenuItems() {
+        val navigationMenu = navigationView.menu
+        navigationMenu.findItem(R.id.navSignIn).isVisible = false
+        navigationMenu.findItem(R.id.navSignUp).isVisible = false
+    }
+
+    override fun hideAuthorizedMenuItems() {
+        val navigationMenu = navigationView.menu
+        navigationMenu.findItem(R.id.navLogout).isVisible = false
+    }
+
+    override fun initProfile(username: String) {
+        usernameView.text = username
     }
 
     override fun onBackPressed() {
         finishAffinity()
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == bottom_navigation.selectedItemId) return false
-        var fragment: Fragment? = null
-        when (item.itemId) {
-            R.id.trips -> { fragment = TripsFragment() }
-            R.id.tripsMap -> { fragment = TripsMapFragment() }
-            R.id.profile -> { fragment = ProfileFragment() }
-        }
-        return loadFragment(fragment as BaseFragment)
     }
 
     override fun showSignUpRecommendDialog() {

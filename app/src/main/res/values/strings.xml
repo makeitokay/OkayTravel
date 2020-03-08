@@ -67,4 +67,8 @@
     <string name="confirmActionAsk">Сохранить изменения?</string>
     <string name="finishThingsEdit">Сначала закончите редактирование вещей</string>
     <string name="tripAddAllDataOwnPlace">Отлично! Едем в %1$s!</string>
+    <string name="openNavigationDrawer">Открыть меню</string>
+    <string name="closeNavigationDrawer">Закрыть меню</string>
+    <string name="addTrip">Создать поездку</string>
+    <string name="startDateAsk">Выберите дату начала</string>
 </resources>
