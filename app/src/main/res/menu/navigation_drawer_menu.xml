@@ -8,10 +8,10 @@
         android:id="@+id/navSignUp"
         android:title="@string/action_sign_up"/>
     <item
-        android:id="@+id/navLogout"
-        android:title="@string/logout" />
-    <item
         android:id="@+id/buyPremium"
         android:title="@string/buyPremium"/>
+    <item
+        android:id="@+id/navLogout"
+        android:title="@string/logout" />
     </group>
 </menu>
