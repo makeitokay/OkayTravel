@@ -1,5 +1,6 @@
 package com.example.okaytravel.activities.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import com.activeandroid.query.Update
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.SignUpActivity
 import com.example.okaytravel.activities.TripActivity
 import com.example.okaytravel.presenters.BudgetPresenter
 import com.example.okaytravel.views.BudgetView
@@ -63,6 +65,20 @@ class BudgetFragment: BaseFragment(false), BudgetView {
 
         budgetPieChart.legend.isWordWrapEnabled = true
         budgetPieChart.legend.textSize = 20f
+
+        buyPremiumBtn.setOnClickListener {
+            budgetPresenter.buyPremium()
+        }
+    }
+
+    override fun openSignUp() {
+        startActivity(Intent(this.requireActivity(), SignUpActivity::class.java))
+    }
+
+    override fun hideBudgetContent() {
+        budgetContainer.visibility = View.GONE
+        buyPremiumContainer.visibility = View.VISIBLE
+        loading.visibility = View.GONE
     }
 
     override fun setPieChartCenterText(text: String) {
@@ -73,10 +89,13 @@ class BudgetFragment: BaseFragment(false), BudgetView {
     override fun showBudgetLoading() {
         loading.visibility = View.VISIBLE
         budgetPieChart.visibility = View.GONE
+        buyPremiumContainer.visibility = View.GONE
     }
 
     override fun showPieChart() {
         loading.visibility = View.GONE
+        buyPremiumContainer.visibility = View.GONE
+        budgetContainer.visibility = View.VISIBLE
         budgetPieChart.visibility = View.VISIBLE
     }
 

@@ -14,9 +14,12 @@ interface HomeView: MvpView {
 
     fun hideAnonymousMenuItems()
     fun hideAuthorizedMenuItems()
+    fun hidePremiumBuyMenuItem()
 
     fun startLogin()
     fun startSignUp()
 
     fun initProfile(username: String)
+
+    fun closeDrawer()
 }

@@ -17,7 +17,8 @@ data class UserInfo(
     val email: String?,
     val passwordHash: String?,
     val avatar: String?,
-    val commits: Int?
+    val commits: Int?,
+    val premium: Boolean?
 )
 
 data class Trip(

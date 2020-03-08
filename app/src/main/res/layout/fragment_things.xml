@@ -10,50 +10,81 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/buyPremiumContainer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shouldBuyPremium"
+            android:textAlignment="center"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/buyPremiumBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buyPremium"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/thingsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/notTakenThingsText"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:text="@string/notAlreadyTaken" />
+                android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/notTakenThingsRecyclerView"
-                android:visibility="gone"
-                android:layout_below="@+id/notTakenThingsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                <TextView
+                    android:id="@+id/notTakenThingsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:text="@string/notAlreadyTaken" />
 
-            <TextView
-                android:id="@+id/takenThingsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="@string/alreadyTaken"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/notTakenThingsRecyclerView" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notTakenThingsRecyclerView"
+                    android:visibility="gone"
+                    android:layout_below="@+id/notTakenThingsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/takenThingsRecyclerView"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/takenThingsText"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/takenThingsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="@string/alreadyTaken"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/notTakenThingsRecyclerView" />
 
-    </androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/takenThingsRecyclerView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/takenThingsText"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
 
 </RelativeLayout>

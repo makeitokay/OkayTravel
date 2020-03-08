@@ -58,6 +58,7 @@ class HomeActivity : BaseActivity(), HomeView {
                 R.id.navSignIn -> startLogin()
                 R.id.navSignUp -> startSignUp()
                 R.id.navLogout -> homePresenter.logout()
+                R.id.buyPremium -> homePresenter.buyPremium()
             }
             true
         }
@@ -66,6 +67,10 @@ class HomeActivity : BaseActivity(), HomeView {
         navigationView.post {
             homePresenter.initProfile()
         }
+    }
+
+    override fun closeDrawer() {
+        homeContainer.closeDrawers()
     }
 
     override fun startLogin() {
@@ -80,6 +85,10 @@ class HomeActivity : BaseActivity(), HomeView {
         startActivity(intent)
     }
 
+    override fun hidePremiumBuyMenuItem() {
+        navigationView.menu.findItem(R.id.buyPremium).isVisible = false
+    }
+
     override fun hideAnonymousMenuItems() {
         val navigationMenu = navigationView.menu
         navigationMenu.findItem(R.id.navSignIn).isVisible = false
@@ -89,6 +98,7 @@ class HomeActivity : BaseActivity(), HomeView {
     override fun hideAuthorizedMenuItems() {
         val navigationMenu = navigationView.menu
         navigationMenu.findItem(R.id.navLogout).isVisible = false
+        navigationMenu.findItem(R.id.buyPremium).isVisible = false
     }
 
     override fun initProfile(username: String) {

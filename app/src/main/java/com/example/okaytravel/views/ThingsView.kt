@@ -10,6 +10,8 @@ interface ThingsView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
+    fun openSignUp()
+
     fun showThingsLoading()
     fun hideThingsLoading()
 
@@ -23,6 +25,8 @@ interface ThingsView: MvpView {
     fun showTakenThings()
     fun hideNotTakenThings()
     fun showNotTakenThings()
+
+    fun hideThingsContent()
 
     fun updateThingsItems(notTakenItems: MutableList<ThingListItem>, takenItems: MutableList<ThingListItem>)
 }

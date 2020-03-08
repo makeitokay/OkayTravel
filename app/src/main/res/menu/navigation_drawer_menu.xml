@@ -7,10 +7,11 @@
     <item
         android:id="@+id/navSignUp"
         android:title="@string/action_sign_up"/>
-    </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/navLogout"
-            android:title="@string/logout" />
+    <item
+        android:id="@+id/navLogout"
+        android:title="@string/logout" />
+    <item
+        android:id="@+id/buyPremium"
+        android:title="@string/buyPremium"/>
     </group>
 </menu>

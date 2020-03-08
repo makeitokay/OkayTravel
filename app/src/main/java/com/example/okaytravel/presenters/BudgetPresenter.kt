@@ -16,7 +16,8 @@ import com.example.okaytravel.views.BudgetView
 import com.github.mikephil.charting.data.PieEntry
 
 @InjectViewState
-class BudgetPresenter(private val context: Context, private val trip: TripModel): MvpPresenter<BudgetView>() {
+class BudgetPresenter(private val context: Context, private val trip: TripModel) :
+    MvpPresenter<BudgetView>() {
 
     private val budgetDBHelper = BudgetElementDatabaseHelper()
 
@@ -74,6 +75,10 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
 
     fun updateAll() {
         if (currentUser == null) return
+        if (!currentUser.premium) {
+            viewState.hideBudgetContent()
+            return
+        }
         if (currentUser.anonymous) {
             viewState.showPieChart()
             updateItems()
@@ -104,11 +109,31 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
             viewState.showMessage(R.string.emptyFieldsError)
             return false
         }
-        val budgetAmount: Int? = try { rawAmount.toInt() } catch ( e: NumberFormatException ) { null }
+        val budgetAmount: Int? = try {
+            rawAmount.toInt()
+        } catch (e: NumberFormatException) {
+            null
+        }
         if (budgetAmount == null || budgetAmount <= 0 || budgetAmount > 999999998) {
             viewState.showMessage(R.string.invalidBudgetAmount)
             return false
         }
         return true
+    }
+
+    fun buyPremium() {
+        if (currentUser == null) return
+        if (currentUser.anonymous) {
+            viewState.openSignUp()
+            viewState.showMessage(R.string.needToSignUp)
+            return
+        }
+        viewState.showBudgetLoading()
+        sync {
+            currentUser.buyPremium()
+            sync()
+            updateItems()
+            viewState.showMessage(R.string.successPremiumBuy)
+        }
     }
 }

@@ -54,7 +54,7 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
     }
 
     fun endSignUpWithoutSyncAnonym(username: String, email: String, password: String) {
-        usersDBHelper.createUser(username, email, password.sha256(), signedUpAccessToken)
+        usersDBHelper.createUser(username, email, password.sha256(), signedUpAccessToken, false)
         viewState.endSigningUp()
         sessionSharedPref.setCurrentUser(username)
         viewState.startHome()

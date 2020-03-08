@@ -41,7 +41,7 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
                 val userInfo = it.user
                 if (usersDBHelper.getUserByUsername(userInfo?.username!!) == null) {
                     usersDBHelper.createUser(
-                        userInfo.username, userInfo.email, userInfo.passwordHash, userInfo.accessToken
+                        userInfo.username, userInfo.email, userInfo.passwordHash, userInfo.accessToken, userInfo.premium
                     )
                 }
 

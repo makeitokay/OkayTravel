@@ -10,10 +10,14 @@ interface BudgetView: MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
+    fun openSignUp()
+
     fun showBudgetLoading()
     fun showPieChart()
     fun updatePieChart(items: ArrayList<PieEntry>)
     fun setPieChartCenterText(text: String)
+
+    fun hideBudgetContent()
 
     fun openAddBudgetDialog()
     fun dismissAddBudgetDialog()

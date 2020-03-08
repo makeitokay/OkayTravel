@@ -30,8 +30,16 @@ class UserModel : Model {
     @Column(name = "anonymous")
     var anonymous: Boolean = false
 
+    @Column(name = "premium")
+    var premium: Boolean = false
+
     fun trips(): MutableList<TripModel> {
         return getMany(TripModel::class.java, "user")
+    }
+
+    fun buyPremium() {
+        this.premium = true
+        this.updateTrigger()
     }
 
     fun updateTrigger() {
@@ -39,13 +47,14 @@ class UserModel : Model {
         this.save()
     }
 
-    constructor(username: String, email: String?, passwordHash: String?, avatar: String?, accessToken: String?, anonymous: Boolean = false) {
+    constructor(username: String, email: String?, passwordHash: String?, avatar: String?, accessToken: String?, anonymous: Boolean = false, premium: Boolean = false) {
         this.username = username
         this.email = email
         this.passwordHash = passwordHash
         this.avatar = avatar
         this.accessToken = accessToken
         this.anonymous = anonymous
+        this.premium = premium
     }
 
     constructor()

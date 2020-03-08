@@ -1,14 +1,14 @@
 package com.example.okaytravel.activities.fragments
 
-import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.SignUpActivity
 import com.example.okaytravel.activities.TripActivity
 import com.example.okaytravel.adapters.NotTakenThingsRecyclerViewAdapter
 import com.example.okaytravel.adapters.TakenThingsRecyclerViewAdapter
@@ -20,6 +20,9 @@ import com.example.okaytravel.views.ThingsView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_thing_add.view.*
 import kotlinx.android.synthetic.main.fragment_things.*
+import kotlinx.android.synthetic.main.fragment_things.buyPremiumBtn
+import kotlinx.android.synthetic.main.fragment_things.buyPremiumContainer
+import kotlinx.android.synthetic.main.fragment_things.loading
 
 class ThingsFragment: BaseFragment(false), ThingsView {
 
@@ -66,9 +69,17 @@ class ThingsFragment: BaseFragment(false), ThingsView {
         )
         takenThingsRecyclerView.adapter = takenThingsAdapter
 
+        buyPremiumBtn.setOnClickListener {
+            thingsPresenter.buyPremium()
+        }
+    }
+
+    override fun openSignUp() {
+        startActivity(Intent(this.requireActivity(), SignUpActivity::class.java))
     }
 
     override fun showThings() {
+        thingsContainer.visibility = View.VISIBLE
         hideThingsLoading()
         showNotTakenThings()
         if (takenThingsData.isNotEmpty())
@@ -77,8 +88,15 @@ class ThingsFragment: BaseFragment(false), ThingsView {
             hideTakenThings()
     }
 
+    override fun hideThingsContent() {
+        thingsContainer.visibility = View.GONE
+        buyPremiumContainer.visibility = View.VISIBLE
+        loading.visibility = View.GONE
+    }
+
     override fun showThingsLoading() {
         loading.visibility = View.VISIBLE
+        buyPremiumContainer.visibility = View.GONE
         hideNotTakenThings()
         hideTakenThings()
     }

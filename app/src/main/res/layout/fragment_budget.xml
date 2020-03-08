@@ -10,23 +10,54 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/budgetPieChart"
+    <LinearLayout
+        android:id="@+id/buyPremiumContainer"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addBudgetBtn"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="15dp"
-        android:backgroundTint="@color/colorPrimary"
-        app:tint="@null"
-        app:rippleColor="@color/colorPrimaryLight"
-        android:src="@drawable/ic_add_white_24dp"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shouldBuyPremium"
+            android:textAlignment="center"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/buyPremiumBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buyPremium"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/budgetContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/budgetPieChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addBudgetBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/colorPrimary"
+            app:tint="@null"
+            app:rippleColor="@color/colorPrimaryLight"
+            android:src="@drawable/ic_add_white_24dp"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

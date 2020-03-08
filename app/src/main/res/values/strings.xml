@@ -74,4 +74,8 @@
     <string name="showRoute">Показать маршрут</string>
     <string name="showPlace">Показать место на карте</string>
     <string name="routeError">Не удалось построить маршрут</string>
+    <string name="buyPremium">Купить премиум</string>
+    <string name="shouldBuyPremium">Необходимо купить премиум-аккаунт</string>
+    <string name="needToSignUp">Сначала зарегистрируйтесь</string>
+    <string name="successPremiumBuy">Поздравляем с покупкой!</string>
 </resources>

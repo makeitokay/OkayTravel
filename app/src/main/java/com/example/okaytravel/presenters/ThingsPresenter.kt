@@ -107,6 +107,10 @@ class ThingsPresenter(private val context: Context, private val trip: TripModel)
 
     fun updateAll() {
         if (currentUser == null) return
+        if (!currentUser.premium) {
+            viewState.hideThingsContent()
+            return
+        }
         if (currentUser.anonymous) {
             updateItems()
             return
@@ -131,6 +135,22 @@ class ThingsPresenter(private val context: Context, private val trip: TripModel)
             }
             viewState.updateThingsItems(notTakenItems, takenItems)
             viewState.showThings()
+        }
+    }
+
+    fun buyPremium() {
+        if (currentUser == null) return
+        if (currentUser.anonymous) {
+            viewState.openSignUp()
+            viewState.showMessage(R.string.needToSignUp)
+            return
+        }
+        viewState.showThingsLoading()
+        sync {
+            currentUser.buyPremium()
+            sync()
+            updateItems()
+            viewState.showMessage(R.string.successPremiumBuy)
         }
     }
 

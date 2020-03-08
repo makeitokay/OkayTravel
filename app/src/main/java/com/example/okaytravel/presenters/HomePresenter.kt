@@ -42,6 +42,8 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
     fun initProfile() {
         currentUser?.let {
             viewState.initProfile(currentUser.username!!)
+            if (it.premium)
+                viewState.hidePremiumBuyMenuItem()
         }
     }
 
@@ -66,6 +68,22 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
         }, {
             viewState.showMessage(R.string.syncError)
         })
+    }
+
+    fun buyPremium() {
+        if (currentUser == null) return
+        if (currentUser.anonymous) {
+            viewState.startSignUp()
+            viewState.showMessage(R.string.needToSignUp)
+            return
+        }
+        sync {
+            currentUser.buyPremium()
+            sync()
+            viewState.showMessage(R.string.successPremiumBuy)
+            viewState.closeDrawer()
+            viewState.hidePremiumBuyMenuItem()
+        }
     }
 
 }
