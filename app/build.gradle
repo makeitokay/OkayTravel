@@ -69,6 +69,7 @@ dependencies {
     // Yandex MapKit
     implementation 'com.yandex.android:mapkit:3.4.0'
     implementation 'com.yandex.android:search:3.4.0'
+    implementation 'com.yandex.android:transport:3.4.0'
 
     // Circular Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'

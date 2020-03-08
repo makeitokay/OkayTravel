@@ -73,6 +73,7 @@ class TripActivity : BaseActivity(), TripView, ViewPager.OnPageChangeListener {
         finish()
     }
 
+    // TODO: обработать NullPointerException
     private fun getTripFromExtra(): TripModel {
         val tripUuid =  intent.extras?.getString("trip")
         return tripsDBHelper.getTripByUuid(tripUuid!!)!!

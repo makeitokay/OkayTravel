@@ -2,28 +2,27 @@ package com.example.okaytravel.activities.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
+import com.example.okaytravel.activities.PlaceRoutesActivity
 import com.example.okaytravel.activities.PlacesMapActivity
 import com.example.okaytravel.activities.TripActivity
 import com.example.okaytravel.adapters.PlaceDatesRecyclerViewAdapter
 import com.example.okaytravel.adapters.PlacesRecyclerViewAdapter
-import com.example.okaytravel.adapters.placeitems.PlaceListItem
 import com.example.okaytravel.models.PlaceModel
 import com.example.okaytravel.presenters.PlacesPresenter
 import com.example.okaytravel.views.PlacesView
 import kotlinx.android.synthetic.main.fragment_places.*
 import kotlinx.android.synthetic.main.fragment_places.placesRecyclerView
-import kotlinx.android.synthetic.main.place_date_adapter_item.*
+import kotlinx.android.synthetic.main.place_adapter_item.*
 
 class PlacesFragment: BaseFragment(false), PlacesView,
-    PlaceDatesRecyclerViewAdapter.OnDateItemClickedListener {
+    PlaceDatesRecyclerViewAdapter.OnDateItemClickedListener,
+    PlacesRecyclerViewAdapter.OnPlaceItemClickedListener {
 
     override val fragmentNameResource: Int
         get() = R.string.places
@@ -40,6 +39,8 @@ class PlacesFragment: BaseFragment(false), PlacesView,
     private var placesData: MutableMap<String, MutableList<PlaceModel>> = mutableMapOf()
     private lateinit var placeDatesAdapter: PlaceDatesRecyclerViewAdapter
 
+    private val selectedPlaces: MutableList<PlaceModel> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,7 +56,19 @@ class PlacesFragment: BaseFragment(false), PlacesView,
             openPlacesMap()
         }
 
-        placeDatesAdapter = PlaceDatesRecyclerViewAdapter(placeDates, placesData, this)
+        showPlaceBtn.setOnClickListener {
+            openPlace()
+        }
+
+        showRouteBtn.setOnClickListener {
+            openRoute()
+        }
+
+        placeDatesAdapter = PlaceDatesRecyclerViewAdapter(
+            placeDates,
+            placesData,
+            this,
+            this)
         placesRecyclerView.adapter = placeDatesAdapter
     }
 
@@ -64,6 +77,7 @@ class PlacesFragment: BaseFragment(false), PlacesView,
             true -> {
                 holder.placesRecyclerView.visibility = View.GONE
                 holder.actionClickIcon.setImageResource(R.drawable.ic_expand_more_24dp)
+                updateActionButtons()
             }
             false -> {
                 holder.placesRecyclerView.visibility = View.VISIBLE
@@ -71,6 +85,38 @@ class PlacesFragment: BaseFragment(false), PlacesView,
             }
         }
         holder.isExpanded = !holder.isExpanded
+    }
+
+    override fun onPlaceItemClicked(holder: PlacesRecyclerViewAdapter.PlaceViewHolder, place: PlaceModel) {
+        if (selectedPlaces.contains(place)) {
+            selectedPlaces.remove(place)
+            holder.selectedCheckbox.visibility = View.GONE
+        }
+        else {
+            selectedPlaces.add(place)
+            holder.selectedCheckbox.visibility = View.VISIBLE
+        }
+        updateActionButtons()
+    }
+
+    override fun updateActionButtons() {
+        when (selectedPlaces.size) {
+            1 -> {
+                showPlaceBtn.visibility = View.VISIBLE
+                showRouteBtn.visibility = View.GONE
+                addPlaceBtn.visibility = View.GONE
+            }
+            2 -> {
+                showRouteBtn.visibility = View.VISIBLE
+                showPlaceBtn.visibility = View.GONE
+                addPlaceBtn.visibility = View.GONE
+            }
+            else -> {
+                showRouteBtn.visibility = View.GONE
+                showPlaceBtn.visibility = View.GONE
+                addPlaceBtn.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun showPlacesLoading() {
@@ -81,6 +127,20 @@ class PlacesFragment: BaseFragment(false), PlacesView,
     override fun showPlaces() {
         placesRecyclerView.visibility = View.VISIBLE
         loading.visibility = View.GONE
+    }
+
+    override fun openPlace() {
+        val intent = Intent(this.requireActivity(), PlaceRoutesActivity::class.java)
+        intent.putStringArrayListExtra("places", arrayListOf<String>(selectedPlaces[0].uuid!!))
+        startActivity(intent)
+    }
+
+    override fun openRoute() {
+        val intent = Intent(this.requireActivity(), PlaceRoutesActivity::class.java)
+        val places = arrayListOf<String>()
+        selectedPlaces.forEach { places.add(it.uuid!!) }
+        intent.putStringArrayListExtra("places", places)
+        startActivity(intent)
     }
 
     override fun openPlacesMap() {

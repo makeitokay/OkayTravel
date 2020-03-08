@@ -30,5 +30,33 @@
         app:rippleColor="@color/colorPrimaryLight"
         android:src="@drawable/ic_add_white_24dp"/>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/showPlaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:text="@string/showPlace"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"
+        app:tint="@null"
+        app:rippleColor="@color/colorPrimaryLight"
+        android:visibility="gone"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/showRouteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:text="@string/showRoute"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"
+        app:tint="@null"
+        app:rippleColor="@color/colorPrimaryLight"
+        android:visibility="gone"/>
+
 </RelativeLayout>
 

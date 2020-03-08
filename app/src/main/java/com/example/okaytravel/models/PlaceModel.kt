@@ -3,6 +3,7 @@ package com.example.okaytravel.models
 import com.activeandroid.Model
 import com.activeandroid.annotation.Column
 import com.activeandroid.annotation.Table
+import com.yandex.mapkit.geometry.Point
 import java.util.*
 
 @Table(name = "Places")
@@ -28,6 +29,10 @@ class PlaceModel: Model {
 
     @Column(name = "trip", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     var trip: TripModel? = null
+
+    fun point(): Point {
+        return Point(this.latitude?.toDouble()!!, this.longitude?.toDouble()!!)
+    }
 
     constructor(uuid: String, name: String?, fullAddress: String?, latitude: String, longitude: String, date: String, trip: TripModel) {
         this.uuid = uuid

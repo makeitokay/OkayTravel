@@ -3,8 +3,6 @@ package com.example.okaytravel.activities
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.okaytravel.R
@@ -12,17 +10,10 @@ import com.example.okaytravel.activities.fragments.BaseFragment
 import com.example.okaytravel.activities.fragments.TripsFragment
 import com.example.okaytravel.presenters.HomePresenter
 import com.example.okaytravel.views.HomeView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_sign_up_recommend.view.*
-import kotlinx.android.synthetic.main.toolbar.*
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.profile_navigation_drawer_header.*
 
 

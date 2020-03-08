@@ -4,9 +4,6 @@ import android.content.Context
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.okaytravel.R
-import com.example.okaytravel.adapters.placeitems.DateItem
-import com.example.okaytravel.adapters.placeitems.PlaceItem
-import com.example.okaytravel.adapters.placeitems.PlaceListItem
 import com.example.okaytravel.database.PlaceDatabaseHelper
 import com.example.okaytravel.database.TripDatabaseHelper
 import com.example.okaytravel.database.UsersDatabaseHelper

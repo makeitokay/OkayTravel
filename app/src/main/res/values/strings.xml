@@ -71,4 +71,7 @@
     <string name="closeNavigationDrawer">Закрыть меню</string>
     <string name="addTrip">Создать поездку</string>
     <string name="startDateAsk">Выберите дату начала</string>
+    <string name="showRoute">Показать маршрут</string>
+    <string name="showPlace">Показать место на карте</string>
+    <string name="routeError">Не удалось построить маршрут</string>
 </resources>

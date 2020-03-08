@@ -13,7 +13,8 @@ import com.example.okaytravel.models.PlaceModel
 class PlaceDatesRecyclerViewAdapter(
     private val dates: MutableList<String>,
     private val placesData: Map<String, MutableList<PlaceModel>>,
-    private val onClickListener: OnDateItemClickedListener
+    private val onDateItemClickedListener: OnDateItemClickedListener,
+    private val onPlaceItemClickedListener: PlacesRecyclerViewAdapter.OnPlaceItemClickedListener
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -38,7 +39,6 @@ class PlaceDatesRecyclerViewAdapter(
         private val placeDate: TextView = itemView.findViewById(R.id.placeDateView)
         private val placeDateCardView: CardView = itemView.findViewById(R.id.placeDateCardView)
 
-        val mainCardView: CardView = itemView.findViewById(R.id.placeDateCardView)
         val placesRecyclerView: RecyclerView = itemView.findViewById(R.id.placesRecyclerView)
         val actionClickIcon: ImageView = itemView.findViewById(R.id.actionIcon)
 
@@ -47,11 +47,11 @@ class PlaceDatesRecyclerViewAdapter(
         fun bind(date: String, places: MutableList<PlaceModel>) {
             placeDate.text = date
 
-            val placesAdapter = PlacesRecyclerViewAdapter(places)
+            val placesAdapter = PlacesRecyclerViewAdapter(places, onPlaceItemClickedListener)
             placesRecyclerView.adapter = placesAdapter
 
             placeDateCardView.setOnClickListener {
-                onClickListener.onDateClick(this)
+                onDateItemClickedListener.onDateClick(this)
             }
         }
     }
