@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.example.okaytravel.adapters.placeitems.PlaceListItem
+import com.example.okaytravel.models.PlaceModel
 
 @StateStrategyType(value = AddToEndStrategy::class)
 interface PlacesView: MvpView {
@@ -15,5 +16,5 @@ interface PlacesView: MvpView {
     fun showPlacesLoading()
     fun showPlaces()
 
-    fun updatePlaces(places: MutableList<PlaceListItem>)
+    fun updatePlaces(dates: MutableList<String>, places: Map<String, MutableList<PlaceModel>>)
 }

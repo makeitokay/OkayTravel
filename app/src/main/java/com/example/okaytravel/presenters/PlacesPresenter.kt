@@ -13,6 +13,7 @@ import com.example.okaytravel.database.UsersDatabaseHelper
 import com.example.okaytravel.helpers.SharedPrefHelper
 import com.example.okaytravel.helpers.UsersApiHelper
 import com.example.okaytravel.isInternetAvailable
+import com.example.okaytravel.models.PlaceModel
 import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.views.PlacesView
 
@@ -62,15 +63,22 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
 
     fun updateItems() {
         val places = trip.places()
+
         places.sortBy { it.date }
         val groupedPlaces = places.groupBy { it.date }
-        val placeItems: MutableList<PlaceListItem> = mutableListOf()
+
+        val placesData: MutableMap<String, MutableList<PlaceModel>> = mutableMapOf()
+        val placeDates: MutableList<String> = mutableListOf()
+
         groupedPlaces.keys.forEach { date ->
-            placeItems.add(DateItem(date!!))
-            groupedPlaces[date]?.forEach { place ->
-                placeItems.add(PlaceItem(place))
+            date?.let {
+                placeDates.add(date)
+                placesData += Pair(date, mutableListOf())
+                groupedPlaces[date]?.forEach { place ->
+                    placesData[date]?.add(place)
+                }
             }
         }
-        viewState.updatePlaces(placeItems)
+        viewState.updatePlaces(placeDates, placesData)
     }
 }

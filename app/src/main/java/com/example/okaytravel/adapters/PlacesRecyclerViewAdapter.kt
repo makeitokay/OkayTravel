@@ -9,65 +9,37 @@ import com.example.okaytravel.R
 import com.example.okaytravel.adapters.placeitems.DateItem
 import com.example.okaytravel.adapters.placeitems.PlaceItem
 import com.example.okaytravel.adapters.placeitems.PlaceListItem
+import com.example.okaytravel.models.PlaceModel
 
 class PlacesRecyclerViewAdapter(
-    private val placeItems: MutableList<PlaceListItem>
+    private val places: MutableList<PlaceModel>
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        return when (viewType) {
-            0 -> {
-                PlaceViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.place_adapter_item, parent, false)
-                )
-            }
-            else -> {
-                PlaceDateViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.place_date_adapter_item, parent, false)
-                )
-            }
-        }
+        return PlaceViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.place_adapter_item, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
-        return placeItems.size
+        return places.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder.itemViewType) {
-            0 -> {
-                val placeViewHolder = holder as PlaceViewHolder
-                placeViewHolder.bind(placeItems[position] as PlaceItem)
-            }
-            else -> {
-                val placeDateViewHolder = holder as PlaceDateViewHolder
-                placeDateViewHolder.bind(placeItems[position] as DateItem)
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return placeItems[position].Type
+        val placeViewHolder = holder as PlaceViewHolder
+        placeViewHolder.bind(places[position])
     }
 
     class PlaceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val fullAddress: TextView = itemView.findViewById(R.id.fullAddressView)
         private val placeNameView: TextView = itemView.findViewById(R.id.placeNameView)
 
-        fun bind(place: PlaceItem) {
-            fullAddress.text = place.place.fullAddress
-            placeNameView.text = place.place.name
-        }
-    }
-
-    class PlaceDateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val placeDate: TextView = itemView.findViewById(R.id.placeDateView)
-
-        fun bind(date: DateItem) {
-            placeDate.text = date.date
+        fun bind(place: PlaceModel) {
+            fullAddress.text = place.fullAddress
+            placeNameView.text = place.name
         }
     }
 }
