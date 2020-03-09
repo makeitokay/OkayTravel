@@ -27,7 +27,12 @@ class TripActivity : BaseActivity(), TripView, ViewPager.OnPageChangeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trip)
 
-        trip = getTripFromExtra()
+        val tripFromExtra = getTripFromExtra()
+        if (tripFromExtra == null) {
+            startActivity(Intent(applicationContext, HomeActivity::class.java))
+            return
+        }
+        trip = tripFromExtra
 
         setToolbarBackButton()
         title = trip.ownPlace
@@ -73,9 +78,8 @@ class TripActivity : BaseActivity(), TripView, ViewPager.OnPageChangeListener {
         finish()
     }
 
-    // TODO: обработать NullPointerException
-    private fun getTripFromExtra(): TripModel {
-        val tripUuid =  intent.extras?.getString("trip")
-        return tripsDBHelper.getTripByUuid(tripUuid!!)!!
+    private fun getTripFromExtra(): TripModel? {
+        val tripUuid =  intent.extras?.getString("trip") ?: return null
+        return tripsDBHelper.getTripByUuid(tripUuid)
     }
 }
