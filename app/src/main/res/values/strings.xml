@@ -80,7 +80,7 @@
     <string name="successPremiumBuy">Поздравляем с покупкой!</string>
     <string name="whereAsk">Куда едем?</string>
     <string name="startCityTyping">Начните вводить название города</string>
-    <string name="duration">Длительность</string>
+    <string name="duration">Длительность (в днях)</string>
     <string name="tooLongCategory">Слишком длинное название категории</string>
     <string name="introTitle1">Добавляйте места</string>
     <string name="introDesc1">И стройте между ними маршруты!</string>

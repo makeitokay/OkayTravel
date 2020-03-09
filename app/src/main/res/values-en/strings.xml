@@ -22,7 +22,7 @@
     <string name="cancelThingsEdit">Cancel</string>
     <string name="closeNavigationDrawer">Close menu</string>
     <string name="confirmActionAsk">Save changes?</string>
-    <string name="duration">Duration</string>
+    <string name="duration">Duration (in days)</string>
     <string name="emptyFieldsError">Please, fill in all fields</string>
     <string name="finishThingsEdit">Finish things editing at first</string>
     <string name="haveAccountAsk">Do you have an account?</string>
