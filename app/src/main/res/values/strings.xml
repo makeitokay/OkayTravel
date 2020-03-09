@@ -80,4 +80,5 @@
     <string name="successPremiumBuy">Поздравляем с покупкой!</string>
     <string name="whereAsk">Куда едем?</string>
     <string name="startCityTyping">Начните вводить название города</string>
+    <string name="duration">Длительность</string>
 </resources>

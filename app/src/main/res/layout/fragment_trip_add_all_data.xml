@@ -20,12 +20,11 @@
 
         <EditText
             android:id="@+id/duration"
-            android:hint="Длительность"
+            android:hint="@string/duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_marginEnd="70dp"
-            android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="number"
             android:layout_gravity="center"/>
