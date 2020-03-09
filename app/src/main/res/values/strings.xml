@@ -45,8 +45,8 @@
     <string name="budget">Бюджет</string>
     <string name="things">Вещи</string>
     <string name="addPlaceButton">Добавить место</string>
-    <string name="remoteError">Remote error</string>
-    <string name="networkError">Network error</string>
+    <string name="remoteError">Ошибка на удаленном сервере</string>
+    <string name="networkError">Ошибка сети</string>
     <string name="searchIsEmpty">Ничего не найдено</string>
     <string name="budgetAsk">Собираетесь потратить деньги в этом месте?</string>
     <string name="budgetCategoryAsk">На что?</string>
