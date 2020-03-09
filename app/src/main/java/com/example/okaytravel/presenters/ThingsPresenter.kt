@@ -50,6 +50,12 @@ class ThingsPresenter(private val context: Context, private val trip: TripModel)
             return
         }
         viewState.dismissAddThingDialog()
+        if (!isInternetAvailable(context)) {
+            updateItems()
+            viewState.showThings()
+            viewState.showMessage(R.string.noInternetConnection)
+            return
+        }
 
         viewState.showLoadingDialog()
         if (currentUser.anonymous) {
@@ -143,6 +149,10 @@ class ThingsPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser.anonymous) {
             viewState.openSignUp()
             viewState.showMessage(R.string.needToSignUp)
+            return
+        }
+        if (!isInternetAvailable(context)) {
+            viewState.showMessage(R.string.noInternetConnection)
             return
         }
         viewState.showThingsLoading()

@@ -53,6 +53,12 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
             return
         }
         viewState.dismissAddBudgetDialog()
+        if (!isInternetAvailable(context)) {
+            updateItems()
+            viewState.showPieChart()
+            viewState.showMessage(R.string.noInternetConnection)
+            return
+        }
 
         viewState.showLoadingDialog()
         val amount = rawAmount.toInt()
@@ -129,6 +135,10 @@ class BudgetPresenter(private val context: Context, private val trip: TripModel)
         if (currentUser.anonymous) {
             viewState.openSignUp()
             viewState.showMessage(R.string.needToSignUp)
+            return
+        }
+        if (!isInternetAvailable(context)) {
+            viewState.showMessage(R.string.noInternetConnection)
             return
         }
         viewState.showBudgetLoading()
