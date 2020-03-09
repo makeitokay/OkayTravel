@@ -10,9 +10,9 @@ import com.github.paolorotolo.appintro.AppIntro2
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 
-class IntroActivity : AppIntro2() {
+class IntroActivity : AppIntro() {
 
-    private val bgColor = Color.parseColor("#5EABD1")
+    private val bgColor = Color.parseColor("#42A5F5")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,7 @@ class IntroActivity : AppIntro2() {
         sliderPage.title = getString(R.string.introTitle1)
         sliderPage.description = getString(R.string.introDesc1)
         sliderPage.bgColor = bgColor
+        sliderPage.imageDrawable = R.drawable.places
         addSlide(AppIntroFragment.newInstance(sliderPage))
     }
 
@@ -57,6 +58,7 @@ class IntroActivity : AppIntro2() {
         sliderPage.title = getString(R.string.introTitle2)
         sliderPage.description = getString(R.string.introDesc2)
         sliderPage.bgColor = bgColor
+        sliderPage.imageDrawable = R.drawable.budget
         addSlide(AppIntroFragment.newInstance(sliderPage))
     }
 
@@ -65,6 +67,7 @@ class IntroActivity : AppIntro2() {
         sliderPage.title = getString(R.string.introTitle3)
         sliderPage.description = getString(R.string.introDesc3)
         sliderPage.bgColor = bgColor
+        sliderPage.imageDrawable = R.drawable.things
         addSlide(AppIntroFragment.newInstance(sliderPage))
     }
 }
