@@ -21,7 +21,6 @@ import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
 import com.yandex.runtime.network.RemoteError
 import kotlinx.android.synthetic.main.activity_place_routes.*
-import java.util.HashSet
 
 class PlaceRoutesActivity : BaseActivity(), PlaceRoutesView, Session.RouteListener {
 
@@ -33,8 +32,6 @@ class PlaceRoutesActivity : BaseActivity(), PlaceRoutesView, Session.RouteListen
 
     private lateinit var mtRouter: PedestrianRouter
     private lateinit var routeMapObjects: MapObjectCollection
-
-//    private val masstransitOptions = MasstransitOptions(arrayListOf(), arrayListOf(), TimeOptions())
 
     private fun getPlacesUuidsFromExtra(): ArrayList<String> {
         val placesUuids =  intent.extras?.getStringArrayList("places")

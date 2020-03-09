@@ -78,4 +78,6 @@
     <string name="shouldBuyPremium">Необходимо купить премиум-аккаунт</string>
     <string name="needToSignUp">Сначала зарегистрируйтесь</string>
     <string name="successPremiumBuy">Поздравляем с покупкой!</string>
+    <string name="whereAsk">Куда едем?</string>
+    <string name="startCityTyping">Начните вводить название города</string>
 </resources>
