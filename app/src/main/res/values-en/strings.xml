@@ -82,4 +82,10 @@
     <string name="whereAsk">Where are we going?</string>
     <string name="yesButton">Yes</string>
     <string name="tooLongCategory">Too long category name</string>
+    <string name="introDesc1">And build routes between them!</string>
+    <string name="introDesc2">On the pie chart you will see all your plans for spending money</string>
+    <string name="introDesc3">Check the items you want to take with you on your trip</string>
+    <string name="introTitle1">Add places</string>
+    <string name="introTitle2">Plan your budget</string>
+    <string name="introTitle3">Plan what you want to take with you</string>
 </resources>

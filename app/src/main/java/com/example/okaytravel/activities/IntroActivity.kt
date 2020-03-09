@@ -46,24 +46,24 @@ class IntroActivity : AppIntro2() {
 
     private fun initPlacesSliderPage() {
         val sliderPage = SliderPage()
-        sliderPage.title = "Добавляйте места"
-        sliderPage.description = "И стройте маршруты, короче ваще удобно))"
+        sliderPage.title = getString(R.string.introTitle1)
+        sliderPage.description = getString(R.string.introDesc1)
         sliderPage.bgColor = bgColor
         addSlide(AppIntroFragment.newInstance(sliderPage))
     }
 
     private fun initBudgetSliderPage() {
         val sliderPage = SliderPage()
-        sliderPage.title = "Планируйте бюджет"
-        sliderPage.description = "Деньги пропадают? А вы просто запланируйте на чо тратить и всё норм будет"
+        sliderPage.title = getString(R.string.introTitle2)
+        sliderPage.description = getString(R.string.introDesc2)
         sliderPage.bgColor = bgColor
         addSlide(AppIntroFragment.newInstance(sliderPage))
     }
 
     private fun initThingsSliderPage() {
         val sliderPage = SliderPage()
-        sliderPage.title = "Планируйте вещи"
-        sliderPage.description = "Всегда что-то забываете? С нами не забудете )"
+        sliderPage.title = getString(R.string.introTitle3)
+        sliderPage.description = getString(R.string.introDesc3)
         sliderPage.bgColor = bgColor
         addSlide(AppIntroFragment.newInstance(sliderPage))
     }
