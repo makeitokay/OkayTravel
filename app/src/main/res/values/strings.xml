@@ -81,4 +81,5 @@
     <string name="whereAsk">Куда едем?</string>
     <string name="startCityTyping">Начните вводить название города</string>
     <string name="duration">Длительность</string>
+    <string name="tooLongCategory">Слишком длинное название категории</string>
 </resources>

@@ -16,7 +16,6 @@ class UsersApiHelper {
     private val apiService = OkayTravelApiService.create()
     private val usersDBHelper = UsersDatabaseHelper()
 
-    // TODO: Синхронизация - стоит ли синхронизировать, если локальное кол-во коммитов = коммиты на сервере?
     fun sync(user: UserModel, onSuccess: (syncResponse: SyncResponse) -> Unit = {}, onFailure: () -> Unit = {}): Boolean {
         val syncBody = usersDBHelper.serializeUser(user.id) ?: return false
         apiService.sync(syncBody)

@@ -17,7 +17,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import kotlinx.android.synthetic.main.profile_navigation_drawer_header.*
 
 
-// TODO: добавить прелоадеры: загрузка поездок, добавление поездки, загрузка мест
 class HomeActivity : BaseActivity(), HomeView {
 
     @ProvidePresenter

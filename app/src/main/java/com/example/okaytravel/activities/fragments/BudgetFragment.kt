@@ -85,7 +85,6 @@ class BudgetFragment: BaseFragment(false), BudgetView {
         budgetPieChart.centerText = text
     }
     
-    // TODO: убрать двойной прелоадер при добавлении (возможно в Things аналогичная ситуация)
     override fun showBudgetLoading() {
         loading.visibility = View.VISIBLE
         budgetPieChart.visibility = View.GONE

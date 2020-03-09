@@ -81,4 +81,5 @@
     <string name="welcome">Welcome!</string>
     <string name="whereAsk">Where are we going?</string>
     <string name="yesButton">Yes</string>
+    <string name="tooLongCategory">Too long category name</string>
 </resources>

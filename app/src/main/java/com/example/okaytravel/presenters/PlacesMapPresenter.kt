@@ -75,12 +75,16 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
     private fun validateInputData(date: String, budgetCategory: String?, rawBudgetAmount: String?): Boolean {
         if (date.isEmpty()) {
             viewState.showMessage(R.string.emptyFieldsError)
-            // TODO: Focus Date Input
             return false
         }
         if (budgetCategory != null && rawBudgetAmount != null) {
             if (budgetCategory.isEmpty()) {
                 viewState.showMessage(R.string.emptyFieldsError)
+                viewState.focusBudgetCategoryInput()
+                return false
+            }
+            if (budgetCategory.length > 30) {
+                viewState.showMessage(R.string.tooLongCategory)
                 viewState.focusBudgetCategoryInput()
                 return false
             }
