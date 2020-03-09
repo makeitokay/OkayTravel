@@ -44,7 +44,6 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
                     viewState.startLogin()
                 })
                 else -> {
-                    viewState.showMessage(R.string.noInternetConnection)
                     viewState.startHome()
                 }
             }
