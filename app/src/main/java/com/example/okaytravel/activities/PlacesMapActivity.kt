@@ -52,7 +52,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
     private lateinit var addPlaceDialogView: View
 
-    private lateinit var searchResultsDialog: PlacesSearchResultBottomSheetDialogFragment
+    private var searchResultsDialog: PlacesSearchResultBottomSheetDialogFragment? = null
 
     @ProvidePresenter
     fun providePlacesMapPresenter(): PlacesMapPresenter {
@@ -80,6 +80,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
         searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                dismissSearchResultsDialog()
                 openSearchResultsDialog()
                 submitSearch(searchEdit.text.toString())
                 hideKeyboard(this)
@@ -136,6 +137,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
     override fun onMapTap(map: Map, point: Point) {
         tappedPoint = point
+        dismissSearchResultsDialog()
         openSearchResultsDialog()
         clearAndAddPlacemark(point)
         submitBizSearch(point)
@@ -164,7 +166,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
             errorMessage = getString(R.string.networkError)
         }
         showMessage(errorMessage)
-        if (::searchResultsDialog.isInitialized) searchResultsDialog.dismiss()
+        dismissSearchResultsDialog()
     }
 
     fun showAddPlaceDialog(placeName: String?, placeFullAddress: String?, point: Point) {
@@ -250,9 +252,15 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         )
     }
 
+    private fun dismissSearchResultsDialog() {
+        searchResultsDialog?.dismiss()
+        searchResultsDialog = null
+    }
+
     private fun openSearchResultsDialog() {
         searchResultsDialog = PlacesSearchResultBottomSheetDialogFragment(searchItems)
-        searchResultsDialog.show(supportFragmentManager, "PlacesSearchResultTag")
+        searchResultsDialog?.isCancelable = false
+        searchResultsDialog?.show(supportFragmentManager, "PlacesSearchResultTag")
     }
 
     private val querySearchListener = object: Session.SearchListener {
@@ -262,7 +270,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
             showFirstSearchResult(response)
             searchItems.clear()
             searchItems.addAll(response.collection.children)
-            searchResultsDialog.updateSearchItems()
+            searchResultsDialog?.updateSearchItems()
         }
 
     }
@@ -276,7 +284,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
         override fun onSearchResponse(response: Response) {
             searchItems.addAll(response.collection.children)
-            searchResultsDialog.updateSearchItems()
+            searchResultsDialog?.updateSearchItems()
         }
 
     }

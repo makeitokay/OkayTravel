@@ -49,6 +49,7 @@ class PlacesSearchResultBottomSheetDialogFragment(
     }
 
     fun updateSearchItems() {
+        isCancelable = true
         placesSearchItemsLoading.visibility = View.GONE
         searchResultsAdapter.notifyDataSetChanged()
         if (searchItems.isEmpty()) {
