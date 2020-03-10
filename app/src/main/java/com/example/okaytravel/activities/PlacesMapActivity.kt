@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.activity_places_map.*
 import kotlinx.android.synthetic.main.dialog_add_place.view.*
 import kotlinx.android.synthetic.main.dialog_loading.view.*
 import java.util.*
+import kotlin.math.max
 
 class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
@@ -100,7 +101,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, onDateSetListener, year, month, day)
-        datePickerDialog.datePicker.minDate = tripStartDate.time
+        datePickerDialog.datePicker.minDate = max(tripStartDate.time, Date().time)
         calendar.add(Calendar.DAY_OF_MONTH, trip.duration!!)
         datePickerDialog.datePicker.maxDate = calendar.timeInMillis
 
