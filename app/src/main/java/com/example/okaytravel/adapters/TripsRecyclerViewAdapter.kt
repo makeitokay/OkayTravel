@@ -15,6 +15,7 @@ import com.example.okaytravel.AVAILABLE_CITY_IMAGES
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.HomeActivity
 import com.example.okaytravel.activities.TripActivity
+import com.example.okaytravel.getHumanReadableDate
 import com.example.okaytravel.models.TripModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.RequestCreator
@@ -50,7 +51,7 @@ class TripsRecyclerViewAdapter(
 
         fun bind(trip: TripModel) {
             ownPlace.text = trip.ownPlace
-            startDate.text = trip.startDate
+            trip.startDate?.let { startDate.text = getHumanReadableDate(it) }
 
             picassoRequest = when (trip.fullAddress) {
                 in AVAILABLE_CITY_IMAGES ->

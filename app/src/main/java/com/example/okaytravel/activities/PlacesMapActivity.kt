@@ -11,13 +11,11 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.example.okaytravel.*
 import com.example.okaytravel.R
 import com.example.okaytravel.activities.fragments.dialogs.PlacesSearchResultBottomSheetDialogFragment
 import com.example.okaytravel.database.TripDatabaseHelper
-import com.example.okaytravel.hideKeyboard
 import com.example.okaytravel.models.TripModel
-import com.example.okaytravel.parseDate
-import com.example.okaytravel.parseDateString
 import com.example.okaytravel.presenters.PlacesMapPresenter
 import com.example.okaytravel.views.PlacesMapView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -111,7 +109,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     private val onDateSetListener = DatePickerDialog.OnDateSetListener { dp, year, month, day ->
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
-        addPlaceDialogView.placeDate.setText(parseDate(calendar.time))
+        addPlaceDialogView.placeDate.setText(getHumanReadableDate(parseDate(calendar.time)))
     }
 
     override fun focusBudgetAmountInput() {

@@ -14,6 +14,7 @@ import java.util.*
 
 const val DATETIME_FORMAT = "dd.MM.yyyy HH:mm:ss.SSS"
 const val DATE_FORMAT = "dd.MM.yyyy"
+const val HUMAN_READABLE_DATE_FORMAT = "d MMMM yyyy"
 
 fun String.sha256(): String {
     return this.hashWithAlgorithm("SHA-256")
@@ -60,32 +61,23 @@ fun isInternetAvailable(context: Context): Boolean {
     return result
 }
 
-fun getCurrentDate(): String {
-    return parseDate(Date())
-}
-
-fun getCurrentDatetime(): String {
-    return parseDatetime(Date())
-}
-
-fun parseDatetimeString(date: String): Date? {
-    val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
-    return isoFormat.parse(date)
-}
-
 fun parseDateString(date: String): Date? {
     val isoFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
     return isoFormat.parse(date)
 }
 
-fun parseDatetime(date: Date): String {
-    val isoFormat = SimpleDateFormat(DATETIME_FORMAT, Locale.getDefault())
-    return isoFormat.format(date)
-}
-
 fun parseDate(date: Date): String {
     val isoFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
     return isoFormat.format(date)
+}
+
+fun getHumanReadableDate(date: String): String? {
+    val dateObj = parseDateString(date)
+    dateObj?.let {
+        val isoFormat = SimpleDateFormat(HUMAN_READABLE_DATE_FORMAT, Locale.getDefault())
+        return isoFormat.format(dateObj)
+    }
+    return null
 }
 
 fun uuid(): String {

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.okaytravel.R
+import com.example.okaytravel.getHumanReadableDate
 import com.example.okaytravel.models.PlaceModel
 
 class PlaceDatesRecyclerViewAdapter(
@@ -45,7 +46,7 @@ class PlaceDatesRecyclerViewAdapter(
         var isExpanded = false
 
         fun bind(date: String, places: MutableList<PlaceModel>) {
-            placeDate.text = date
+            placeDate.text = getHumanReadableDate(date)
 
             val placesAdapter = PlacesRecyclerViewAdapter(places, onPlaceItemClickedListener)
             placesRecyclerView.adapter = placesAdapter
