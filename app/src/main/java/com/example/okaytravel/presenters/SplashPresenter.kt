@@ -32,7 +32,6 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
                 currentUser.anonymous -> viewState.startHome()
                 isInternetAvailable(context) -> usersApiHelper.auth(currentUser.username!!, currentUser.passwordHash!!, {
                     if (!it.error) {
-                        viewState.showMessage("Authorized!")
                         viewState.startHome()
 
                     } else {
