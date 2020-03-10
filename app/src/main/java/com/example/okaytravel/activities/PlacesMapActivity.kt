@@ -110,7 +110,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     private val onDateSetListener = DatePickerDialog.OnDateSetListener { dp, year, month, day ->
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
-        addPlaceDialogView.placeDate.setText(getHumanReadableDate(parseDate(calendar.time)))
+        addPlaceDialogView.placeDate.setText(parseDate(calendar.time))
     }
 
     override fun focusBudgetAmountInput() {

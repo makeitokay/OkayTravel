@@ -69,7 +69,7 @@ class TripAddAllDataFragment(private val ownPlace: String, private val fullAddre
     private val onDateSetListener = DatePickerDialog.OnDateSetListener { dp, year, month, day ->
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
-        startDateView.setText(getHumanReadableDate(parseDate(calendar.time)))
+        startDateView.setText(parseDate(calendar.time))
     }
 
     private fun openDatePickerDialog() {
