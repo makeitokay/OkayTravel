@@ -52,6 +52,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     private lateinit var addPlaceDialogView: View
 
     private var searchResultsDialog: PlacesSearchResultBottomSheetDialogFragment? = null
+    private var searchRequestSession: Session? = null
 
     @ProvidePresenter
     fun providePlacesMapPresenter(): PlacesMapPresenter {
@@ -79,7 +80,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
         searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                dismissSearchResultsDialog()
+                cancelSearch()
                 openSearchResultsDialog()
                 submitSearch(searchEdit.text.toString())
                 hideKeyboard(this)
@@ -136,7 +137,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
 
     override fun onMapTap(map: Map, point: Point) {
         tappedPoint = point
-        dismissSearchResultsDialog()
+        cancelSearch()
         openSearchResultsDialog()
         clearAndAddPlacemark(point)
         submitBizSearch(point)
@@ -165,7 +166,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
             errorMessage = getString(R.string.networkError)
         }
         showMessage(errorMessage)
-        dismissSearchResultsDialog()
+        cancelSearch()
     }
 
     fun showAddPlaceDialog(placeName: String?, placeFullAddress: String?, point: Point) {
@@ -243,7 +244,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     }
 
     private fun submitSearch(query: String) {
-        searchManager.submit(
+        searchRequestSession = searchManager.submit(
             query,
             VisibleRegionUtils.toPolygon(placesMapView.map.visibleRegion),
             SearchOptions(),
@@ -251,8 +252,10 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         )
     }
 
-    private fun dismissSearchResultsDialog() {
+    private fun cancelSearch() {
         searchResultsDialog?.dismiss()
+        searchRequestSession?.cancel()
+        searchRequestSession = null
         searchResultsDialog = null
     }
 
@@ -275,7 +278,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     }
 
     private fun submitGeoSearch(point: Point) {
-        searchManager.submit(point, null, SearchOptions().setSearchTypes(SearchType.GEO.value), geoSearchListener)
+        searchRequestSession = searchManager.submit(point, null, SearchOptions().setSearchTypes(SearchType.GEO.value), geoSearchListener)
     }
 
     private val geoSearchListener = object: Session.SearchListener {
@@ -289,7 +292,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     }
 
     private fun submitBizSearch(point: Point) {
-        searchManager.submit(point, null, SearchOptions().setSearchTypes(SearchType.BIZ.value), bizSearchListener)
+        searchRequestSession = searchManager.submit(point, null, SearchOptions().setSearchTypes(SearchType.BIZ.value), bizSearchListener)
     }
 
     private val bizSearchListener = object: Session.SearchListener {
