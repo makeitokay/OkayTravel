@@ -11,7 +11,7 @@ import com.example.okaytravel.isInternetAvailable
 import com.example.okaytravel.views.SplashView
 
 @InjectViewState
-class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() {
+class SplashPresenter(private val context: Context) : MvpPresenter<SplashView>() {
 
     private val usersApiHelper = UsersApiHelper()
     private val usersDBHelper: UsersDatabaseHelper = UsersDatabaseHelper()
@@ -30,18 +30,22 @@ class SplashPresenter(private val context: Context): MvpPresenter<SplashView>() 
         currentUser?.let {
             when {
                 currentUser.anonymous -> viewState.startHome()
-                isInternetAvailable(context) -> usersApiHelper.auth(currentUser.username!!, currentUser.passwordHash!!, {
-                    if (!it.error) {
-                        viewState.startHome()
+                isInternetAvailable(context) -> usersApiHelper.auth(
+                    currentUser.username!!,
+                    currentUser.passwordHash!!,
+                    {
+                        if (!it.error) {
+                            viewState.startHome()
 
-                    } else {
-                        viewState.showMessage(it.message)
+                        } else {
+                            viewState.showMessage(it.message)
+                            viewState.startLogin()
+                        }
+                    },
+                    {
+                        viewState.showMessage(R.string.unknownError)
                         viewState.startLogin()
-                    }
-                }, {
-                    viewState.showMessage(R.string.unknownError)
-                    viewState.startLogin()
-                })
+                    })
                 else -> {
                     viewState.startHome()
                 }

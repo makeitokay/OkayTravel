@@ -7,7 +7,7 @@ import com.yandex.mapkit.geometry.Point
 import java.util.*
 
 @Table(name = "Places")
-class PlaceModel: Model {
+class PlaceModel : Model {
 
     @Column(name = "uuid", unique = true)
     var uuid: String? = null
@@ -27,14 +27,26 @@ class PlaceModel: Model {
     @Column(name = "date")
     var date: String? = null
 
-    @Column(name = "trip", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    @Column(
+        name = "trip",
+        onUpdate = Column.ForeignKeyAction.CASCADE,
+        onDelete = Column.ForeignKeyAction.CASCADE
+    )
     var trip: TripModel? = null
 
     fun point(): Point {
         return Point(this.latitude?.toDouble()!!, this.longitude?.toDouble()!!)
     }
 
-    constructor(uuid: String, name: String?, fullAddress: String?, latitude: String, longitude: String, date: String, trip: TripModel) {
+    constructor(
+        uuid: String,
+        name: String?,
+        fullAddress: String?,
+        latitude: String,
+        longitude: String,
+        date: String,
+        trip: TripModel
+    ) {
         this.uuid = uuid
         this.name = name
         this.fullAddress = fullAddress

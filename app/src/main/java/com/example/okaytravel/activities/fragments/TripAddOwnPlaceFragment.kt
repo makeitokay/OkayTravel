@@ -25,7 +25,8 @@ import com.yandex.runtime.network.NetworkError
 import com.yandex.runtime.network.RemoteError
 import kotlinx.android.synthetic.main.fragment_add_own_place.*
 
-class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SuggestSession.SuggestListener {
+class TripAddOwnPlaceFragment : BaseFragment(), TripsAddOwnPlaceView,
+    SuggestSession.SuggestListener {
 
     override val fragmentNameResource: Int
         get() = R.string.newTrip
@@ -66,20 +67,24 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SuggestSess
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchManager = SearchFactory.getInstance().createSearchManager(
-            SearchManagerType.COMBINED)
+            SearchManagerType.COMBINED
+        )
         suggestSession = searchManager.createSuggestSession()
         suggestResult = ArrayList()
         suggestItems = ArrayList()
-        suggestAdapter = ArrayAdapter(this.requireActivity(),
+        suggestAdapter = ArrayAdapter(
+            this.requireActivity(),
             android.R.layout.simple_list_item_2,
             android.R.id.text1,
-            suggestResult)
+            suggestResult
+        )
         suggestResultView.adapter = suggestAdapter
 
-        ownPlace.addTextChangedListener(object: TextWatcher {
+        ownPlace.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 requestSuggest(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -87,9 +92,12 @@ class TripAddOwnPlaceFragment: BaseFragment(), TripsAddOwnPlaceView, SuggestSess
         suggestResultView.setOnItemClickListener { _, _, position, _ ->
             hideKeyboard(this.requireActivity())
             (activity as TripAddActivity)
-                .loadFragment(TripAddAllDataFragment(
-                    suggestItems[position].title.text,
-                    suggestItems[position].searchText))
+                .loadFragment(
+                    TripAddAllDataFragment(
+                        suggestItems[position].title.text,
+                        suggestItems[position].searchText
+                    )
+                )
         }
 
         if (!isInternetAvailable(this.requireActivity()))

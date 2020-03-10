@@ -6,12 +6,16 @@ import com.activeandroid.annotation.Table
 import java.util.*
 
 @Table(name = "Trips")
-class TripModel: Model {
+class TripModel : Model {
 
     @Column(name = "uuid", unique = true)
     var uuid: String? = null
 
-    @Column(name = "user", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    @Column(
+        name = "user",
+        onUpdate = Column.ForeignKeyAction.CASCADE,
+        onDelete = Column.ForeignKeyAction.CASCADE
+    )
     var user: UserModel? = null
 
     @Column(name = "ownPlace")
@@ -38,7 +42,14 @@ class TripModel: Model {
         return getMany(ThingModel::class.java, "trip")
     }
 
-    constructor(uuid: String, user: UserModel, ownPlace: String, fullAddress: String, startDate: String, duration: Int) {
+    constructor(
+        uuid: String,
+        user: UserModel,
+        ownPlace: String,
+        fullAddress: String,
+        startDate: String,
+        duration: Int
+    ) {
         this.uuid = uuid
         this.user = user
         this.ownPlace = ownPlace

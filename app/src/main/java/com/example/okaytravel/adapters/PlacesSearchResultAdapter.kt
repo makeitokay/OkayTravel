@@ -16,7 +16,8 @@ import com.yandex.mapkit.GeoObjectCollection
 import kotlinx.android.synthetic.main.places_search_adapter_item.view.*
 
 class PlacesSearchResultAdapter(
-    private val searchItems: MutableList<GeoObjectCollection.Item>):
+    private val searchItems: MutableList<GeoObjectCollection.Item>
+) :
     RecyclerView.Adapter<PlacesSearchResultAdapter.ViewHolder>() {
 
     var onItemClick: ((pos: Int, view: View?) -> Unit)? = null
@@ -25,7 +26,8 @@ class PlacesSearchResultAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.places_search_adapter_item, parent, false)
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.places_search_adapter_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -37,7 +39,8 @@ class PlacesSearchResultAdapter(
         holder.bind(searchItems[position])
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         override fun onClick(v: View?) {
             onItemClick?.invoke(adapterPosition, v)
         }

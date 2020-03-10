@@ -10,7 +10,8 @@ import com.example.okaytravel.R
 import com.example.okaytravel.activities.BaseActivity
 import kotlinx.android.synthetic.main.dialog_loading.view.*
 
-abstract class BaseFragment(private val changeToolbarTitle: Boolean = true): MvpAppCompatFragment() {
+abstract class BaseFragment(private val changeToolbarTitle: Boolean = true) :
+    MvpAppCompatFragment() {
 
     abstract val fragmentNameResource: Int
 
@@ -20,7 +21,11 @@ abstract class BaseFragment(private val changeToolbarTitle: Boolean = true): Mvp
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (changeToolbarTitle) (activity as BaseActivity).setToolbarTitle(getString(fragmentNameResource))
+        if (changeToolbarTitle) (activity as BaseActivity).setToolbarTitle(
+            getString(
+                fragmentNameResource
+            )
+        )
     }
 
     fun showMessage(message: String) {

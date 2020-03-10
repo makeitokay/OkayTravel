@@ -13,7 +13,7 @@ import com.example.okaytravel.models.PlaceModel
 class PlacesRecyclerViewAdapter(
     private val places: MutableList<PlaceModel>,
     private val listener: OnPlaceItemClickedListener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

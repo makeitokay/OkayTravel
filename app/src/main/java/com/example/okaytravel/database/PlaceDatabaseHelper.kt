@@ -14,7 +14,15 @@ class PlaceDatabaseHelper {
             .executeSingle()
     }
 
-    fun create(uuid: String, name: String?, fullAddress: String?, latitude: String, longitude: String, date: String, trip: TripModel): PlaceModel {
+    fun create(
+        uuid: String,
+        name: String?,
+        fullAddress: String?,
+        latitude: String,
+        longitude: String,
+        date: String,
+        trip: TripModel
+    ): PlaceModel {
         var place = PlaceModel(uuid, name, fullAddress, latitude, longitude, date, trip)
         place.save()
         return place

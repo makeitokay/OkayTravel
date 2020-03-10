@@ -184,8 +184,7 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         addPlaceDialogView.budgetRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             if (group.findViewById<RadioButton>(checkedId).text == getString(R.string.yesButton)) {
                 enableBudgetInput()
-            }
-            else {
+            } else {
                 disableBudgetInput()
             }
         }
@@ -265,8 +264,10 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         searchResultsDialog?.show(supportFragmentManager, "PlacesSearchResultTag")
     }
 
-    private val querySearchListener = object: Session.SearchListener {
-        override fun onSearchError(error: Error) { this@PlacesMapActivity.onSearchError(error) }
+    private val querySearchListener = object : Session.SearchListener {
+        override fun onSearchError(error: Error) {
+            this@PlacesMapActivity.onSearchError(error)
+        }
 
         override fun onSearchResponse(response: Response) {
             showFirstSearchResult(response)
@@ -278,11 +279,18 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     }
 
     private fun submitGeoSearch(point: Point) {
-        searchRequestSession = searchManager.submit(point, null, SearchOptions().setSearchTypes(SearchType.GEO.value), geoSearchListener)
+        searchRequestSession = searchManager.submit(
+            point,
+            null,
+            SearchOptions().setSearchTypes(SearchType.GEO.value),
+            geoSearchListener
+        )
     }
 
-    private val geoSearchListener = object: Session.SearchListener {
-        override fun onSearchError(error: Error) { this@PlacesMapActivity.onSearchError(error) }
+    private val geoSearchListener = object : Session.SearchListener {
+        override fun onSearchError(error: Error) {
+            this@PlacesMapActivity.onSearchError(error)
+        }
 
         override fun onSearchResponse(response: Response) {
             searchItems.addAll(response.collection.children)
@@ -292,11 +300,18 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
     }
 
     private fun submitBizSearch(point: Point) {
-        searchRequestSession = searchManager.submit(point, null, SearchOptions().setSearchTypes(SearchType.BIZ.value), bizSearchListener)
+        searchRequestSession = searchManager.submit(
+            point,
+            null,
+            SearchOptions().setSearchTypes(SearchType.BIZ.value),
+            bizSearchListener
+        )
     }
 
-    private val bizSearchListener = object: Session.SearchListener {
-        override fun onSearchError(error: Error) { this@PlacesMapActivity.onSearchError(error) }
+    private val bizSearchListener = object : Session.SearchListener {
+        override fun onSearchError(error: Error) {
+            this@PlacesMapActivity.onSearchError(error)
+        }
 
         override fun onSearchResponse(response: Response) {
             searchItems.clear()
@@ -315,8 +330,10 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         )
     }
 
-    private val citySearchListener = object: Session.SearchListener {
-        override fun onSearchError(error: Error) { this@PlacesMapActivity.onSearchError(error) }
+    private val citySearchListener = object : Session.SearchListener {
+        override fun onSearchError(error: Error) {
+            this@PlacesMapActivity.onSearchError(error)
+        }
 
         override fun onSearchResponse(response: Response) {
             if (response.collection.children.isEmpty()) return

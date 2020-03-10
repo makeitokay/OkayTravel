@@ -7,7 +7,7 @@ import com.example.okaytravel.views.TripsAddOwnPlaceView
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.search.*
 
-class TripAddActivity: BaseActivity(), TripsAddOwnPlaceView {
+class TripAddActivity : BaseActivity(), TripsAddOwnPlaceView {
 
     override val fragmentContainer: Int? = R.id.addTripFragmentContainer
 

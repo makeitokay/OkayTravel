@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_places.*
 import kotlinx.android.synthetic.main.fragment_places.placesRecyclerView
 import kotlinx.android.synthetic.main.place_adapter_item.*
 
-class PlacesFragment: BaseFragment(false), PlacesView,
+class PlacesFragment : BaseFragment(false), PlacesView,
     PlaceDatesRecyclerViewAdapter.OnDateItemClickedListener,
     PlacesRecyclerViewAdapter.OnPlaceItemClickedListener {
 
@@ -68,7 +68,8 @@ class PlacesFragment: BaseFragment(false), PlacesView,
             placeDates,
             placesData,
             this,
-            this)
+            this
+        )
         placesRecyclerView.adapter = placeDatesAdapter
     }
 
@@ -87,12 +88,14 @@ class PlacesFragment: BaseFragment(false), PlacesView,
         holder.isExpanded = !holder.isExpanded
     }
 
-    override fun onPlaceItemClicked(holder: PlacesRecyclerViewAdapter.PlaceViewHolder, place: PlaceModel) {
+    override fun onPlaceItemClicked(
+        holder: PlacesRecyclerViewAdapter.PlaceViewHolder,
+        place: PlaceModel
+    ) {
         if (selectedPlaces.contains(place)) {
             selectedPlaces.remove(place)
             holder.selectedCheckbox.visibility = View.GONE
-        }
-        else {
+        } else {
             selectedPlaces.add(place)
             holder.selectedCheckbox.visibility = View.VISIBLE
         }
@@ -150,7 +153,10 @@ class PlacesFragment: BaseFragment(false), PlacesView,
         startActivity(intent)
     }
 
-    override fun updatePlaces(dates: MutableList<String>, places: Map<String, MutableList<PlaceModel>>) {
+    override fun updatePlaces(
+        dates: MutableList<String>,
+        places: Map<String, MutableList<PlaceModel>>
+    ) {
         placeDates.clear()
         placeDates.addAll(dates)
 

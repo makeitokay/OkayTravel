@@ -8,7 +8,7 @@ import com.example.okaytravel.views.PlaceRoutesView
 import com.yandex.mapkit.geometry.Point
 
 @InjectViewState
-class PlaceRoutesPresenter: MvpPresenter<PlaceRoutesView>() {
+class PlaceRoutesPresenter : MvpPresenter<PlaceRoutesView>() {
 
     private val placeDBHelper = PlaceDatabaseHelper()
 

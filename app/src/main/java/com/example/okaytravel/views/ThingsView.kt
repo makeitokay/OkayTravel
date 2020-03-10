@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.example.okaytravel.adapters.thingitems.ThingListItem
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface ThingsView: MvpView {
+interface ThingsView : MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 
@@ -28,5 +28,8 @@ interface ThingsView: MvpView {
 
     fun hideThingsContent()
 
-    fun updateThingsItems(notTakenItems: MutableList<ThingListItem>, takenItems: MutableList<ThingListItem>)
+    fun updateThingsItems(
+        notTakenItems: MutableList<ThingListItem>,
+        takenItems: MutableList<ThingListItem>
+    )
 }

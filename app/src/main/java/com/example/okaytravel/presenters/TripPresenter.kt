@@ -5,5 +5,5 @@ import com.arellomobile.mvp.MvpPresenter
 import com.example.okaytravel.views.TripView
 
 @InjectViewState
-class TripPresenter: MvpPresenter<TripView>() {
+class TripPresenter : MvpPresenter<TripView>() {
 }

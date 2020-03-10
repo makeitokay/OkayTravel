@@ -16,14 +16,18 @@ class PlaceDatesRecyclerViewAdapter(
     private val placesData: Map<String, MutableList<PlaceModel>>,
     private val onDateItemClickedListener: OnDateItemClickedListener,
     private val onPlaceItemClickedListener: PlacesRecyclerViewAdapter.OnPlaceItemClickedListener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
         return PlaceDateViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.place_date_adapter_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.place_date_adapter_item,
+                parent,
+                false
+            )
         )
     }
 
@@ -36,7 +40,7 @@ class PlaceDatesRecyclerViewAdapter(
         placeDateViewHolder.bind(dates[position], placesData.getValue(dates[position]))
     }
 
-    inner class PlaceDateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class PlaceDateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val placeDate: TextView = itemView.findViewById(R.id.placeDateView)
         private val placeDateCardView: CardView = itemView.findViewById(R.id.placeDateCardView)
 

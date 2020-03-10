@@ -23,14 +23,16 @@ import java.lang.Exception
 
 class TripsRecyclerViewAdapter(
     private val tripsList: MutableList<TripModel>,
-    private val context: Context):
+    private val context: Context
+) :
     RecyclerView.Adapter<TripsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.trip_adapter_item, parent, false)
+        val v =
+            LayoutInflater.from(parent.context).inflate(R.layout.trip_adapter_item, parent, false)
         return ViewHolder(v, context)
     }
 
@@ -42,7 +44,8 @@ class TripsRecyclerViewAdapter(
         holder.bind(tripsList[position])
     }
 
-    class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, private val context: Context) :
+        RecyclerView.ViewHolder(itemView) {
         private val ownPlace: TextView = itemView.findViewById(R.id.ownPlace)
         private val startDate: TextView = itemView.findViewById(R.id.startDate)
         private val cityImage: ImageView = itemView.findViewById(R.id.cityImageView)

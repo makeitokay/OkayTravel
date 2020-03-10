@@ -18,7 +18,7 @@ import com.example.okaytravel.presenters.TripsPresenter
 import com.example.okaytravel.views.TripsView
 import kotlinx.android.synthetic.main.fragment_trips.*
 
-class TripsFragment: BaseFragment(), TripsView {
+class TripsFragment : BaseFragment(), TripsView {
 
     override val fragmentNameResource: Int
         get() = R.string.tripsMenuItemText

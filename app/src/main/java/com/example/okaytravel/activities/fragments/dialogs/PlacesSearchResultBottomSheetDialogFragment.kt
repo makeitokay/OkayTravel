@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.places_search_result_bottom_sheet.*
 
 class PlacesSearchResultBottomSheetDialogFragment(
     var searchItems: MutableList<GeoObjectCollection.Item>
-): BottomSheetDialogFragment() {
+) : BottomSheetDialogFragment() {
 
     lateinit var searchResultsAdapter: PlacesSearchResultAdapter
 

@@ -13,7 +13,7 @@ import com.example.okaytravel.uuid
 import com.example.okaytravel.views.TripsView
 
 @InjectViewState
-class TripsPresenter(private val context: Context): MvpPresenter<TripsView>() {
+class TripsPresenter(private val context: Context) : MvpPresenter<TripsView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
     private val usersApiHelper = UsersApiHelper()

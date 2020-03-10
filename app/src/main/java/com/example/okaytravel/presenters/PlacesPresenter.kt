@@ -15,7 +15,8 @@ import com.example.okaytravel.models.TripModel
 import com.example.okaytravel.views.PlacesView
 
 @InjectViewState
-class PlacesPresenter(private val context: Context, private val trip: TripModel): MvpPresenter<PlacesView>() {
+class PlacesPresenter(private val context: Context, private val trip: TripModel) :
+    MvpPresenter<PlacesView>() {
 
     private val placeDBHelper = PlaceDatabaseHelper()
 

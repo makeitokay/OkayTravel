@@ -13,7 +13,13 @@ class UsersDatabaseHelper {
     private val placeDBHelper = PlaceDatabaseHelper()
     private val thingDBHelper = ThingDatabaseHelper()
 
-    fun createUser(username: String, email: String, passwordHash: String, accessToken: String, premium: Boolean): UserModel {
+    fun createUser(
+        username: String,
+        email: String,
+        passwordHash: String,
+        accessToken: String,
+        premium: Boolean
+    ): UserModel {
         var user = UserModel(username, email, passwordHash, null, accessToken, premium = premium)
         user.save()
         return user
@@ -25,7 +31,12 @@ class UsersDatabaseHelper {
         return user
     }
 
-    fun replaceAnonymousWithNewUser(username: String, email: String, passwordHash: String, accessToken: String) {
+    fun replaceAnonymousWithNewUser(
+        username: String,
+        email: String,
+        passwordHash: String,
+        accessToken: String
+    ) {
         var anonymousUser = getUserByUsername("Anonymous") ?: return
         anonymousUser.username = username
         anonymousUser.email = email
@@ -66,20 +77,44 @@ class UsersDatabaseHelper {
     fun serializeUser(id: Long): SyncBody? {
         val user = getUserById(id)
         user?.let {
-            val userInfoBody = UserInfo(user.username, user.email, user.passwordHash, user.avatar, user.commits, user.premium)
+            val userInfoBody = UserInfo(
+                user.username,
+                user.email,
+                user.passwordHash,
+                user.avatar,
+                user.commits,
+                user.premium
+            )
 
             var trips: ArrayList<Trip> = arrayListOf()
             user.trips().forEach { trip ->
-                val tripInfoBody = TripInfo(trip.uuid, trip.ownPlace, trip.fullAddress, trip.startDate, trip.duration)
+                val tripInfoBody = TripInfo(
+                    trip.uuid,
+                    trip.ownPlace,
+                    trip.fullAddress,
+                    trip.startDate,
+                    trip.duration
+                )
                 val budget: ArrayList<BudgetElement> = arrayListOf()
                 val places: ArrayList<Place> = arrayListOf()
                 val things: ArrayList<Thing> = arrayListOf()
                 trip.budget().forEach { budgetElement ->
-                    val budgetElementBody = BudgetElement(budgetElement.uuid, budgetElement.amount, budgetElement.category)
+                    val budgetElementBody = BudgetElement(
+                        budgetElement.uuid,
+                        budgetElement.amount,
+                        budgetElement.category
+                    )
                     budget.add(budgetElementBody)
                 }
                 trip.places().forEach { place ->
-                    val placeInfoBody = Place(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date)
+                    val placeInfoBody = Place(
+                        place.uuid,
+                        place.name,
+                        place.fullAddress,
+                        place.latitude,
+                        place.longitude,
+                        place.date
+                    )
                     places.add(placeInfoBody)
                 }
                 trip.things().forEach { thing ->
@@ -108,7 +143,13 @@ class UsersDatabaseHelper {
             user.premium = userInfo.premium
             user.save()
         } else {
-            user = createUser(userInfo.username, userInfo.email, userInfo.passwordHash, userInfo.accessToken, userInfo.premium)
+            user = createUser(
+                userInfo.username,
+                userInfo.email,
+                userInfo.passwordHash,
+                userInfo.accessToken,
+                userInfo.premium
+            )
         }
 
         trips.forEach { trip ->
@@ -150,7 +191,15 @@ class UsersDatabaseHelper {
                         placeModel.date = place.date
                         placeModel.save()
                     } else {
-                        placeDBHelper.create(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date, tripModel)
+                        placeDBHelper.create(
+                            place.uuid,
+                            place.name,
+                            place.fullAddress,
+                            place.latitude,
+                            place.longitude,
+                            place.date,
+                            tripModel
+                        )
                     }
                 }
 
@@ -166,10 +215,16 @@ class UsersDatabaseHelper {
                 }
                 tripModel.save()
 
-                } else {
+            } else {
 
                 val newTripModel = tripDBHelper.create(
-                    tripInfo.uuid, tripInfo.ownPlace, tripInfo.fullAddress, tripInfo.startDate, tripInfo.duration, user)
+                    tripInfo.uuid,
+                    tripInfo.ownPlace,
+                    tripInfo.fullAddress,
+                    tripInfo.startDate,
+                    tripInfo.duration,
+                    user
+                )
 
                 trip.budget.forEach { budgetElement ->
                     budgetElementDBHelper.create(
@@ -180,7 +235,15 @@ class UsersDatabaseHelper {
                     )
                 }
                 trip.places.forEach { place ->
-                    placeDBHelper.create(place.uuid, place.name, place.fullAddress, place.latitude, place.longitude, place.date, newTripModel)
+                    placeDBHelper.create(
+                        place.uuid,
+                        place.name,
+                        place.fullAddress,
+                        place.latitude,
+                        place.longitude,
+                        place.date,
+                        newTripModel
+                    )
                 }
                 trip.things.forEach { thing ->
                     thingDBHelper.create(thing.uuid, thing.name, thing.taken, newTripModel)

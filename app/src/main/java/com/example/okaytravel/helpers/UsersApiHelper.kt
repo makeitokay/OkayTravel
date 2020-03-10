@@ -16,12 +16,16 @@ class UsersApiHelper {
     private val apiService = OkayTravelApiService.create()
     private val usersDBHelper = UsersDatabaseHelper()
 
-    fun sync(user: UserModel, onSuccess: (syncResponse: SyncResponse) -> Unit = {}, onFailure: () -> Unit = {}): Boolean {
+    fun sync(
+        user: UserModel,
+        onSuccess: (syncResponse: SyncResponse) -> Unit = {},
+        onFailure: () -> Unit = {}
+    ): Boolean {
         val syncBody = usersDBHelper.serializeUser(user.id) ?: return false
         apiService.sync(syncBody)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
+            .subscribe({
                 if (it.error == null) {
                     if (it.user?.user?.commits != user.commits) usersDBHelper.updateUser(it)
                     onSuccess(it)
@@ -39,12 +43,17 @@ class UsersApiHelper {
         return true
     }
 
-    fun auth(login: String, passwordHash: String, onSuccess: (userInfoResponse: UserInfoResponse) -> Unit = {}, onFailure: () -> Unit = {}) {
+    fun auth(
+        login: String,
+        passwordHash: String,
+        onSuccess: (userInfoResponse: UserInfoResponse) -> Unit = {},
+        onFailure: () -> Unit = {}
+    ) {
         val body = AuthBody(login, passwordHash)
         apiService.auth(body)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
+            .subscribe({
                 onSuccess(it)
             }, { error ->
                 println(error)
@@ -55,13 +64,14 @@ class UsersApiHelper {
     fun createUser(
         username: String, email: String, passwordHash: String,
         onSuccess: (signUpResponse: SignUpResponse) -> Unit = {},
-        onFailure: () -> Unit = {}) {
+        onFailure: () -> Unit = {}
+    ) {
 
         val body = CreateUserBody(username, email, passwordHash)
         apiService.createUser(body)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
+            .subscribe({
                 onSuccess(it)
             }, { error ->
                 println(error)

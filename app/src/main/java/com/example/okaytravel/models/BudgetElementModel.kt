@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Table
 import java.util.*
 
 @Table(name = "Budget")
-class BudgetElementModel: Model {
+class BudgetElementModel : Model {
 
     @Column(name = "uuid", unique = true)
     var uuid: String? = null
@@ -17,7 +17,11 @@ class BudgetElementModel: Model {
     @Column(name = "category")
     var category: String? = null
 
-    @Column(name = "trip", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    @Column(
+        name = "trip",
+        onUpdate = Column.ForeignKeyAction.CASCADE,
+        onDelete = Column.ForeignKeyAction.CASCADE
+    )
     var trip: TripModel? = null
 
     constructor(uuid: String, amount: Int, category: String, trip: TripModel) {

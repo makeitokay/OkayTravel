@@ -34,7 +34,7 @@ class PlaceRoutesActivity : BaseActivity(), PlaceRoutesView, Session.RouteListen
     private lateinit var routeMapObjects: MapObjectCollection
 
     private fun getPlacesUuidsFromExtra(): ArrayList<String> {
-        val placesUuids =  intent.extras?.getStringArrayList("places")
+        val placesUuids = intent.extras?.getStringArrayList("places")
         return placesUuids!!
     }
 
@@ -53,9 +53,11 @@ class PlaceRoutesActivity : BaseActivity(), PlaceRoutesView, Session.RouteListen
     }
 
     override fun showPlace(point: Point) {
-        routesMapView.map.mapObjects.addPlacemark(point, ImageProvider.fromResource(
-            applicationContext, R.drawable.placemark
-        ))
+        routesMapView.map.mapObjects.addPlacemark(
+            point, ImageProvider.fromResource(
+                applicationContext, R.drawable.placemark
+            )
+        )
     }
 
     override fun showRoute(points: MutableList<Point>) {

@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.yandex.mapkit.geometry.Point
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface PlacesMapView: MvpView {
+interface PlacesMapView : MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 

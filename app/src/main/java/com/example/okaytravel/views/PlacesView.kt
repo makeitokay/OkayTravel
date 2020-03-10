@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.example.okaytravel.models.PlaceModel
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface PlacesView: MvpView {
+interface PlacesView : MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 

@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.github.mikephil.charting.data.PieEntry
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface BudgetView: MvpView {
+interface BudgetView : MvpView {
     fun showMessage(message: String)
     fun showMessage(resourceId: Int)
 

@@ -16,7 +16,8 @@ import com.example.okaytravel.uuid
 import com.example.okaytravel.views.ThingsView
 
 @InjectViewState
-class ThingsPresenter(private val context: Context, private val trip: TripModel): MvpPresenter<ThingsView>() {
+class ThingsPresenter(private val context: Context, private val trip: TripModel) :
+    MvpPresenter<ThingsView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
     private val thingsDBHelper = ThingDatabaseHelper()

@@ -24,7 +24,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.dialog_budget_add.view.*
 import kotlinx.android.synthetic.main.fragment_budget.*
 
-class BudgetFragment: BaseFragment(false), BudgetView {
+class BudgetFragment : BaseFragment(false), BudgetView {
 
     override val fragmentNameResource: Int
         get() = R.string.budget
@@ -84,7 +84,7 @@ class BudgetFragment: BaseFragment(false), BudgetView {
     override fun setPieChartCenterText(text: String) {
         budgetPieChart.centerText = text
     }
-    
+
     override fun showBudgetLoading() {
         loading.visibility = View.VISIBLE
         budgetPieChart.visibility = View.GONE
@@ -118,7 +118,8 @@ class BudgetFragment: BaseFragment(false), BudgetView {
                 val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 positiveButton.setOnClickListener {
                     this.onAddButtonClicked(
-                        view.placeBudgetCategory.text.toString(), view.placeBudgetAmount.text.toString()
+                        view.placeBudgetCategory.text.toString(),
+                        view.placeBudgetAmount.text.toString()
                     )
                 }
             }

@@ -13,7 +13,7 @@ import com.example.okaytravel.sha256
 import com.example.okaytravel.views.SignUpView
 
 @InjectViewState
-class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() {
+class SignUpPresenter(private val context: Context) : MvpPresenter<SignUpView>() {
 
     private val usersApiHelper = UsersApiHelper()
     private val usersDBHelper: UsersDatabaseHelper = UsersDatabaseHelper()
@@ -38,8 +38,7 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
                 signedUpAccessToken = it.accessToken!!
                 if (usersDBHelper.getUserByUsername("Anonymous")?.commits!! > 0) {
                     viewState.showSyncAnonymUserDialog()
-                }
-                else {
+                } else {
                     endSignUpWithoutSyncAnonym(username, email, password)
                 }
 
@@ -61,14 +60,24 @@ class SignUpPresenter(private val context: Context): MvpPresenter<SignUpView>() 
     }
 
     fun endSignUpWithSyncAnonym(username: String, email: String, password: String) {
-        usersDBHelper.replaceAnonymousWithNewUser(username, email, password.sha256(), signedUpAccessToken)
+        usersDBHelper.replaceAnonymousWithNewUser(
+            username,
+            email,
+            password.sha256(),
+            signedUpAccessToken
+        )
         usersDBHelper.createAnonymousUser()
         viewState.endSigningUp()
         sessionSharedPref.setCurrentUser(username)
         viewState.startHome()
     }
 
-    private fun validateInputData(username: String, email: String, password: String, passwordAgain: String): Boolean {
+    private fun validateInputData(
+        username: String,
+        email: String,
+        password: String,
+        passwordAgain: String
+    ): Boolean {
         if (username.length !in 3..20) {
             viewState.showMessage(R.string.invalidUsernameSize)
             viewState.focusUsername()

@@ -13,7 +13,7 @@ import com.example.okaytravel.uuid
 import com.example.okaytravel.views.TripAddAllDataView
 
 @InjectViewState
-class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAddAllDataView>() {
+class TripAddAllDataPresenter(private val context: Context) : MvpPresenter<TripAddAllDataView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
     private val tripsDBHelper = TripDatabaseHelper()
@@ -48,7 +48,11 @@ class TripAddAllDataPresenter(private val context: Context): MvpPresenter<TripAd
             viewState.showMessage(R.string.emptyFieldsError)
             return
         }
-        val duration: Int? = try { rawDuration.toInt() } catch ( e: NumberFormatException ) { null }
+        val duration: Int? = try {
+            rawDuration.toInt()
+        } catch (e: NumberFormatException) {
+            null
+        }
         if (duration == null || duration <= 0 || duration > 365) {
             viewState.showMessage(R.string.invalidTripDuration)
             return

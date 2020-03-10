@@ -56,7 +56,8 @@ class TripActivity : BaseActivity(), TripView, ViewPager.OnPageChangeListener {
         position: Int,
         positionOffset: Float,
         positionOffsetPixels: Int
-    ) {}
+    ) {
+    }
 
     override fun onPageSelected(position: Int) {
         for (i in 0..2) {
@@ -79,7 +80,7 @@ class TripActivity : BaseActivity(), TripView, ViewPager.OnPageChangeListener {
     }
 
     private fun getTripFromExtra(): TripModel? {
-        val tripUuid =  intent.extras?.getString("trip") ?: return null
+        val tripUuid = intent.extras?.getString("trip") ?: return null
         return tripsDBHelper.getTripByUuid(tripUuid)
     }
 }

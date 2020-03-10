@@ -5,7 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = AddToEndStrategy::class)
-interface TripAddAllDataView: MvpView {
+interface TripAddAllDataView : MvpView {
 
     fun openTrips()
 

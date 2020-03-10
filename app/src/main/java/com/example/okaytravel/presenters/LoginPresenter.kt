@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
+class LoginPresenter(private val context: Context) : MvpPresenter<LoginView>() {
 
     private val usersApiHelper = UsersApiHelper()
     private val sessionSharedPref: SharedPrefHelper = SharedPrefHelper("session", context)
@@ -41,7 +41,11 @@ class LoginPresenter(private val context: Context): MvpPresenter<LoginView>() {
                 val userInfo = it.user
                 if (usersDBHelper.getUserByUsername(userInfo?.username!!) == null) {
                     usersDBHelper.createUser(
-                        userInfo.username, userInfo.email, userInfo.passwordHash, userInfo.accessToken, userInfo.premium
+                        userInfo.username,
+                        userInfo.email,
+                        userInfo.passwordHash,
+                        userInfo.accessToken,
+                        userInfo.premium
                     )
                 }
 

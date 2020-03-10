@@ -16,7 +16,7 @@ import com.example.okaytravel.uuid
 import com.example.okaytravel.views.PlacesMapView
 
 @InjectViewState
-class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapView>() {
+class PlacesMapPresenter(private val context: Context) : MvpPresenter<PlacesMapView>() {
 
     private val placeDBHelper = PlaceDatabaseHelper()
     private val usersDBHelper = UsersDatabaseHelper()
@@ -41,7 +41,16 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
         })
     }
 
-    fun addPlace(trip: TripModel, name: String?, fullAddress: String?, latitude: String, longitude: String, date: String, budgetCategory: String?, rawBudgetAmount: String?) {
+    fun addPlace(
+        trip: TripModel,
+        name: String?,
+        fullAddress: String?,
+        latitude: String,
+        longitude: String,
+        date: String,
+        budgetCategory: String?,
+        rawBudgetAmount: String?
+    ) {
         if (currentUser == null || !validateInputData(date, budgetCategory, rawBudgetAmount)) {
             return
         }
@@ -72,7 +81,11 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
         }
     }
 
-    private fun validateInputData(date: String, budgetCategory: String?, rawBudgetAmount: String?): Boolean {
+    private fun validateInputData(
+        date: String,
+        budgetCategory: String?,
+        rawBudgetAmount: String?
+    ): Boolean {
         if (date.isEmpty()) {
             viewState.showMessage(R.string.emptyFieldsError)
             return false
@@ -93,7 +106,11 @@ class PlacesMapPresenter(private val context: Context): MvpPresenter<PlacesMapVi
                 viewState.focusBudgetAmountInput()
                 return false
             }
-            val budgetAmount: Int? = try { rawBudgetAmount.toInt() } catch ( e: NumberFormatException ) { null }
+            val budgetAmount: Int? = try {
+                rawBudgetAmount.toInt()
+            } catch (e: NumberFormatException) {
+                null
+            }
             if (budgetAmount == null || budgetAmount <= 0 || budgetAmount > 999999998) {
                 viewState.showMessage(R.string.invalidBudgetAmount)
                 return false

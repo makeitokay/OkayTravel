@@ -16,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
+class HomePresenter(private val context: Context) : MvpPresenter<HomeView>() {
 
     private val usersDBHelper = UsersDatabaseHelper()
     private val sessionSharedPref = SharedPrefHelper("session", context)
@@ -31,8 +31,9 @@ class HomePresenter(private val context: Context): MvpPresenter<HomeView>() {
             if (currentUser.anonymous) {
                 viewState.hideAuthorizedMenuItems()
                 if (!usageInfoSharedPref.getShowNoMoreRecommend() &&
-                    fromActivity in listOf("SplashActivity", "IntroActivity"))
-                viewState.showSignUpRecommendDialog()
+                    fromActivity in listOf("SplashActivity", "IntroActivity")
+                )
+                    viewState.showSignUpRecommendDialog()
             } else {
                 viewState.hideAnonymousMenuItems()
             }

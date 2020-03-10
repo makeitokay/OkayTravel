@@ -5,7 +5,7 @@ import com.activeandroid.annotation.Column
 import com.activeandroid.annotation.Table
 
 @Table(name = "Things")
-class ThingModel: Model {
+class ThingModel : Model {
 
     @Column(name = "uuid", unique = true)
     var uuid: String? = null
@@ -16,7 +16,11 @@ class ThingModel: Model {
     @Column(name = "taken")
     var taken: Boolean? = null
 
-    @Column(name = "trip", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    @Column(
+        name = "trip",
+        onUpdate = Column.ForeignKeyAction.CASCADE,
+        onDelete = Column.ForeignKeyAction.CASCADE
+    )
     var trip: TripModel? = null
 
     constructor(uuid: String, name: String, taken: Boolean, trip: TripModel) {

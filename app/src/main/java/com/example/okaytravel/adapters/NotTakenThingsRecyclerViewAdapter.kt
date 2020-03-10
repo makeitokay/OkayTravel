@@ -17,15 +17,23 @@ class NotTakenThingsRecyclerViewAdapter(
     private val thingsItems: MutableList<ThingListItem>,
     private val addThingListener: View.OnClickListener,
     private val onThingItemClickListener: ThingViewHolder.OnThingItemClickListener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             0 -> ThingViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.thing_adapter_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.thing_adapter_item,
+                    parent,
+                    false
+                )
             )
             else -> ThingAddViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.thing_add_adapter_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.thing_add_adapter_item,
+                    parent,
+                    false
+                )
             )
         }
     }
@@ -38,7 +46,11 @@ class NotTakenThingsRecyclerViewAdapter(
         when (holder.itemViewType) {
             0 -> {
                 val thingHolder = holder as ThingViewHolder
-                thingHolder.bind(thingsItems[position] as ThingItem, onThingItemClickListener, position)
+                thingHolder.bind(
+                    thingsItems[position] as ThingItem,
+                    onThingItemClickListener,
+                    position
+                )
             }
             else -> {
                 val thingAddHolder = holder as ThingAddViewHolder

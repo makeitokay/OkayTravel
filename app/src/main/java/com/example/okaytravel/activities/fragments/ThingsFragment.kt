@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_things.buyPremiumBtn
 import kotlinx.android.synthetic.main.fragment_things.buyPremiumContainer
 import kotlinx.android.synthetic.main.fragment_things.loading
 
-class ThingsFragment: BaseFragment(false), ThingsView {
+class ThingsFragment : BaseFragment(false), ThingsView {
 
     override val fragmentNameResource: Int
         get() = R.string.things
@@ -125,7 +125,10 @@ class ThingsFragment: BaseFragment(false), ThingsView {
         notTakenThingsText.visibility = View.VISIBLE
     }
 
-    override fun updateThingsItems(notTakenItems: MutableList<ThingListItem>, takenItems: MutableList<ThingListItem>) {
+    override fun updateThingsItems(
+        notTakenItems: MutableList<ThingListItem>,
+        takenItems: MutableList<ThingListItem>
+    ) {
         takenThingsData.clear()
         takenThingsData.addAll(takenItems)
         takenThingsAdapter.notifyDataSetChanged()
@@ -137,14 +140,15 @@ class ThingsFragment: BaseFragment(false), ThingsView {
 
     private fun createConfirmThingsEditSnackbar() {
         if (changeThingsList.isNotEmpty()) return
-        val snackbar = Snackbar.make(this.requireView(), R.string.confirmActionAsk, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.save) {
-                val changedItems = emptyMap<ThingModel, Boolean>().toMutableMap()
-                changeThingsList.forEach { changedItems += Pair(it, it.taken!!) }
-                thingsPresenter.editThings(changedItems)
-                changeThingsList.clear()
-                saveThingsEditSnackbar?.dismiss()
-            }
+        val snackbar =
+            Snackbar.make(this.requireView(), R.string.confirmActionAsk, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.save) {
+                    val changedItems = emptyMap<ThingModel, Boolean>().toMutableMap()
+                    changeThingsList.forEach { changedItems += Pair(it, it.taken!!) }
+                    thingsPresenter.editThings(changedItems)
+                    changeThingsList.clear()
+                    saveThingsEditSnackbar?.dismiss()
+                }
         saveThingsEditSnackbar = snackbar
         snackbar.show()
     }
@@ -171,26 +175,28 @@ class ThingsFragment: BaseFragment(false), ThingsView {
             changeThingsList.add(thing)
         }
     }
-    private val onTakenThingItemClickedListener = object : TakenThingsRecyclerViewAdapter.ThingViewHolder.OnThingItemClickListener {
-        override fun onThingItemClicked(thingItem: ThingListItem, position: Int) {
-            takenThingsData.remove(thingItem)
-            notTakenThingsData.add(thingItem)
-            takenThingsAdapter.notifyDataSetChanged()
-            notTakenThingsAdapter.notifyItemInserted(notTakenThingsData.size + 1)
-            showThings()
-            baseOnThingClickedListener(thingItem)
+    private val onTakenThingItemClickedListener =
+        object : TakenThingsRecyclerViewAdapter.ThingViewHolder.OnThingItemClickListener {
+            override fun onThingItemClicked(thingItem: ThingListItem, position: Int) {
+                takenThingsData.remove(thingItem)
+                notTakenThingsData.add(thingItem)
+                takenThingsAdapter.notifyDataSetChanged()
+                notTakenThingsAdapter.notifyItemInserted(notTakenThingsData.size + 1)
+                showThings()
+                baseOnThingClickedListener(thingItem)
+            }
         }
-    }
-    private val onNotTakenThingItemClickedListener = object: NotTakenThingsRecyclerViewAdapter.ThingViewHolder.OnThingItemClickListener {
-        override fun onThingItemClicked(thingItem: ThingListItem, position: Int) {
-            notTakenThingsData.remove(thingItem)
-            takenThingsData.add(thingItem)
-            notTakenThingsAdapter.notifyDataSetChanged()
-            takenThingsAdapter.notifyItemInserted(takenThingsData.size)
-            showThings()
-            baseOnThingClickedListener(thingItem)
+    private val onNotTakenThingItemClickedListener =
+        object : NotTakenThingsRecyclerViewAdapter.ThingViewHolder.OnThingItemClickListener {
+            override fun onThingItemClicked(thingItem: ThingListItem, position: Int) {
+                notTakenThingsData.remove(thingItem)
+                takenThingsData.add(thingItem)
+                notTakenThingsAdapter.notifyDataSetChanged()
+                takenThingsAdapter.notifyItemInserted(takenThingsData.size)
+                showThings()
+                baseOnThingClickedListener(thingItem)
+            }
         }
-    }
 
     override fun openAddThingDialog() {
         activity?.let {

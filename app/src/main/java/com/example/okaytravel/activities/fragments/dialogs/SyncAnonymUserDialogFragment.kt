@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.okaytravel.R
 
-class SyncAnonymUserDialogFragment: DialogFragment() {
+class SyncAnonymUserDialogFragment : DialogFragment() {
 
     interface ChooseListener {
         fun syncAnonymUserButtonClicked()

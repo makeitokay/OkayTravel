@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.thing_add_adapter_item.view.*
 class TakenThingsRecyclerViewAdapter(
     private val thingsItems: MutableList<ThingListItem>,
     private val onThingItemClickListener: ThingViewHolder.OnThingItemClickListener
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ThingViewHolder(

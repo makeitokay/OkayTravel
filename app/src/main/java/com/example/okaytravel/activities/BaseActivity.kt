@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.dialog_loading.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 @SuppressLint("Registered")
-abstract class BaseActivity: MvpAppCompatActivity() {
+abstract class BaseActivity : MvpAppCompatActivity() {
 
     protected abstract val fragmentContainer: Int?
 

@@ -51,11 +51,19 @@ class SignUpActivity : BaseActivity(), SignUpView, SyncAnonymUserDialogFragment.
     }
 
     override fun syncAnonymUserButtonClicked() {
-        signUpPresenter.endSignUpWithSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
+        signUpPresenter.endSignUpWithSyncAnonym(
+            username.text.toString(),
+            email.text.toString(),
+            password.text.toString()
+        )
     }
 
     override fun cancelSyncAnonymUserButtonClicked() {
-        signUpPresenter.endSignUpWithoutSyncAnonym(username.text.toString(), email.text.toString(), password.text.toString())
+        signUpPresenter.endSignUpWithoutSyncAnonym(
+            username.text.toString(),
+            email.text.toString(),
+            password.text.toString()
+        )
     }
 
     override fun startSigningUp() {
