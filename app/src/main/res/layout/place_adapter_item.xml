@@ -12,12 +12,16 @@
         android:clickable="true"
         android:focusable="true">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:weightSum="1"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/addressInfo"
+                android:layout_width="0dp"
+                android:layout_weight="0.9"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -38,14 +42,14 @@
 
             <CheckBox
                 android:id="@+id/selectedCheckbox"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:checked="true"
                 android:visibility="gone"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
