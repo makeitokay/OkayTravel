@@ -12,6 +12,7 @@ import com.example.okaytravel.helpers.UsersApiHelper
 import com.example.okaytravel.isInternetAvailable
 import com.example.okaytravel.models.PlaceModel
 import com.example.okaytravel.models.TripModel
+import com.example.okaytravel.parseDateString
 import com.example.okaytravel.views.PlacesView
 
 @InjectViewState
@@ -62,7 +63,7 @@ class PlacesPresenter(private val context: Context, private val trip: TripModel)
     fun updateItems() {
         val places = trip.places()
 
-        places.sortBy { it.date }
+        places.sortBy { parseDateString(it.date!!) }
         val groupedPlaces = places.groupBy { it.date }
 
         val placesData: MutableMap<String, MutableList<PlaceModel>> = mutableMapOf()
