@@ -14,11 +14,13 @@ import com.example.okaytravel.activities.TripActivity
 import com.example.okaytravel.adapters.PlaceDatesRecyclerViewAdapter
 import com.example.okaytravel.adapters.PlacesRecyclerViewAdapter
 import com.example.okaytravel.models.PlaceModel
+import com.example.okaytravel.parseDateString
 import com.example.okaytravel.presenters.PlacesPresenter
 import com.example.okaytravel.views.PlacesView
 import kotlinx.android.synthetic.main.fragment_places.*
 import kotlinx.android.synthetic.main.fragment_places.placesRecyclerView
 import kotlinx.android.synthetic.main.place_adapter_item.*
+import java.util.*
 
 class PlacesFragment : BaseFragment(false), PlacesView,
     PlaceDatesRecyclerViewAdapter.OnDateItemClickedListener,
@@ -148,6 +150,16 @@ class PlacesFragment : BaseFragment(false), PlacesView,
 
     override fun openPlacesMap() {
         val trip = (activity as TripActivity).trip
+
+        val currentDate = Calendar.getInstance()
+        val finishDate = Calendar.getInstance()
+        finishDate.time = parseDateString(trip.startDate!!)!!
+        finishDate.add(Calendar.DAY_OF_MONTH, trip.duration!! + 1)
+        if (currentDate.time > finishDate.time) {
+            showMessage(R.string.tripFinished)
+            return
+        }
+
         val intent = Intent(this.requireActivity(), PlacesMapActivity::class.java)
         intent.putExtra("tripUuid", trip.uuid)
         startActivity(intent)

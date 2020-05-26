@@ -88,4 +88,5 @@
     <string name="introTitle1">Add places</string>
     <string name="introTitle2">Plan your budget</string>
     <string name="introTitle3">Plan what you want to take with you</string>
+    <string name="tripFinished">Trip already finished</string>
 </resources>

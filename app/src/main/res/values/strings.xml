@@ -88,4 +88,5 @@
     <string name="introDesc2">На круговой диаграмме вы увидите все ваши планы на расход денег</string>
     <string name="introTitle3">Планируйте, что хотите взять с собой</string>
     <string name="introDesc3">Отметьте вещи, которые хотите взять с собой в поездку</string>
+    <string name="tripFinished">Поездка уже завершилась</string>
 </resources>

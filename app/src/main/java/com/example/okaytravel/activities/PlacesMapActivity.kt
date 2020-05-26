@@ -99,8 +99,9 @@ class PlacesMapActivity : BaseActivity(), PlacesMapView, InputListener {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        val currentDate = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(this, onDateSetListener, year, month, day)
-        datePickerDialog.datePicker.minDate = max(tripStartDate.time, Date().time)
+        datePickerDialog.datePicker.minDate = max(tripStartDate.time, currentDate.timeInMillis)
         calendar.add(Calendar.DAY_OF_MONTH, trip.duration!!)
         datePickerDialog.datePicker.maxDate = calendar.timeInMillis
 
